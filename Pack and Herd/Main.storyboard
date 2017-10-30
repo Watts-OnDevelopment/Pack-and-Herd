@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KYe-D1-HrP">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Login-->
+        <scene sceneID="4oz-pN-nY0">
+            <objects>
+                <viewController title="Login" id="KYe-D1-HrP" customClass="LoginPageController" customModule="Pack_and_Herd" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1ND-1u-XLk" customClass="UIScrollView">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="GXI-QQ-dlR" userLabel="backgroundImageView">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                            </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" background="textFieldBar" translatesAutoresizingMaskIntoConstraints="NO" id="jK8-eo-vk0" customClass="DefaultTextField" customModule="Pack_and_Herd" customModuleProvider="target">
+                                <rect key="frame" x="49" y="328" width="317" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="jK8-eo-vk0" secondAttribute="height" multiplier="317:60" id="CIm-Tr-xYV"/>
+                                </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" background="textFieldBar" translatesAutoresizingMaskIntoConstraints="NO" id="jYh-id-skO" customClass="DefaultTextField" customModule="Pack_and_Herd" customModuleProvider="target">
+                                <rect key="frame" x="49" y="396" width="317" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="jYh-id-skO" secondAttribute="height" multiplier="317:60" id="zlB-Im-nYP"/>
+                                </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XGX-F5-DFf">
+                                <rect key="frame" x="116" y="464" width="183" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="XGX-F5-DFf" secondAttribute="height" multiplier="183:50" id="6vQ-Vj-Hl1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <state key="normal" title="Connect" backgroundImage="button">
+                                    <color key="titleColor" red="1" green="0.51865214109420776" blue="0.00010071359429275617" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
+                            <textField opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Phone Number" textAlignment="natural" minimumFontSize="20" background="textFieldBar" translatesAutoresizingMaskIntoConstraints="NO" id="WMw-bI-42A" userLabel="PhoneText" customClass="DefaultTextField" customModule="Pack_and_Herd" customModuleProvider="target">
+                                <rect key="frame" x="64" y="545" width="287" height="54"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="WMw-bI-42A" secondAttribute="height" multiplier="287:54" id="iiM-MN-hzt"/>
+                                </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" spellCheckingType="no" keyboardType="phonePad" enablesReturnKeyAutomatically="YES" textContentType="tel"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XEV-jp-XrV" userLabel="phoneSendCode">
+                                <rect key="frame" x="297" y="546" width="54" height="54"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="XEV-jp-XrV" secondAttribute="height" multiplier="55:55" id="G5V-P0-XfD"/>
+                                </constraints>
+                                <state key="normal" image="phoneSetButton"/>
+                                <connections>
+                                    <action selector="PhoneSendCodeButton:" destination="KYe-D1-HrP" eventType="touchUpInside" id="4EV-V3-rBf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3hR-yZ-4GD">
+                                <rect key="frame" x="64" y="545" width="286" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="3hR-yZ-4GD" secondAttribute="height" multiplier="26:5" id="p5N-Ug-GPv"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="phoneButton"/>
+                                <connections>
+                                    <action selector="PhoneConnectButton:" destination="KYe-D1-HrP" eventType="touchUpInside" id="pB6-RW-XNf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nMf-eg-cJ7">
+                                <rect key="frame" x="64" y="609" width="287" height="53"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="nMf-eg-cJ7" secondAttribute="height" multiplier="287:53" id="9jX-Vh-DMf"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="googleButton"/>
+                                <connections>
+                                    <action selector="GoogleConnectButton:" destination="KYe-D1-HrP" eventType="touchUpInside" id="7CE-D1-yse"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="WMw-bI-42A" firstAttribute="top" secondItem="XGX-F5-DFf" secondAttribute="bottom" constant="31" id="0hJ-7R-tkt"/>
+                            <constraint firstItem="nMf-eg-cJ7" firstAttribute="top" secondItem="3hR-yZ-4GD" secondAttribute="bottom" constant="9" id="0v2-zS-qfi"/>
+                            <constraint firstItem="nMf-eg-cJ7" firstAttribute="leading" secondItem="hm7-hG-5B4" secondAttribute="leading" constant="64" id="4nO-1r-xDl"/>
+                            <constraint firstItem="jYh-id-skO" firstAttribute="leading" secondItem="hm7-hG-5B4" secondAttribute="leading" constant="49" id="7BG-5w-ueL"/>
+                            <constraint firstItem="jYh-id-skO" firstAttribute="top" secondItem="jK8-eo-vk0" secondAttribute="bottom" constant="8" id="853-CH-CcY"/>
+                            <constraint firstItem="hm7-hG-5B4" firstAttribute="trailing" secondItem="XEV-jp-XrV" secondAttribute="trailing" constant="63" id="BJN-Lg-3mL"/>
+                            <constraint firstItem="WMw-bI-42A" firstAttribute="leading" secondItem="hm7-hG-5B4" secondAttribute="leading" constant="64" id="Fe8-y7-ZAe"/>
+                            <constraint firstItem="hm7-hG-5B4" firstAttribute="trailing" secondItem="WMw-bI-42A" secondAttribute="trailing" constant="63" id="G1O-my-mts"/>
+                            <constraint firstItem="XEV-jp-XrV" firstAttribute="leading" secondItem="hm7-hG-5B4" secondAttribute="leading" constant="206" id="J5f-bx-Uf4"/>
+                            <constraint firstItem="hm7-hG-5B4" firstAttribute="trailing" secondItem="jK8-eo-vk0" secondAttribute="trailing" constant="48" id="LXV-gS-hxf"/>
+                            <constraint firstItem="jK8-eo-vk0" firstAttribute="top" secondItem="hm7-hG-5B4" secondAttribute="centerY" constant="-50" id="N8S-PK-xzE"/>
+                            <constraint firstItem="jK8-eo-vk0" firstAttribute="leading" secondItem="hm7-hG-5B4" secondAttribute="leading" constant="49" id="P6W-Zx-Kou"/>
+                            <constraint firstItem="3hR-yZ-4GD" firstAttribute="top" secondItem="XGX-F5-DFf" secondAttribute="bottom" constant="31" id="SHv-hB-Adz"/>
+                            <constraint firstItem="XGX-F5-DFf" firstAttribute="leading" secondItem="hm7-hG-5B4" secondAttribute="leading" constant="116" id="Skm-tV-cG6"/>
+                            <constraint firstItem="XEV-jp-XrV" firstAttribute="top" secondItem="XGX-F5-DFf" secondAttribute="bottom" constant="32" id="VqN-tl-R8v"/>
+                            <constraint firstItem="GXI-QQ-dlR" firstAttribute="leading" secondItem="hm7-hG-5B4" secondAttribute="leading" id="Zh3-el-gpP"/>
+                            <constraint firstItem="GXI-QQ-dlR" firstAttribute="bottom" secondItem="hm7-hG-5B4" secondAttribute="bottom" id="aI8-w1-s43"/>
+                            <constraint firstItem="GXI-QQ-dlR" firstAttribute="top" secondItem="1ND-1u-XLk" secondAttribute="top" id="cvN-iW-pZs"/>
+                            <constraint firstItem="hm7-hG-5B4" firstAttribute="trailing" secondItem="XGX-F5-DFf" secondAttribute="trailing" constant="115" id="evA-SI-VYC"/>
+                            <constraint firstItem="3hR-yZ-4GD" firstAttribute="leading" secondItem="hm7-hG-5B4" secondAttribute="leading" constant="64" id="ime-7M-Mpv"/>
+                            <constraint firstItem="hm7-hG-5B4" firstAttribute="trailing" secondItem="jYh-id-skO" secondAttribute="trailing" constant="48" id="puO-70-5a0"/>
+                            <constraint firstItem="hm7-hG-5B4" firstAttribute="trailing" secondItem="3hR-yZ-4GD" secondAttribute="trailing" constant="64" id="usz-oU-HSr"/>
+                            <constraint firstItem="XGX-F5-DFf" firstAttribute="top" secondItem="jYh-id-skO" secondAttribute="bottom" constant="8" id="vho-aG-mnH"/>
+                            <constraint firstItem="hm7-hG-5B4" firstAttribute="trailing" secondItem="nMf-eg-cJ7" secondAttribute="trailing" constant="63" id="vmP-kX-mRv"/>
+                            <constraint firstItem="GXI-QQ-dlR" firstAttribute="trailing" secondItem="hm7-hG-5B4" secondAttribute="trailing" id="zhT-pn-u3o"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="hm7-hG-5B4"/>
+                    </view>
+                    <connections>
+                        <outlet property="googleConButton" destination="nMf-eg-cJ7" id="eWl-W8-hr0"/>
+                        <outlet property="phoneCodeSendButton" destination="XEV-jp-XrV" id="f3C-4Y-nTh"/>
+                        <outlet property="phoneConButton" destination="3hR-yZ-4GD" id="zvw-fU-S82"/>
+                        <outlet property="phoneNumberField" destination="WMw-bI-42A" id="Tir-Wz-7WF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OeX-de-U64" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-114.49275362318842" y="92.934782608695656"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="background" width="465" height="817"/>
+        <image name="button" width="793" height="175"/>
+        <image name="googleButton" width="745" height="142"/>
+        <image name="phoneButton" width="745" height="142"/>
+        <image name="phoneSetButton" width="137" height="145"/>
+        <image name="textFieldBar" width="434" height="93"/>
+    </resources>
+</document>
