@@ -8,10 +8,10 @@
 
 import UIKit
 import Firebase
+import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
+class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUserNotificationCenterDelegate {
     var window: UIWindow?
 
 
@@ -19,6 +19,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Instantiate Firebase
         FirebaseApp.configure()
+        
+        // Setup Notifications
+        if #available(iOS 10.0, *){
+            // If the system is running iOS 10 or above
+            UNUserNotificationCenter.current().delegate = self
+            let authNotification : UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(options: authNotification, completionHandler: { (_,_)  in })
+        }else{
+            let settings : UIUserNotificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
+        }
+        application.registerForRemoteNotifications()
+        
+        Messaging.messaging().delegate = self
         
         return true
     }
@@ -44,7 +58,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
+    
+    //MARK: Messaging Delegate Methods
+     func messaging(_ messaging: Messaging, didRefreshRegistrationToken fcmToken: String) {
+        print("Firebase Registration Token: "+fcmToken)
+    }
 
 }
 

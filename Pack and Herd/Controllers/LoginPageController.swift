@@ -7,16 +7,21 @@
 //
 
 import UIKit
+import Firebase
 
-class LoginPageController : UIViewController, UITextFieldDelegate{
+@IBDesignable class LoginPageController : UIViewController, UITextFieldDelegate{
    
     //MARK: Properties
+    public static let dataKey : String = "authVerificationID"
     
     //MARK: Outlets
     @IBOutlet weak var phoneConButton: UIButton!
     @IBOutlet weak var googleConButton: UIButton!
     @IBOutlet weak var phoneCodeSendButton: UIButton!
     @IBOutlet weak var phoneNumberField: DefaultTextField!
+    @IBOutlet weak var emailConnectButton: UIButton!
+    @IBOutlet weak var emaIlField: DefaultTextField!
+    @IBOutlet weak var passwordTextField: DefaultTextField!
     
     
     override func viewDidLoad() {
@@ -37,8 +42,11 @@ class LoginPageController : UIViewController, UITextFieldDelegate{
         
         // Enable closing of keyboard when touched away
         self.HideKeyboardOnTouchAway()
+        
+        // Set autoshrink
+        emailConnectButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        
     }
-    
     
     //MARK: Oberserver Methods
     @objc private func KeyboardDidShow(notification : NSNotification){
@@ -79,12 +87,31 @@ class LoginPageController : UIViewController, UITextFieldDelegate{
         print("Keyboard shown!")
     }
     @objc private func KeyboardDidHide(notification : NSNotification){
-        
-        
         print("Keyboard hidden!")
     }
     
     //MARK: Methods
+    private func CheckEmail(emailText : String) -> Bool{
+        // Create string whitelist
+        let emailArgs : [String] = ["a-z", "A-Z"]
+        let emailReqs : NSPredicate = NSPredicate(format: "SELF MATCHES %@", argumentArray: emailArgs)
+
+        print("Email: \(emailText)")
+        print(emailReqs.evaluate(with: emailText))
+        
+        return emailReqs.evaluate(with: emailText)
+    }
+    
+    private func CheckPassword(passwordText : String) -> String?{
+        // Checks
+        if(passwordText.characters.count < 8){
+            return "there are less than 8 characters!"
+        }
+        print(passwordText)
+        
+        return nil
+    }
+    
     private func PhoneConnectButtonAnimComplete(didComplete: Bool) -> Void{
         if didComplete {
             phoneConButton.isEnabled = false
@@ -95,8 +122,50 @@ class LoginPageController : UIViewController, UITextFieldDelegate{
         }
     }
     
+    private func PresentSMSAlert(){
+        // Constructors
+        let alertController = UIAlertController(title: "SMS Charge", message: "By using the phone sign-in method you may be SMS texted a code for verifcation. Standard rates do apply.", preferredStyle: .alert)
+        let alertCloseButton = UIAlertAction(title: "Close", style: .cancel, handler: {(UIAlertAction) in
+            print("Cancelled!")
+        })
+        let alertSendButton = UIAlertAction(title: "Send", style: .default, handler: {(UIAlertAction) in
+            self.SendPhoneCode()
+        })
+        
+        alertController.addAction(alertCloseButton)
+        alertController.addAction(alertSendButton)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
     private func SendPhoneCode(){
-        print("Phone code sent!")
+        let phoneNumber : String = {
+            var phoneNum : String = ""
+            guard let phoneNumberText = phoneNumberField.text else{
+                fatalError("ERROR: Unable to get text for phone number!")
+            }
+            for i in 0 ..< phoneNumberText.characters.count{
+                let currentChar = phoneNumberText.index(phoneNumberText.startIndex,offsetBy: i)
+                let currentString = String(phoneNumberText[currentChar])
+                if Int(currentString) != nil {
+                    phoneNum += currentString
+                }
+            }
+            phoneNum = "+1"+phoneNum
+            return phoneNum
+        }()
+        PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil, completion: PhoneAuthCompletion as VerificationResultCallback)
+    }
+    
+    private func PhoneAuthCompletion(verificationID:String?, error:Error?){
+        if let error = error{
+            print("Localized Description: "+error.localizedDescription)
+            return
+        }
+        UserDefaults.standard.set(verificationID, forKey: LoginPageController.dataKey)
+        
+        let phoneVerifyID : String = "loginPhoneVerification"
+        performSegue(withIdentifier: phoneVerifyID, sender: self)
     }
     
     //MARK: Animation Methods
@@ -109,7 +178,7 @@ class LoginPageController : UIViewController, UITextFieldDelegate{
     //MARK: Actions
     @IBAction func PhoneConnectButton(_ sender: UIButton) {
         print("Connect with Phone.")
-        UIView.animate(withDuration: 1, animations: PhoneClickAnimation, completion: PhoneConnectButtonAnimComplete)
+        UIView.animate(withDuration: 0.5, animations: PhoneClickAnimation, completion: PhoneConnectButtonAnimComplete)
     }
     
     @IBAction func GoogleConnectButton(_ sender: UIButton) {
@@ -123,8 +192,39 @@ class LoginPageController : UIViewController, UITextFieldDelegate{
         if phoneNumber.characters.count < 13 {
             print("Invalid phone number!")
         }else{
-            SendPhoneCode()
+            PresentSMSAlert()
         }
+    }
+    @IBAction func EmailConnectButton(_ sender: UIButton) {
+        guard let emailText = emaIlField.text, let passwordText = passwordTextField.text else{
+            print("ERROR: No text entered!")
+            return
+        }
+        
+        guard let emailValidatedText = TextFieldValidations.CheckEmailValid(emailText: emailText)else{
+            // Email is invalid
+            print("Email is invalid!")
+            let emailErrorAlert : UIAlertController = UIAlertController(title: "Email Error", message: "The given email is invalid! \nExample: michael@packandherd.com", preferredStyle: .alert)
+            let emailErrorAlertClose : UIAlertAction = UIAlertAction(title: "Close", style: .cancel, handler: {(alertAction) in print("Closed email alert menu.")})
+            
+            emailErrorAlert.addAction(emailErrorAlertClose)
+            present(emailErrorAlert, animated: true, completion: {() in })
+            return
+        }
+        if let passwordError = TextFieldValidations.CheckPasswordValid(passwordText: passwordText) {
+            // Password is invalid
+            print("Password is invalid!")
+            let passErrorAlert : UIAlertController = UIAlertController(title: "Password Error", message: "The given password is invalid because \(passwordError)", preferredStyle: .alert)
+            let passErrorAlertClose : UIAlertAction = UIAlertAction(title: "Close", style: .cancel, handler: {(alertAction) in print("Closed password alert menu.")})
+            
+            passErrorAlert.addAction(passErrorAlertClose)
+            present(passErrorAlert, animated: true, completion: {() in })
+            return
+        }
+        
+        print("Email and Password are valid!")
+        print(emailValidatedText)
+        
     }
     
     //MARK: TextField Delegates
@@ -170,10 +270,4 @@ class LoginPageController : UIViewController, UITextFieldDelegate{
         }
         return true
     }
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        return true
-    }
-    
-    
 }
