@@ -9,6 +9,13 @@
 import Foundation
 
 class TextFieldValidations {
+    // Properties
+    public enum SecurityLevels {
+        case invalid
+        case weak
+        case strong
+    }
+    
     
     //MARK: Methods
     static public func CheckEmailValid(emailText : String) -> String?{
@@ -32,14 +39,22 @@ class TextFieldValidations {
         }
     }
     
-    static public func CheckPasswordValid(passwordText : String) -> String?{
-        let passwordRegEx : String = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[$@$#!%*?&]).{8,}$"
-        let passwordPredicate = NSPredicate(format: "SELF MATCHES %@", passwordRegEx)
-        print("Validation for Password")
-        print(passwordPredicate.evaluate(with: passwordText))
+    static public func CheckPasswordStrength(passwordText : String) -> SecurityLevels?{
+        let weakPasswordRequirement = "^(?=.*[a-z]).{8,}$" // Medium
+        //let strongPasswordRequirement = "^.*[a-z].*[A-Z].*[$@$#!%*?&].{8,}$" // Strong
+        let strongPasswordRequirement = "^(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z]).{8,}$" // Strong
         
-        let passwordReqs : [String] = ["^(?=.*[a-z])$", "^(?=.*[A-Z])$", "^(?=.*[$@$#!%*?&])$", "^.{8,}$"]
-        
-        return nil
+        let weakPasswordChecker = NSPredicate(format: "SELF MATCHES %@", weakPasswordRequirement)
+        let strongPasswordChecker = NSPredicate(format: "SELF MATCHES %@", strongPasswordRequirement)
+        if (strongPasswordChecker.evaluate(with: passwordText)){
+            // Password is strong
+            return SecurityLevels.strong
+        }else if (weakPasswordChecker.evaluate(with: passwordText)){
+            // Password is weak
+            return SecurityLevels.weak
+        }else{
+            // Password is invalid
+            return SecurityLevels.invalid
+        }
     }
 }

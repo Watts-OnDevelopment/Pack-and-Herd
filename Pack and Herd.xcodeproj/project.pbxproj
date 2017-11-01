@@ -22,6 +22,7 @@
 		708921C41FA2DE3800DFC4F1 /* DefaultTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708921C31FA2DE3800DFC4F1 /* DefaultTextField.swift */; };
 		70AF3F6B1FA830F4003B1398 /* PhoneVerificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70AF3F6A1FA830F4003B1398 /* PhoneVerificationController.swift */; };
 		70E125641FA8B5D2000513F1 /* EmailVerificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E125631FA8B5D2000513F1 /* EmailVerificationController.swift */; };
+		70E215841FAA2DBD00A509F6 /* EventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E215831FAA2DBD00A509F6 /* EventsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		708921C31FA2DE3800DFC4F1 /* DefaultTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTextField.swift; sourceTree = "<group>"; };
 		70AF3F6A1FA830F4003B1398 /* PhoneVerificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerificationController.swift; sourceTree = "<group>"; };
 		70E125631FA8B5D2000513F1 /* EmailVerificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationController.swift; sourceTree = "<group>"; };
+		70E215831FAA2DBD00A509F6 /* EventsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsTableViewController.swift; sourceTree = "<group>"; };
 		9E8D7F14D049F63007C7BAE3 /* Pods-Pack and Herd.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pack and Herd.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pack and Herd/Pods-Pack and Herd.debug.xcconfig"; sourceTree = "<group>"; };
 		CBFAD3D2A6A9A0D276237958 /* Pods_Pack_and_Herd.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pack_and_Herd.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA334D39C90324B638D0A53D /* Pods-Pack and Herd.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pack and Herd.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pack and Herd/Pods-Pack and Herd.release.xcconfig"; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				70AF3F6A1FA830F4003B1398 /* PhoneVerificationController.swift */,
 				70E125631FA8B5D2000513F1 /* EmailVerificationController.swift */,
 				708921BD1FA275B300DFC4F1 /* LoginPageController.swift */,
+				70E215831FAA2DBD00A509F6 /* EventsTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 				7074C97F1FA221E900FF8010 /* AppDelegate.swift in Sources */,
 				7074C9981FA247E200FF8010 /* DataStorage.swift in Sources */,
 				7074C9961FA235AD00FF8010 /* MainTabController.swift in Sources */,
+				70E215841FAA2DBD00A509F6 /* EventsTableViewController.swift in Sources */,
 				707A06441FA8F863000B5557 /* TextFieldValidations.swift in Sources */,
 				7074C9941FA2236E00FF8010 /* LogsPageController.swift in Sources */,
 			);

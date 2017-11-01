@@ -211,20 +211,116 @@ import Firebase
             present(emailErrorAlert, animated: true, completion: {() in })
             return
         }
-        if let passwordError = TextFieldValidations.CheckPasswordValid(passwordText: passwordText) {
-            // Password is invalid
-            print("Password is invalid!")
-            let passErrorAlert : UIAlertController = UIAlertController(title: "Password Error", message: "The given password is invalid because \(passwordError)", preferredStyle: .alert)
+        if let passwordSecurityLevel = TextFieldValidations.CheckPasswordStrength(passwordText: passwordText) {
+            print("Password Strength: \(passwordSecurityLevel)")
+            let passErrorAlert : UIAlertController = UIAlertController(title: "Password Error", message: "The given password is invalid because ", preferredStyle: .alert)
             let passErrorAlertClose : UIAlertAction = UIAlertAction(title: "Close", style: .cancel, handler: {(alertAction) in print("Closed password alert menu.")})
-            
             passErrorAlert.addAction(passErrorAlertClose)
-            present(passErrorAlert, animated: true, completion: {() in })
-            return
+            if (passwordSecurityLevel == TextFieldValidations.SecurityLevels.invalid){
+                // Password Strength: Invalid
+                passErrorAlert.title = "Password Error"
+                passErrorAlert.message = "The given password is invalid because it is not strong enough. Make sure to have: \n1. at least 8 characters. \n2. at least 1 capital letter. \n3. at least 1 number. "
+                present(passErrorAlert, animated: true, completion: {() in })
+                return
+            }else if (passwordSecurityLevel == TextFieldValidations.SecurityLevels.weak){
+                // Password Strength: Weak
+                let passErrorAlertConfirm : UIAlertAction = UIAlertAction(title: "Confirm", style: .default, handler: {(alertAction) in print("Confirmed password alert menu.")
+                    self.CreateEmailUser(email: emailValidatedText, pass: passwordText)
+                })
+                passErrorAlert.addAction(passErrorAlertConfirm)
+                passErrorAlert.title = "Password Warning"
+                passErrorAlert.message = "The given password is insecure. To gurantee your security you should have: \n1. at least 8 characters. \n2. at least 1 capital letter. \n3. at least 1 number. \nAre you sure you want an insecure password?"
+                present(passErrorAlert, animated: true, completion: {() in })
+            }else if(passwordSecurityLevel == TextFieldValidations.SecurityLevels.strong){
+                // Password Strength: Strong
+                
+            }
         }
-        
         print("Email and Password are valid!")
         print(emailValidatedText)
-        
+        CheckEmailUser(email: emailValidatedText, pass: passwordText)
+    }
+    private func CheckEmailUser(email : String, pass : String){
+        Auth.auth().fetchProviders(forEmail: email, completion: {(ids, error) in
+            if let error = error as NSError? {
+                print("ERROR: \(error.localizedDescription)")
+                return
+            }
+            guard let ids = ids else{
+                print("There are no ids for this email!")
+                
+                let createEmailAlert = UIAlertController(title: "Create Account", message: "The given email was not found. Would you like to create a new account?", preferredStyle: .alert )
+                let createEmailAlert_Close = UIAlertAction(title: "Close", style: .cancel, handler: {(alertAction) in
+                    print("Create email account alert closed")
+                })
+                createEmailAlert.addAction(createEmailAlert_Close)
+                let createEmailAlert_Create = UIAlertAction(title: "Create", style: .default, handler: {(alertAction) in
+                    print("Create email account created")
+                    self.CreateEmailUser(email: email, pass: pass)
+                })
+                createEmailAlert.addAction(createEmailAlert_Create)
+                self.present(createEmailAlert, animated: true, completion: {() in })
+                
+                return
+            }
+            for id in ids {
+                print("ID: \(id)")
+                if (id == "password"){
+                    // Account exists!
+                    self.LoginEmailUser(email: email, pass: pass)
+                }
+            }
+            
+        })
+    }
+    
+    private func CreateEmailUser(email : String, pass : String){
+        Auth.auth().createUser(withEmail: email, password: pass, completion: {(user, error) in
+            if let error = error as NSError?{
+                print("ERROR: Create User - \(error.localizedDescription)")
+                guard let errorName : String = error.userInfo["error_name"] as? String else{
+                    fatalError("ERROR: User data not error_name not found in error!")
+                }
+                
+                if(errorName == "ERROR_EMAIL_ALREADY_IN_USE"){
+                    // Account already made
+                    self.LoginEmailUser(email: email, pass: pass)
+                }
+                return
+            }
+            print("Email creation successful!")
+        })
+    }
+    
+    private func LoginEmailUser(email : String, pass : String){
+        Auth.auth().signIn(withEmail: email, password: pass, completion:{(user, error) in
+            if let error = error as NSError?{
+                print("ERROR: \(error.localizedDescription)")
+                guard let errorName = error.userInfo["error_name"] as? String else{
+                    fatalError("ERROR: User data not error_name not found in error!")
+                }
+                print("ERROR: \(errorName)")
+                
+                if(errorName == "ERROR_WRONG_PASSWORD"){
+                    let wrongPasswordAlert = UIAlertController(title: "Password Incorrect", message: "The given password is incorrect. Would you like to reset it?", preferredStyle: .alert )
+                    let wrongPasswordAlert_Close = UIAlertAction(title: "Close", style: .cancel, handler: {(alertAction) in
+                        print("Reset password alert closed")
+                    })
+                    wrongPasswordAlert.addAction(wrongPasswordAlert_Close)
+                    let wrongPasswordAlert_Reset = UIAlertAction(title: "Reset", style: .default, handler: {(alertAction) in
+                        print("Reset password alert reset")
+                        Auth.auth().sendPasswordReset(withEmail: email, completion: {(error) in
+                            print("Password reset sent!")
+                        })
+                    })
+                    wrongPasswordAlert.addAction(wrongPasswordAlert_Reset)
+                    self.present(wrongPasswordAlert, animated: true, completion: {() in })
+                }
+                
+                return
+            }
+            print("Email login successful!")
+        })
     }
     
     //MARK: TextField Delegates
