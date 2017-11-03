@@ -29,12 +29,10 @@ class EventsTableViewController: UITableViewController {
         return cell
     }
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        // Create header view
-        //WARN: Size doesnt matter, because it is reformatted!
-        let headerViewRect = CGRect(x: 0, y: 0, width: 0, height: 0)
-        
-        let headerView = UIView(frame: headerViewRect)
-        headerView.backgroundColor = .orange
+        // Create header view by setting it to the content view of the header cell!
+
+        let headerCell = tableView.dequeueReusableCell(withIdentifier: "headerCell")
+        let headerView = headerCell?.contentView
         
         return headerView
     }
