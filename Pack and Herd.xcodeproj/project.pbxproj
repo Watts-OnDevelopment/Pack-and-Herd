@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		30DFD5EE0E45F8C6E7B76054 /* Pods_Pack_and_Herd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBFAD3D2A6A9A0D276237958 /* Pods_Pack_and_Herd.framework */; };
+		33BCAD3C1FAD38F200662169 /* CalendarDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BCAD3B1FAD38F200662169 /* CalendarDateCell.swift */; };
 		7048BF051FA7A96100ED2055 /* ViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7048BF041FA7A96100ED2055 /* ViewControllerExtension.swift */; };
 		705A8EC61FA2F16C004AF4CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 705A8EC51FA2F16C004AF4CD /* Main.storyboard */; };
 		705A8ECB1FA39986004AF4CD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 705A8ECA1FA39986004AF4CD /* GoogleService-Info.plist */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		33BCAD3B1FAD38F200662169 /* CalendarDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCell.swift; sourceTree = "<group>"; };
 		7048BF041FA7A96100ED2055 /* ViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerExtension.swift; sourceTree = "<group>"; };
 		705A8EC51FA2F16C004AF4CD /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		705A8EC71FA398D2004AF4CD /* Pack and Herd.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Pack and Herd.entitlements"; sourceTree = "<group>"; };
@@ -92,7 +94,6 @@
 		7074C97D1FA221E900FF8010 /* Pack and Herd */ = {
 			isa = PBXGroup;
 			children = (
-				70E215851FAB7AAB00A509F6 /* New Group */,
 				705A8EC71FA398D2004AF4CD /* Pack and Herd.entitlements */,
 				7048BF031FA7A94C00ED2055 /* Extensions */,
 				7074C9921FA2233200FF8010 /* Models */,
@@ -126,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				708921C31FA2DE3800DFC4F1 /* DefaultTextField.swift */,
+				33BCAD3B1FAD38F200662169 /* CalendarDateCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -137,13 +139,6 @@
 				707A06431FA8F863000B5557 /* TextFieldValidations.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		70E215851FAB7AAB00A509F6 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		9D7A8B5FFD17CD5E6C700F48 /* Frameworks */ = {
@@ -327,6 +322,7 @@
 				7074C9961FA235AD00FF8010 /* MainTabController.swift in Sources */,
 				70E215841FAA2DBD00A509F6 /* EventsTableViewController.swift in Sources */,
 				707A06441FA8F863000B5557 /* TextFieldValidations.swift in Sources */,
+				33BCAD3C1FAD38F200662169 /* CalendarDateCell.swift in Sources */,
 				7074C9941FA2236E00FF8010 /* LogsPageController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
