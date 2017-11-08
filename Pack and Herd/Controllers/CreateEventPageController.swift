@@ -11,7 +11,7 @@ import UIKit
 @IBDesignable class CreateEventPageController : UICollectionViewController, UICollectionViewDelegateFlowLayout, UIPickerViewDelegate, UIPickerViewDataSource {
     
     //MARK: Properties
-    let cellIDs : [String] = ["eventsCollectionCell", "locationCollectionCell", "datetimeCollectionCell"]
+    let cellIDs : [String] = ["eventsCollectionCell", "locationCollectionCell", "dateCollectionCell", "timeCollectionCell"]
     enum collectionCellIDs : Int{
         case LocationCell = 1
     }
@@ -22,7 +22,7 @@ import UIKit
     //MARK: UIViewController Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
     }
     
     //MARK: UICollectionViewController Methods
@@ -60,11 +60,11 @@ import UIKit
     }
 
     //MARK: UIPickerView Delegate
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let eventTitle : String = "Test row \(row) for component \(component)"
-        
-        return eventTitle
-    }
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        let eventTitle : String = "Test row \(row) for component \(component)"
+//
+//        return eventTitle
+//    }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return 30
@@ -80,13 +80,22 @@ import UIKit
             
             if (row == lastPickerViewChoice) {
                 openedCell = cellPath
-                collectionView?.reloadData()
+                collectionView?.reloadItems(at: [cellPath])
+                pickerView.selectRow(row, inComponent: component, animated: false)
             }else{
                 openedCell = nil
-                collectionView?.reloadData()
+                collectionView?.reloadItems(at: [cellPath])
+                pickerView.selectRow(row, inComponent: component, animated: false)
                 
             }
         }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        let text = "Test row \(row) for component \(component)"
+        let attributedText = NSAttributedString(string: text, attributes: [NSAttributedStringKey.foregroundColor:UIColor.darkGray])
+        
+        return attributedText
     }
     
     //MARK: UIPickerView Data Source
