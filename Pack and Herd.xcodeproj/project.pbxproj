@@ -22,6 +22,7 @@
 		708921BE1FA275B300DFC4F1 /* LoginPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708921BD1FA275B300DFC4F1 /* LoginPageController.swift */; };
 		708921C41FA2DE3800DFC4F1 /* DefaultTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708921C31FA2DE3800DFC4F1 /* DefaultTextField.swift */; };
 		709F71C41FAFA26E00EE7208 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709F71C31FAFA26E00EE7208 /* DatePickerView.swift */; };
+		709F71C61FB4A36800EE7208 /* LocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709F71C51FB4A36700EE7208 /* LocationCollectionViewCell.swift */; };
 		70AF3F6B1FA830F4003B1398 /* PhoneVerificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70AF3F6A1FA830F4003B1398 /* PhoneVerificationController.swift */; };
 		70E125641FA8B5D2000513F1 /* EmailVerificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E125631FA8B5D2000513F1 /* EmailVerificationController.swift */; };
 		70E215841FAA2DBD00A509F6 /* EventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E215831FAA2DBD00A509F6 /* EventsTableViewController.swift */; };
@@ -47,6 +48,7 @@
 		708921BD1FA275B300DFC4F1 /* LoginPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageController.swift; sourceTree = "<group>"; };
 		708921C31FA2DE3800DFC4F1 /* DefaultTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTextField.swift; sourceTree = "<group>"; };
 		709F71C31FAFA26E00EE7208 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
+		709F71C51FB4A36700EE7208 /* LocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCollectionViewCell.swift; sourceTree = "<group>"; };
 		70AF3F6A1FA830F4003B1398 /* PhoneVerificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerificationController.swift; sourceTree = "<group>"; };
 		70E125631FA8B5D2000513F1 /* EmailVerificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationController.swift; sourceTree = "<group>"; };
 		70E215831FAA2DBD00A509F6 /* EventsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsTableViewController.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				33BCAD3B1FAD38F200662169 /* CalendarDateCell.swift */,
 				70F943AA1FAF96C400E901A1 /* CreatePageCells.swift */,
 				709F71C31FAFA26E00EE7208 /* DatePickerView.swift */,
+				709F71C51FB4A36700EE7208 /* LocationCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				70AF3F6B1FA830F4003B1398 /* PhoneVerificationController.swift in Sources */,
 				70E125641FA8B5D2000513F1 /* EmailVerificationController.swift in Sources */,
 				709F71C41FAFA26E00EE7208 /* DatePickerView.swift in Sources */,
+				709F71C61FB4A36800EE7208 /* LocationCollectionViewCell.swift in Sources */,
 				708921C41FA2DE3800DFC4F1 /* DefaultTextField.swift in Sources */,
 				7048BF051FA7A96100ED2055 /* ViewControllerExtension.swift in Sources */,
 				7074C97F1FA221E900FF8010 /* AppDelegate.swift in Sources */,

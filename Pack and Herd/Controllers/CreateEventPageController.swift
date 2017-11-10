@@ -40,11 +40,18 @@ import UIKit
         // Set delegates
         for subview in cell.contentView.subviews {
             if let subview = subview as? UIPickerView {
-                print("Set delegate of: \(subview)")
-                subview.delegate = self
-                
-            }else{
-                print("Extra subview: \(subview)")
+                print("Set picker view delegate of: \(subview)")
+                if(subview.restorationIdentifier != "location"){
+                    subview.delegate = self
+                }else{
+                    print("NOIOOOOO")
+                }
+            }else if let subview = subview as? UIDatePicker {
+                let subviews = subview.subviews
+                for subv in subviews {
+                    subv.subviews[1].alpha = 0
+                    subv.subviews[2].alpha = 0
+                }
             }
         }
         
@@ -70,27 +77,6 @@ import UIKit
         return 30
     }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let lastPickerViewChoice = pickerView.numberOfRows(inComponent: component) - 1
-        
-        // Open map for location set
-        if(pickerView.tag == 1000){
-            let cellPath = IndexPath(item: 0, section: collectionCellIDs.LocationCell.rawValue)
-            //let locationCell = collectionView?.cellForItem(at: cellPath)
-            
-            if (row == lastPickerViewChoice) {
-                openedCell = cellPath
-                collectionView?.reloadItems(at: [cellPath])
-                pickerView.selectRow(row, inComponent: component, animated: false)
-            }else{
-                openedCell = nil
-                collectionView?.reloadItems(at: [cellPath])
-                pickerView.selectRow(row, inComponent: component, animated: false)
-                
-            }
-        }
-    }
-    
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let text = "Test row \(row) for component \(component)"
         let attributedText = NSAttributedString(string: text, attributes: [NSAttributedStringKey.foregroundColor:UIColor.darkGray])
@@ -110,11 +96,11 @@ import UIKit
     //MARK: UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let defaultCellSize = CGSize(width: 414, height: 110)
-        
-        if (openedCell != nil && openedCell == indexPath) {
-            let openedCellSize = CGSize(width: defaultCellSize.width,height: 300)
-            return openedCellSize
+        let defaultCellSize = CGSize(width: 414, height: 125)
+
+        print("Collection Cell ID: \(indexPath.section)")
+        if (indexPath.section == 1){
+            return CGSize(width: defaultCellSize.width, height: 350)
         }
         
         return defaultCellSize

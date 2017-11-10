@@ -476,15 +476,15 @@
                                     <constraint firstItem="i37-dd-FZr" firstAttribute="width" secondItem="cbc-JZ-FJZ" secondAttribute="width" multiplier="0.2" id="XK1-Mh-qW0"/>
                                 </constraints>
                             </collectionViewCell>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="locationCollectionCell" id="lC7-mX-559" userLabel="locationCollectionCell" customClass="PickerEventCell" customModule="Pack_and_Herd" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="135" width="414" height="110"/>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="locationCollectionCell" id="lC7-mX-559" userLabel="locationCollectionCell" customClass="LocationCollectionViewCell" customModule="Pack_and_Herd" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="135" width="414" height="350"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="110"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daS-DW-ea6">
-                                            <rect key="frame" x="40.000000000000007" y="20.000000000000004" width="82.666666666666686" height="33.333333333333343"/>
+                                            <rect key="frame" x="40" y="20" width="83" height="34"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="daS-DW-ea6" secondAttribute="height" multiplier="101:41" id="sxr-Qv-c19"/>
                                             </constraints>
@@ -492,30 +492,63 @@
                                             <color key="textColor" red="1" green="0.51751338329999996" blue="0.0063155989120000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <pickerView tag="1000" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Mx-9H-mib">
-                                            <rect key="frame" x="0.0" y="48" width="414" height="59"/>
+                                        <pickerView tag="1000" contentMode="scaleToFill" restorationIdentifier="location" translatesAutoresizingMaskIntoConstraints="NO" id="3Mx-9H-mib">
+                                            <rect key="frame" x="0.0" y="38" width="414" height="87"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" secondItem="3Mx-9H-mib" secondAttribute="height" multiplier="69:17" constant="174.52941176470588" id="BgR-Tu-UgM"/>
+                                                <constraint firstAttribute="width" secondItem="3Mx-9H-mib" secondAttribute="height" multiplier="69:17" constant="60.882352941176464" id="BgR-Tu-UgM"/>
                                             </constraints>
                                         </pickerView>
-                                        <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="TsA-K0-Cec">
-                                            <rect key="frame" x="20" y="121" width="374" height="159"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="3 Oxford Court Manorville NY" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g76-fG-eGY" customClass="DefaultTextField" customModule="Pack_and_Herd" customModuleProvider="target">
+                                            <rect key="frame" x="40" y="131" width="331" height="44.666666666666657"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="g76-fG-eGY" secondAttribute="height" multiplier="37:5" id="LqX-mm-Fc0"/>
+                                            </constraints>
+                                            <color key="textColor" red="1" green="0.51751338329999996" blue="0.0063155989120000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                            <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="2"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                    <color key="value" red="1" green="0.51751338329999996" blue="0.0063155989120000002" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                    <color key="value" red="1" green="0.51751338329999996" blue="0.0063155989120000002" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </textField>
+                                        <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="TsA-K0-Cec">
+                                            <rect key="frame" x="29" y="183.66666666666663" width="356" height="151.33333333333337"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="TsA-K0-Cec" secondAttribute="height" multiplier="374:159" id="HEZ-8E-1bt"/>
+                                            </constraints>
                                         </mapView>
                                     </subviews>
                                 </view>
                                 <constraints>
+                                    <constraint firstItem="TsA-K0-Cec" firstAttribute="top" secondItem="g76-fG-eGY" secondAttribute="bottom" constant="8" id="6VL-ec-nYo"/>
+                                    <constraint firstItem="TsA-K0-Cec" firstAttribute="centerX" secondItem="3Mx-9H-mib" secondAttribute="centerX" id="8cA-2u-yvq"/>
+                                    <constraint firstItem="g76-fG-eGY" firstAttribute="leading" secondItem="lC7-mX-559" secondAttribute="leadingMargin" constant="32" id="8n6-lU-dZh"/>
                                     <constraint firstItem="daS-DW-ea6" firstAttribute="top" secondItem="lC7-mX-559" secondAttribute="topMargin" constant="12" id="OxB-Ga-M52"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="TsA-K0-Cec" secondAttribute="bottom" constant="7" id="TrW-uD-lWD"/>
+                                    <constraint firstItem="g76-fG-eGY" firstAttribute="width" secondItem="lC7-mX-559" secondAttribute="width" multiplier="0.8" id="VT7-SH-Noa"/>
                                     <constraint firstItem="3Mx-9H-mib" firstAttribute="leading" secondItem="lC7-mX-559" secondAttribute="leading" id="Xiz-wr-Ob6"/>
                                     <constraint firstItem="daS-DW-ea6" firstAttribute="width" secondItem="lC7-mX-559" secondAttribute="width" multiplier="0.2" id="Y41-JK-3vF"/>
                                     <constraint firstItem="3Mx-9H-mib" firstAttribute="width" secondItem="lC7-mX-559" secondAttribute="width" id="atw-ar-fqo"/>
-                                    <constraint firstItem="3Mx-9H-mib" firstAttribute="top" secondItem="lC7-mX-559" secondAttribute="top" constant="48" id="v9f-3g-U2c"/>
+                                    <constraint firstItem="g76-fG-eGY" firstAttribute="top" secondItem="3Mx-9H-mib" secondAttribute="bottom" constant="6" id="hYx-VL-il5"/>
+                                    <constraint firstItem="3Mx-9H-mib" firstAttribute="top" secondItem="lC7-mX-559" secondAttribute="top" constant="38" id="v9f-3g-U2c"/>
                                     <constraint firstItem="daS-DW-ea6" firstAttribute="leading" secondItem="lC7-mX-559" secondAttribute="leadingMargin" constant="32" id="x5N-xv-rqp"/>
                                 </constraints>
-                                <size key="customSize" width="414" height="110"/>
+                                <size key="customSize" width="414" height="350"/>
+                                <connections>
+                                    <outlet property="locationField" destination="g76-fG-eGY" id="m0u-Of-Ubd"/>
+                                    <outlet property="locationMap" destination="TsA-K0-Cec" id="MKC-G8-7Bl"/>
+                                    <outlet property="locationPicker" destination="3Mx-9H-mib" id="zg6-n1-eWe"/>
+                                </connections>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="dateCollectionCell" id="Jif-gK-3ip" userLabel="dateCollectionCell" customClass="CreateDatePicker" customModule="Pack_and_Herd" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="255" width="414" height="125"/>
+                                <rect key="frame" x="0.0" y="495" width="414" height="125"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="125"/>
@@ -531,7 +564,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="ret-Cq-KfL" customClass="DatePickerView" customModule="Pack_and_Herd" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="47" width="414" height="63"/>
+                                            <rect key="frame" x="0.0" y="43" width="414" height="82"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                             <color key="tintColor" red="1" green="0.51751338329999996" blue="0.0063155989120000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <date key="date" timeIntervalSinceReferenceDate="531596550.673841">
@@ -553,14 +586,14 @@
                                 </constraints>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="timeCollectionCell" id="kcr-pb-P9z" customClass="CreateDatePicker" customModule="Pack_and_Herd" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="390" width="414" height="125"/>
+                                <rect key="frame" x="0.0" y="630" width="414" height="125"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="125"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d9b-mh-eXB">
-                                            <rect key="frame" x="40" y="20" width="129" height="33"/>
+                                            <rect key="frame" x="52" y="32" width="129" height="33"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="d9b-mh-eXB" secondAttribute="height" multiplier="101:41" constant="47.707317073170728" id="Ae1-VU-OCx"/>
                                             </constraints>
