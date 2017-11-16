@@ -11,17 +11,17 @@ import UIKit
 @IBDesignable class CreateEventPageController : UICollectionViewController, UICollectionViewDelegateFlowLayout, UIPickerViewDelegate, UIPickerViewDataSource {
     
     //MARK: Properties
-    let cellIDs : [String] = ["eventsCollectionCell", "locationCollectionCell", "dateCollectionCell", "timeCollectionCell"]
-    enum collectionCellIDs : Int{
-        case LocationCell = 1
-    }
-    var openedCell : IndexPath?
+    let cellIDs : [String] = ["eventsCollectionCell", "locationCollectionCell", "dateCollectionCell", "timeCollectionCell", "confirmCollectionCell"]
     
-    //MARK: Outlets
+    //MARK: Methods
+    public func pageCheck(){
+        
+    }
     
     //MARK: UIViewController Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
     }
     
@@ -63,7 +63,7 @@ import UIKit
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 10
+        return 5
     }
 
     //MARK: UIPickerView Delegate
@@ -101,11 +101,16 @@ import UIKit
         print("Collection Cell ID: \(indexPath.section)")
         if (indexPath.section == 1){
             return CGSize(width: defaultCellSize.width, height: 350)
+        }else if (indexPath.section == 4){
+            return CGSize(width: defaultCellSize.width, height: 150)
         }
         
         return defaultCellSize
     }
     
-    
     //MARK: Actions
+    
+    @IBAction func confirmButtonAction(_ sender: UIButton) {
+        
+    }
 }

@@ -9,10 +9,11 @@
 import UIKit
 import Firebase
 
-@IBDesignable class LoginPageController : UIViewController, UITextFieldDelegate{
+class LoginPageController : UIViewController, UITextFieldDelegate{
    
     //MARK: Properties
     public static let dataKey : String = "authVerificationID"
+    @IBInspectable private let developer : Bool = false
     
     //MARK: Outlets
     @IBOutlet weak var phoneConButton: UIButton!
@@ -26,6 +27,14 @@ import Firebase
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        AppDelegate.developer = developer
+        
+        Auth.auth().addStateDidChangeListener({(auth, user) in
+            if user != nil {
+                self.FinishLogin()
+            }
+        })
         
         // Set phoneNumberField delegate to the custom PhoneNumberTextField class
         phoneNumberField.delegate = self
@@ -168,6 +177,13 @@ import Firebase
         performSegue(withIdentifier: phoneVerifyID, sender: self)
     }
     
+    
+    public func FinishLogin(){
+        UserData.UpdateLocalUserdata()
+        performSegue(withIdentifier: "segueHome", sender: self)
+        
+    }
+    
     //MARK: Animation Methods
     private func PhoneClickAnimation() -> Void{
         phoneConButton.alpha = 0
@@ -289,6 +305,7 @@ import Firebase
                 return
             }
             print("Email creation successful!")
+            self.LoginEmailUser(email: email, pass: pass)
         })
     }
     
@@ -320,6 +337,10 @@ import Firebase
                 return
             }
             print("Email login successful!")
+            
+            self.FinishLogin()
+            
+            
         })
     }
     

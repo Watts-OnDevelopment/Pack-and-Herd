@@ -45,8 +45,13 @@ class PhoneVerificationController : UIViewController {
             return
         }
         print("User signed in!")
-        // CHANGE TO SEGUE TO HOME PAGE!!
-        dismiss(animated: true, completion: nil)
+        // CHANGE TO SEGUE TO HOME PAGE!! \\
+        if let presController = presentingViewController as? LoginPageController {
+            dismiss(animated: true, completion: nil)
+            presController.FinishLogin()
+        }else{
+            dismiss(animated: true, completion: nil)
+        }
     }
     
     //MARK: UIViewController Methods

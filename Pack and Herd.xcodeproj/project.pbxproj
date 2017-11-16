@@ -21,9 +21,14 @@
 		707A06441FA8F863000B5557 /* TextFieldValidations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707A06431FA8F863000B5557 /* TextFieldValidations.swift */; };
 		708921BE1FA275B300DFC4F1 /* LoginPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708921BD1FA275B300DFC4F1 /* LoginPageController.swift */; };
 		708921C41FA2DE3800DFC4F1 /* DefaultTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708921C31FA2DE3800DFC4F1 /* DefaultTextField.swift */; };
+		709864881FBA626400E95DE5 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709864871FBA626400E95DE5 /* UserData.swift */; };
+		709D5C471FB8D443002FF258 /* ConfirmCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709D5C461FB8D443002FF258 /* ConfirmCellView.swift */; };
 		709F71C41FAFA26E00EE7208 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709F71C31FAFA26E00EE7208 /* DatePickerView.swift */; };
 		709F71C61FB4A36800EE7208 /* LocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709F71C51FB4A36700EE7208 /* LocationCollectionViewCell.swift */; };
 		70AF3F6B1FA830F4003B1398 /* PhoneVerificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70AF3F6A1FA830F4003B1398 /* PhoneVerificationController.swift */; };
+		70C5EF741FB9E9F1007CB27E /* DefaultButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C5EF731FB9E9F1007CB27E /* DefaultButtonView.swift */; };
+		70C5EF761FB9F1C6007CB27E /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70C5EF751FB9F1C6007CB27E /* Settings.storyboard */; };
+		70C5EF781FB9F30F007CB27E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C5EF771FB9F30F007CB27E /* SettingsViewController.swift */; };
 		70E125641FA8B5D2000513F1 /* EmailVerificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E125631FA8B5D2000513F1 /* EmailVerificationController.swift */; };
 		70E215841FAA2DBD00A509F6 /* EventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E215831FAA2DBD00A509F6 /* EventsTableViewController.swift */; };
 		70E2158D1FAB912600A509F6 /* CreateEventPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E2158C1FAB912600A509F6 /* CreateEventPageController.swift */; };
@@ -47,9 +52,14 @@
 		707A06431FA8F863000B5557 /* TextFieldValidations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldValidations.swift; sourceTree = "<group>"; };
 		708921BD1FA275B300DFC4F1 /* LoginPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageController.swift; sourceTree = "<group>"; };
 		708921C31FA2DE3800DFC4F1 /* DefaultTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTextField.swift; sourceTree = "<group>"; };
+		709864871FBA626400E95DE5 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		709D5C461FB8D443002FF258 /* ConfirmCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmCellView.swift; sourceTree = "<group>"; };
 		709F71C31FAFA26E00EE7208 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		709F71C51FB4A36700EE7208 /* LocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCollectionViewCell.swift; sourceTree = "<group>"; };
 		70AF3F6A1FA830F4003B1398 /* PhoneVerificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerificationController.swift; sourceTree = "<group>"; };
+		70C5EF731FB9E9F1007CB27E /* DefaultButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultButtonView.swift; sourceTree = "<group>"; };
+		70C5EF751FB9F1C6007CB27E /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		70C5EF771FB9F30F007CB27E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		70E125631FA8B5D2000513F1 /* EmailVerificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationController.swift; sourceTree = "<group>"; };
 		70E215831FAA2DBD00A509F6 /* EventsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsTableViewController.swift; sourceTree = "<group>"; };
 		70E2158C1FAB912600A509F6 /* CreateEventPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventPageController.swift; sourceTree = "<group>"; };
@@ -106,8 +116,10 @@
 				7074C9911FA2232E00FF8010 /* Views */,
 				7074C9901FA2232900FF8010 /* Controllers */,
 				7074C97E1FA221E900FF8010 /* AppDelegate.swift */,
+				709864871FBA626400E95DE5 /* UserData.swift */,
 				7074C9851FA221E900FF8010 /* Assets.xcassets */,
 				705A8EC51FA2F16C004AF4CD /* Main.storyboard */,
+				70C5EF751FB9F1C6007CB27E /* Settings.storyboard */,
 				7074C9871FA221E900FF8010 /* LaunchScreen.storyboard */,
 				7074C98A1FA221E900FF8010 /* Info.plist */,
 				705A8ECA1FA39986004AF4CD /* GoogleService-Info.plist */,
@@ -125,6 +137,7 @@
 				708921BD1FA275B300DFC4F1 /* LoginPageController.swift */,
 				70E215831FAA2DBD00A509F6 /* EventsTableViewController.swift */,
 				70E2158C1FAB912600A509F6 /* CreateEventPageController.swift */,
+				70C5EF771FB9F30F007CB27E /* SettingsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -137,6 +150,8 @@
 				70F943AA1FAF96C400E901A1 /* CreatePageCells.swift */,
 				709F71C31FAFA26E00EE7208 /* DatePickerView.swift */,
 				709F71C51FB4A36700EE7208 /* LocationCollectionViewCell.swift */,
+				709D5C461FB8D443002FF258 /* ConfirmCellView.swift */,
+				70C5EF731FB9E9F1007CB27E /* DefaultButtonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -238,6 +253,7 @@
 				7074C9891FA221E900FF8010 /* LaunchScreen.storyboard in Resources */,
 				705A8ECB1FA39986004AF4CD /* GoogleService-Info.plist in Resources */,
 				7074C9861FA221E900FF8010 /* Assets.xcassets in Resources */,
+				70C5EF761FB9F1C6007CB27E /* Settings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +340,8 @@
 				708921BE1FA275B300DFC4F1 /* LoginPageController.swift in Sources */,
 				70F943AB1FAF96C400E901A1 /* CreatePageCells.swift in Sources */,
 				70AF3F6B1FA830F4003B1398 /* PhoneVerificationController.swift in Sources */,
+				70C5EF741FB9E9F1007CB27E /* DefaultButtonView.swift in Sources */,
+				70C5EF781FB9F30F007CB27E /* SettingsViewController.swift in Sources */,
 				70E125641FA8B5D2000513F1 /* EmailVerificationController.swift in Sources */,
 				709F71C41FAFA26E00EE7208 /* DatePickerView.swift in Sources */,
 				709F71C61FB4A36800EE7208 /* LocationCollectionViewCell.swift in Sources */,
@@ -332,9 +350,11 @@
 				7074C97F1FA221E900FF8010 /* AppDelegate.swift in Sources */,
 				7074C9981FA247E200FF8010 /* DataStorage.swift in Sources */,
 				7074C9961FA235AD00FF8010 /* MainTabController.swift in Sources */,
+				709D5C471FB8D443002FF258 /* ConfirmCellView.swift in Sources */,
 				70E215841FAA2DBD00A509F6 /* EventsTableViewController.swift in Sources */,
 				707A06441FA8F863000B5557 /* TextFieldValidations.swift in Sources */,
 				33BCAD3C1FAD38F200662169 /* CalendarDateCell.swift in Sources */,
+				709864881FBA626400E95DE5 /* UserData.swift in Sources */,
 				7074C9941FA2236E00FF8010 /* LogsPageController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

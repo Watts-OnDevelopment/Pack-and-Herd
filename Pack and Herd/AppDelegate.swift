@@ -13,12 +13,23 @@ import UserNotifications
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUserNotificationCenterDelegate {
     var window: UIWindow?
-
-
+    public static var developer : Bool = false
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         // Instantiate Firebase
         FirebaseApp.configure()
+        
+        // Firestore Test
+        /*let defaultFireStore = Firestore.firestore()
+        defaultFireStore.collection("test").addDocument(data: [
+            "first" : "Noremac",
+            "last" : "Fielstein"
+            ],completion: {(error) in
+                if let error = error {
+                    print("ERROR: 1 \(error.localizedDescription)")
+                }
+        }) */
         
         // Setup Notifications
         if #available(iOS 10.0, *){
