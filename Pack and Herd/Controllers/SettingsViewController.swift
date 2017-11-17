@@ -12,7 +12,7 @@ import Firebase
 class SettingsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     //MARK: Outlets
-    private let cellIDs : [String] = ["profileCell"]
+    private let cellIDs : [String : Int] = ["profileCell" : 200, "locationProfileCell" : 250]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +26,7 @@ class SettingsViewController: UICollectionViewController, UICollectionViewDelega
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIDs[indexPath.item], for: indexPath)
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIDs.keys[cellIDs.keys.index(cellIDs.keys.startIndex, offsetBy: indexPath.item)] , for: indexPath)
         return cell
     }
     
@@ -59,6 +58,11 @@ class SettingsViewController: UICollectionViewController, UICollectionViewDelega
         }else {
             fatalError("ERROR: |\(self)| admin field in User Data not found!")
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellSize = CGSize(width: 375, height: cellIDs.values[cellIDs.values.index(cellIDs.startIndex, offsetBy: indexPath.item)])
+        return cellSize
     }
     
 }

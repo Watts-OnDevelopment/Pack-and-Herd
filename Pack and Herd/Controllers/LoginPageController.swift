@@ -100,6 +100,7 @@ class LoginPageController : UIViewController, UITextFieldDelegate{
     }
     
     //MARK: Methods
+    /*
     private func CheckEmail(emailText : String) -> Bool{
         // Create string whitelist
         let emailArgs : [String] = ["a-z", "A-Z"]
@@ -119,7 +120,7 @@ class LoginPageController : UIViewController, UITextFieldDelegate{
         print(passwordText)
         
         return nil
-    }
+    } */
     
     private func PhoneConnectButtonAnimComplete(didComplete: Bool) -> Void{
         if didComplete {
@@ -184,79 +185,7 @@ class LoginPageController : UIViewController, UITextFieldDelegate{
         
     }
     
-    //MARK: Animation Methods
-    private func PhoneClickAnimation() -> Void{
-        phoneConButton.alpha = 0
-        phoneNumberField.alpha = 1
-        phoneCodeSendButton.alpha = 1
-    }
-    
-    //MARK: Actions
-    @IBAction func PhoneConnectButton(_ sender: UIButton) {
-        print("Connect with Phone.")
-        UIView.animate(withDuration: 0.5, animations: PhoneClickAnimation, completion: PhoneConnectButtonAnimComplete)
-    }
-    
-    @IBAction func GoogleConnectButton(_ sender: UIButton) {
-        print("Connect with Google.")
-    }
-    
-    @IBAction func PhoneSendCodeButton(_ sender: UIButton) {
-        guard let phoneNumber = phoneNumberField.text else{
-            fatalError("ERROR: Unable to get text for phone number!")
-        }
-        if phoneNumber.characters.count < 13 {
-            print("Invalid phone number!")
-        }else{
-            PresentSMSAlert()
-        }
-    }
-    @IBAction func EmailConnectButton(_ sender: UIButton) {
-        guard let emailText = emaIlField.text, let passwordText = passwordTextField.text else{
-            print("ERROR: No text entered!")
-            return
-        }
-        
-        guard let emailValidatedText = TextFieldValidations.CheckEmailValid(emailText: emailText)else{
-            // Email is invalid
-            print("Email is invalid!")
-            let emailErrorAlert : UIAlertController = UIAlertController(title: "Email Error", message: "The given email is invalid! \nExample: michael@packandherd.com", preferredStyle: .alert)
-            let emailErrorAlertClose : UIAlertAction = UIAlertAction(title: "Close", style: .cancel, handler: {(alertAction) in print("Closed email alert menu.")})
-            
-            emailErrorAlert.addAction(emailErrorAlertClose)
-            present(emailErrorAlert, animated: true, completion: {() in })
-            return
-        }
-        if let passwordSecurityLevel = TextFieldValidations.CheckPasswordStrength(passwordText: passwordText) {
-            print("Password Strength: \(passwordSecurityLevel)")
-            let passErrorAlert : UIAlertController = UIAlertController(title: "Password Error", message: "The given password is invalid because ", preferredStyle: .alert)
-            let passErrorAlertClose : UIAlertAction = UIAlertAction(title: "Close", style: .cancel, handler: {(alertAction) in print("Closed password alert menu.")})
-            passErrorAlert.addAction(passErrorAlertClose)
-            if (passwordSecurityLevel == TextFieldValidations.SecurityLevels.invalid){
-                // Password Strength: Invalid
-                passErrorAlert.title = "Password Error"
-                passErrorAlert.message = "The given password is invalid because it is not strong enough. Make sure to have: \n1. at least 8 characters. \n2. at least 1 capital letter. \n3. at least 1 number. "
-                present(passErrorAlert, animated: true, completion: {() in })
-                return
-            }else if (passwordSecurityLevel == TextFieldValidations.SecurityLevels.weak){
-                // Password Strength: Weak
-                let passErrorAlertConfirm : UIAlertAction = UIAlertAction(title: "Confirm", style: .default, handler: {(alertAction) in print("Confirmed password alert menu.")
-                    self.CreateEmailUser(email: emailValidatedText, pass: passwordText)
-                })
-                passErrorAlert.addAction(passErrorAlertConfirm)
-                passErrorAlert.title = "Password Warning"
-                passErrorAlert.message = "The given password is insecure. To gurantee your security you should have: \n1. at least 8 characters. \n2. at least 1 capital letter. \n3. at least 1 number. \nAre you sure you want an insecure password?"
-                present(passErrorAlert, animated: true, completion: {() in })
-            }else if(passwordSecurityLevel == TextFieldValidations.SecurityLevels.strong){
-                // Password Strength: Strong
-                
-            }
-        }
-        print("Email and Password are valid!")
-        print(emailValidatedText)
-        CheckEmailUser(email: emailValidatedText, pass: passwordText)
-    }
-    private func CheckEmailUser(email : String, pass : String){
+    private func CheckEmailUser(email : String, pass : String, completion : @escaping (_ success : Bool, _ email : String, _ password : String) -> Void){
         Auth.auth().fetchProviders(forEmail: email, completion: {(ids, error) in
             if let error = error as NSError? {
                 print("ERROR: \(error.localizedDescription)")
@@ -283,7 +212,9 @@ class LoginPageController : UIViewController, UITextFieldDelegate{
                 print("ID: \(id)")
                 if (id == "password"){
                     // Account exists!
-                    self.LoginEmailUser(email: email, pass: pass)
+                    completion(true, email, pass)
+                }else{
+                    fatalError("ERROR: Password not found in account!")
                 }
             }
             
@@ -342,6 +273,95 @@ class LoginPageController : UIViewController, UITextFieldDelegate{
             
             
         })
+    }
+    
+    //MARK: Animation Methods
+    private func PhoneClickAnimation() -> Void{
+        phoneConButton.alpha = 0
+        phoneNumberField.alpha = 1
+        phoneCodeSendButton.alpha = 1
+    }
+    
+    //MARK: Actions
+    @IBAction func PhoneConnectButton(_ sender: UIButton) {
+        print("Connect with Phone.")
+        UIView.animate(withDuration: 0.5, animations: PhoneClickAnimation, completion: PhoneConnectButtonAnimComplete)
+    }
+    
+    @IBAction func GoogleConnectButton(_ sender: UIButton) {
+        print("Connect with Google.")
+    }
+    
+    @IBAction func PhoneSendCodeButton(_ sender: UIButton) {
+        guard let phoneNumber = phoneNumberField.text else{
+            fatalError("ERROR: Unable to get text for phone number!")
+        }
+        if phoneNumber.characters.count < 13 {
+            print("Invalid phone number!")
+        }else{
+            PresentSMSAlert()
+        }
+    }
+    @IBAction func EmailConnectButton(_ sender: UIButton) {
+        guard let emailText = emaIlField.text, let passwordText = passwordTextField.text else{
+            print("ERROR: No text entered!")
+            return
+        }
+        
+        guard let emailValidatedText = TextFieldValidations.CheckEmailValid(emailText: emailText)else{
+            // Email is invalid
+            print("Email is invalid!")
+            let emailErrorAlert : UIAlertController = UIAlertController(title: "Email Error", message: "The given email is invalid! \nExample: michael@packandherd.com", preferredStyle: .alert)
+            let emailErrorAlertClose : UIAlertAction = UIAlertAction(title: "Close", style: .cancel, handler: {(alertAction) in print("Closed email alert menu.")})
+            
+            emailErrorAlert.addAction(emailErrorAlertClose)
+            present(emailErrorAlert, animated: true, completion: {() in })
+            return
+        }
+        
+        var userExists = false
+        // Run check user to see whether or not the email already exists, if they do then log them in and stop this.
+        CheckEmailUser(email: emailValidatedText, pass: passwordText){(success, email, password) in
+            // Completion closure
+            if success {
+                // If email is in use.
+                self.LoginEmailUser(email: email, pass: password)
+                userExists = true
+            }
+        }
+        
+        if userExists {
+            // If the user exists return out of the button action
+            return
+        }
+        
+        if let passwordSecurityLevel = TextFieldValidations.CheckPasswordStrength(passwordText: passwordText) {
+            print("Password Strength: \(passwordSecurityLevel)")
+            let passErrorAlert : UIAlertController = UIAlertController(title: "Password Error", message: "The given password is invalid because ", preferredStyle: .alert)
+            let passErrorAlertClose : UIAlertAction = UIAlertAction(title: "Close", style: .cancel, handler: {(alertAction) in print("Closed password alert menu.")})
+            passErrorAlert.addAction(passErrorAlertClose)
+            if (passwordSecurityLevel == TextFieldValidations.SecurityLevels.invalid){
+                // Password Strength: Invalid
+                passErrorAlert.title = "Password Error"
+                passErrorAlert.message = "The given password is invalid because it is not strong enough. Make sure to have: \n1. at least 8 characters. \n2. at least 1 capital letter. \n3. at least 1 number. "
+                present(passErrorAlert, animated: true, completion: {() in })
+                return
+            }else if (passwordSecurityLevel == TextFieldValidations.SecurityLevels.weak){
+                // Password Strength: Weak
+                let passErrorAlertConfirm : UIAlertAction = UIAlertAction(title: "Confirm", style: .default, handler: {(alertAction) in print("Confirmed password alert menu.")
+                    self.CreateEmailUser(email: emailValidatedText, pass: passwordText)
+                })
+                passErrorAlert.addAction(passErrorAlertConfirm)
+                passErrorAlert.title = "Password Warning"
+                passErrorAlert.message = "The given password is insecure. To gurantee your security you should have: \n1. at least 8 characters. \n2. at least 1 capital letter. \n3. at least 1 number. \nAre you sure you want an insecure password?"
+                present(passErrorAlert, animated: true, completion: {() in })
+            }else if(passwordSecurityLevel == TextFieldValidations.SecurityLevels.strong){
+                // Password Strength: Strong
+                
+            }
+        }
+        print("Email and Password are valid!")
+        print(emailValidatedText)
     }
     
     //MARK: TextField Delegates

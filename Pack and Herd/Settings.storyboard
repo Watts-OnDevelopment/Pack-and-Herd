@@ -5,6 +5,8 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -24,37 +26,87 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="profileCell" id="eaC-Zw-WQ1" userLabel="Profile Cell">
-                                <rect key="frame" x="0.0" y="50" width="375" height="150"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="215"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="215"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cameron Watson" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wnC-xu-ff3">
-                                            <rect key="frame" x="65" y="97" width="244" height="33"/>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="courtney" translatesAutoresizingMaskIntoConstraints="NO" id="uaY-PY-GmS">
+                                            <rect key="frame" x="129" y="26" width="117" height="117"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="baseBackground" translatesAutoresizingMaskIntoConstraints="NO" id="uaY-PY-GmS">
-                                            <rect key="frame" x="151" y="14" width="72" height="72"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
                                         </imageView>
+                                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Cameron Watson" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k1Z-eF-22s">
+                                            <rect key="frame" x="78" y="150" width="218" height="38"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="textColor" red="0.39631583121827407" green="0.39631583121827407" blue="0.39631583121827407" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
                                     </subviews>
                                 </view>
-                                <size key="customSize" width="375" height="150"/>
+                                <size key="customSize" width="375" height="215"/>
                             </collectionViewCell>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="" id="P9Z-5Y-V9B">
-                                <rect key="frame" x="0.0" y="210" width="375" height="100"/>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="locationProfileCell" id="P9Z-5Y-V9B">
+                                <rect key="frame" x="0.0" y="275" width="375" height="250"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- Location -" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="igv-CU-aPy" userLabel="locationTitle">
+                                            <rect key="frame" x="112" y="0.0" width="150" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="igv-CU-aPy" secondAttribute="height" multiplier="15:4" id="7n4-mI-VAa"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                            <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="wKx-s7-5c8" userLabel="locationMap">
+                                            <rect key="frame" x="37.5" y="47" width="300" height="191"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="wKx-s7-5c8" secondAttribute="height" multiplier="300:191" id="Poq-mi-6My"/>
+                                            </constraints>
+                                        </mapView>
+                                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cHY-9A-55p" userLabel="addressBar" customClass="DefaultTextField" customModule="Pack_and_Herd" customModuleProvider="target">
+                                            <rect key="frame" x="49" y="193" width="276" height="37"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="textColor" red="0.39631583120000002" green="0.39631583120000002" blue="0.39631583120000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                    <color key="value" red="0.39631583120000002" green="0.39631583120000002" blue="0.39631583120000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                    <color key="value" red="0.39631583120000002" green="0.39631583120000002" blue="0.39631583120000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="3"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </textField>
+                                    </subviews>
                                 </view>
+                                <constraints>
+                                    <constraint firstItem="igv-CU-aPy" firstAttribute="centerX" secondItem="P9Z-5Y-V9B" secondAttribute="centerX" id="3n7-qE-v56"/>
+                                    <constraint firstItem="igv-CU-aPy" firstAttribute="top" secondItem="P9Z-5Y-V9B" secondAttribute="top" id="52g-GX-PgR"/>
+                                    <constraint firstItem="wKx-s7-5c8" firstAttribute="top" secondItem="igv-CU-aPy" secondAttribute="bottom" constant="7" id="GHI-Wi-apF"/>
+                                    <constraint firstItem="wKx-s7-5c8" firstAttribute="width" secondItem="P9Z-5Y-V9B" secondAttribute="width" multiplier="0.8" id="b3r-Lc-48X"/>
+                                    <constraint firstItem="igv-CU-aPy" firstAttribute="width" secondItem="P9Z-5Y-V9B" secondAttribute="width" multiplier="0.4" id="eWk-2a-fFO"/>
+                                    <constraint firstItem="wKx-s7-5c8" firstAttribute="centerX" secondItem="P9Z-5Y-V9B" secondAttribute="centerX" id="fY1-Gj-zq5"/>
+                                </constraints>
+                                <size key="customSize" width="375" height="250"/>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="zgx-3b-Bj3">
-                                <rect key="frame" x="0.0" y="320" width="375" height="100"/>
+                                <rect key="frame" x="0.0" y="535" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
@@ -62,7 +114,7 @@
                                 </view>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="bwc-er-JCq">
-                                <rect key="frame" x="0.0" y="430" width="375" height="100"/>
+                                <rect key="frame" x="0.0" y="645" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
@@ -70,7 +122,7 @@
                                 </view>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="KMM-rb-62q">
-                                <rect key="frame" x="0.0" y="540" width="375" height="100"/>
+                                <rect key="frame" x="0.0" y="755" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
@@ -105,6 +157,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="baseBackground" width="1080" height="1920"/>
+        <image name="courtney" width="960" height="960"/>
     </resources>
 </document>

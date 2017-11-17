@@ -19,27 +19,19 @@ class UserData {
         let userDataTable : [String : Any] = {
             var data : [String : Any] = [:]
             let user = Auth.auth().currentUser
-            print("Start Auth Details:")
-            print(user?.displayName ?? "NO NAME")
-            print(user?.email ?? "NO EMAIL")
-            print(user?.phoneNumber ?? "NO PHONE")
-            print("End Auth Details")
             
-            for (key, value) in userData{
-                print("Key: \(key), Value: \(value)")
-            }
+            data["admin"] = false
+            data["email"] = user?.email
+            data["phone"] = user?.phoneNumber
+            data["name"] = user?.displayName
             
             return data
         }()
         let fireStore = Firestore.firestore()
-        fireStore.collection("users").document(userUID).setData([
-            "TEST" : "TSET",
-            "admin" : false
-            ], completion:{(error) in
+        fireStore.collection("users").document(userUID).setData(userDataTable, completion:{(error) in
                 if let error = error {
                     print("FIRESTORE ERROR: \(error.localizedDescription)")
                 }
-                
                 UpdateLocalUserdata()
         })
     }
