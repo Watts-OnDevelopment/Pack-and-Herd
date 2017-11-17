@@ -9,10 +9,10 @@
 import UIKit
 import Firebase
 
-class SettingsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    
-    //MARK: Outlets
-    private let cellIDs : [String : Int] = ["profileCell" : 200, "locationProfileCell" : 250]
+class SettingsViewController: UITableViewController {
+    //MARK: Properties
+    private let cellIDs : [String : Int] = ["adminCell" : 45, "imageCell" : 170, "infoCell" : 55]
+    private let profileInfo : [String : String] = ["Full Name" : "", "Location" : ""]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +20,63 @@ class SettingsViewController: UICollectionViewController, UICollectionViewDelega
         // Do any additional setup after loading the view.
     }
     
+    //MARK: Outlets
+    
+    //MARK: UITableViewController Methods
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0: // Admin
+            return 1
+        case 1: // Image
+            return 1
+        case 2: // Profile
+            return profileInfo.count
+        default:
+            return 0
+        }
+    }
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch indexPath.section {
+        case 0: // Admin
+            let cell = tableView.dequeueReusableCell(withIdentifier: "adminCell", for: indexPath)
+            return cell
+        case 1: // Image
+            let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath)
+            return cell
+        case 2: // Profile
+            let cell = tableView.dequeueReusableCell(withIdentifier: "infoCell", for: indexPath)
+            return cell
+        default:
+            fatalError("ERROR: Too many sections were included!")
+        }
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 && UserData.isAdmin() {
+            return 0
+        }else{
+            return tableView.rectForRow(at: indexPath).height
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 0
+        }
+        return 55
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerCell = tableView.dequeueReusableCell(withIdentifier: "headerCell")
+        
+        return headerCell
+    }
+    
+    /*
     //MARK: UICollectionViewDelegate Methods
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cellIDs.count
@@ -63,6 +120,6 @@ class SettingsViewController: UICollectionViewController, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellSize = CGSize(width: 375, height: cellIDs.values[cellIDs.values.index(cellIDs.startIndex, offsetBy: indexPath.item)])
         return cellSize
-    }
+    } */
     
 }

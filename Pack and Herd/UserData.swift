@@ -83,4 +83,17 @@ class UserData {
             fatalError("ERROR: Account update called before user was signed in!")
         }
     }
+    
+    public static func isAdmin() -> Bool{
+        print(UserData.userData)
+        if let adminData = userData["admin"] {
+            if let f_admin = adminData as? Bool{
+                return f_admin
+            }else {
+                fatalError("ERROR: |\(self)| admin field is not a boolean!")
+            }
+        }else {
+            fatalError("ERROR: |\(self)| admin field in User Data not found!")
+        }
+    }
 }
