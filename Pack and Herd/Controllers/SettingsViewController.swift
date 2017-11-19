@@ -7,119 +7,279 @@
 //
 
 import UIKit
+import Foundation
 import Firebase
 
-class SettingsViewController: UITableViewController {
+class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate {
     //MARK: Properties
-    private let cellIDs : [String : Int] = ["adminCell" : 45, "imageCell" : 170, "infoCell" : 55]
-    private let profileInfo : [String : String] = ["Full Name" : "", "Location" : ""]
+    private let cellIDs : [String : CGFloat] = ["infoCell" : 55, "petCell" : 100]
+    private var cellHeights : [IndexPath : CGFloat] = [:]
+    private var cellInfo : [Int : InfoCell] = [:]
+    private var accountList : [Int : InfoCell] = [:]
+    private var petList : [PetCell] = []
+    private var petSpecies : [String] = []
+    private let petDetailsPlaceholder = "Pet details."
+    
+    private struct InfoCell {
+        var icon : UIImage?
+        var text : String?
+        var title : String?
+    }
+    
+    private struct PetCell {
+        var picture : UIImage?
+        var name : String?
+        var species : Int?
+        var info : String?
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        setupCellInfo()
+        setupPetInfo()
     }
     
     //MARK: Outlets
     
+    //MARK: Actions
+    @objc func addPetAction(){
+        print("Add pet!")
+        
+        // Create default pet
+        petList.append(PetCell(picture: #imageLiteral(resourceName: "joey"), name: "Max", species: 0, info: "Pet details..."))
+        
+        // Create index path for new pet
+        let indexPath = IndexPath.init(row: petList.count - 1, section: 1)
+        
+        // Set height for new cell
+        cellHeights[indexPath] = cellIDs["petCell"]
+        
+        tableView.beginUpdates()
+        tableView.insertRows(at: [IndexPath.init(row: petList.count - 1, section: 1)], with: .automatic)
+        tableView.endUpdates()
+    }
+    
+    //MARK: Methods
+    private func setupCellInfo(){
+        cellInfo[0] = InfoCell(icon: #imageLiteral(resourceName: "nameIcon"), text: UserData.userData["name"] as? String, title: "Full Name")
+        cellInfo[1] = InfoCell(icon: #imageLiteral(resourceName: "locationIcon"), text: UserData.userData["location"] as? String, title: "Location")
+    }
+    private func setupPetInfo(){
+        // Pet Species
+        petSpecies = ["Dog", "Cat", "Snake", "Horse"]
+    }
+    
     //MARK: UITableViewController Methods
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 2
     }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0: // Admin
-            return 1
-        case 1: // Image
-            return 1
-        case 2: // Profile
-            return profileInfo.count
+        case 0: // Profile
+            return cellInfo.count
+        case 1: // Pets
+            return petList.count
+        case 2: // Acconts
+            return accountList.count
         default:
             return 0
         }
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 0: // Admin
-            let cell = tableView.dequeueReusableCell(withIdentifier: "adminCell", for: indexPath)
-            return cell
-        case 1: // Image
-            let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath)
-            return cell
-        case 2: // Profile
-            let cell = tableView.dequeueReusableCell(withIdentifier: "infoCell", for: indexPath)
-            return cell
+        var cellID = ""
+        switch(indexPath.section){
+        case 0: // Profile
+            cellID = "infoCell"
+        case 1: // Pets
+            cellID = "petCell"
+        case 2: // Accounts
+            cellID = "infoCell"
         default:
-            fatalError("ERROR: Too many sections were included!")
+            cellID = "infoCell"
+            break
         }
+        cellHeights[indexPath] = cellIDs[cellID]
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
+        
+        switch(cellID){
+        case "petCell": // PET CELL
+            var cellSubIndex = 0
+            /*for cell in cell.contentView.subviews {
+                print("\(cellSubIndex) : \(cell)")
+                cellSubIndex += 1
+            } */
+            
+            // Allow selection of cell
+            cell.selectionStyle = .default
+            
+            guard let petDetailTextField = cell.contentView.subviews[2] as? UITextView else {
+                fatalError("ERROR: Pet details text field not found")
+            }
+            guard let petNameTextField = cell.contentView.subviews[1] as? UITextField else {
+                fatalError("ERROR: Pet name field not found")
+            }
+            guard let petSpeciesPicker = cell.contentView.subviews[4] as? UIPickerView else {
+                print("PICKER: \(cell.contentView.subviews[4])")
+                fatalError("ERROR: Pet species selector view not found")
+            }
+            guard let petImage = cell.contentView.subviews[0] as? UIImageView else {
+                fatalError("ERROR: Pet image view not found")
+            }
+            
+            // Customize Text Field
+            petNameTextField.autocorrectionType = .yes
+            petNameTextField.textContentType = UITextContentType.name
+            petNameTextField.delegate = self
+            
+            // Customize Picker View
+            petSpeciesPicker.delegate = self
+            petSpeciesPicker.dataSource = self
+            
+            // Cuustomize Text View
+            petDetailTextField.delegate = self
+            petDetailTextField.textColor = UIColor.lightGray
+            
+            let petInfo = petList[indexPath.item]
+            /*cellTextField.placeholder = info?.title
+            if info?.text != "" {
+                cellTextField.text = info?.text
+            }
+            cellImage.image = info?.icon*/
+            break
+        default: // INFO CELL
+            guard let cellTextField = cell.contentView.subviews[0] as? UITextField else {
+                fatalError("ERROR: Text field not found in the cell")
+            }
+            guard let cellImage = cell.contentView.subviews[1] as? UIImageView else {
+                fatalError("ERROR: Cell image view not found")
+            }
+            
+            // Customize Text Field
+            cellTextField.autocorrectionType = .yes
+            switch(cellInfo[indexPath.item]?.title){
+            case nil:
+                break
+            case "Full Name"?:
+                // Name
+                cellTextField.textContentType = UITextContentType.name
+                break
+            case "Location"?:
+                // Location
+                cellTextField.textContentType = UITextContentType.location
+                break
+            default:
+                break
+            }
+            cellTextField.delegate = self
+            
+            let info = cellInfo[indexPath.item]
+            cellTextField.placeholder = info?.title
+            if info?.text != "" {
+                cellTextField.text = info?.text
+            }
+            cellImage.image = info?.icon
+            break
+        }
+        
+        return cell
         
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 && UserData.isAdmin() {
-            return 0
-        }else{
-            return tableView.rectForRow(at: indexPath).height
-        }
-    }
-    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 0
-        }
-        return 55
+        return 44
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerCell = tableView.dequeueReusableCell(withIdentifier: "headerCell")
+        guard let title = headerCell?.subviews.first?.subviews.first as? UILabel else {
+            fatalError("ERROR: Title not found as first element!")
+        }
+        guard let button = headerCell?.subviews.first?.subviews.last as? UIButton else{
+            fatalError("ERROR: Button not found as first element!")
+        }
+        
+        button.alpha = 0
+        
+        switch(section){
+        case 0:
+            title.text = "Personal"
+            break;
+        case 1:
+            title.text = "Pets"
+            button.alpha = 1
+            button.addTarget(self, action: #selector(addPetAction), for: UIControlEvents.touchUpInside)
+            break;
+        case 2:
+            title.text = "Accounts"
+            break;
+        default:
+            title.text = "Extra"
+            break;
+        }
+        
+        
         
         return headerCell
     }
     
-    /*
-    //MARK: UICollectionViewDelegate Methods
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cellIDs.count
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return cellHeights[indexPath]!
     }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIDs.keys[cellIDs.keys.index(cellIDs.keys.startIndex, offsetBy: indexPath.item)] , for: indexPath)
-        return cell
+    //MARK: UITextField Delegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "settingsHeader", for: indexPath)
+    //MARK: UIPickerView Delegate
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        // CAMERON! Ok so we are leaving off here, you need to first create a UILabel, customize it, and then return it!
+        // You can set the content to the left here and change the color, font, and such here as well! Good luck!
+        let speciesLabel = UILabel(frame: CGRect(x: 0, y: 0, width: pickerView.frame.width, height: 50))
+        speciesLabel.textColor = UIColor.darkGray
+        speciesLabel.contentMode = .left
+        speciesLabel.text = petSpecies[row]
+        speciesLabel.font = UIFont.systemFont(ofSize: 20)
         
-        
-        if let isAdmin = UserData.userData["admin"] as? Bool{
-            if isAdmin {
-                return view
-            }else{
-                return UICollectionReusableView()
-            }
-        }else {
-            fatalError("ERROR: |\(self)| admin field in User Data not found!")
+        return speciesLabel
+    }
+    
+    //MARK: UIPickerView Data Source
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return petSpecies.count
+    }
+    
+    //MARK: UITextView Delegate
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        print("CHECKKK? \(textView.textColor) \(UIColor.lightGray)")
+        if (textView.textColor == UIColor.lightGray){
+            // If the text is light gray, remove the text
+            textView.text = nil
+            textView.textColor = UIColor.darkGray
         }
     }
     
-    //MARK: UICollectionViewFlowLayout Methods
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        let headerSize = CGSize(width: 50, height: 50)
-        
-        if let isAdmin = UserData.userData["admin"] as? Bool{
-            if isAdmin {
-                return headerSize
-            }else{
-                return CGSize(width: 0,height: 0)
-            }
-        }else {
-            fatalError("ERROR: |\(self)| admin field in User Data not found!")
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if (textView.text.isEmpty){
+            // If the text is light gray, remove the text
+            textView.text = "Pet details..."
+            textView.textColor = UIColor.lightGray
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellSize = CGSize(width: 375, height: cellIDs.values[cellIDs.values.index(cellIDs.startIndex, offsetBy: indexPath.item)])
-        return cellSize
-    } */
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if (text == "\n"){
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
     
 }

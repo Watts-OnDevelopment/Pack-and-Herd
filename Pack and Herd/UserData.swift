@@ -11,7 +11,8 @@ import Firebase
 
 class UserData {
     //MARK: Properties
-    public static var userData : [String : Any] = [:]
+    public static var userData : [String : Any] = ["Test" : "Test1"]
+    public static var f_admin : Bool = false
     
     //MARK: Private Static Methods
     private static func InitalUserdata(_ userUID : String){
@@ -23,7 +24,8 @@ class UserData {
             data["admin"] = false
             data["email"] = user?.email
             data["phone"] = user?.phoneNumber
-            data["name"] = user?.displayName
+            data["name"] = user?.displayName ?? ""
+            data["address"] = ""
             
             return data
         }()
@@ -72,7 +74,9 @@ class UserData {
                             print("ERROR: |\(self)| Unable to read data of the user document!")
                             return
                         }
+                        // Check if user is admin
                         userData = uData
+                        f_admin = isAdmin()
                     }else{
                         print("User Database not existant!")
                         InitalUserdata(userUID)
@@ -84,9 +88,10 @@ class UserData {
         }
     }
     
-    public static func isAdmin() -> Bool{
+    private static func isAdmin() -> Bool{
+        print("isAdmin is being run!")
         print(UserData.userData)
-        if let adminData = userData["admin"] {
+        if let adminData = UserData.userData["admin"] {
             if let f_admin = adminData as? Bool{
                 return f_admin
             }else {
