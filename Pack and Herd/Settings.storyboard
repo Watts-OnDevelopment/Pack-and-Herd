@@ -113,7 +113,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="courtney" translatesAutoresizingMaskIntoConstraints="NO" id="cND-E6-OUC" userLabel="petImage">
+                                        <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="courtney" translatesAutoresizingMaskIntoConstraints="NO" id="cND-E6-OUC" userLabel="petImage">
                                             <rect key="frame" x="16" y="9" width="75" height="75"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="cND-E6-OUC" secondAttribute="height" multiplier="1:1" id="l0Z-Ea-la4"/>
@@ -134,7 +134,7 @@
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Pet details..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="GeH-dN-hU9" userLabel="petDetails">
-                                            <rect key="frame" x="222" y="0.0" width="153" height="100"/>
+                                            <rect key="frame" x="222" y="3" width="153" height="95"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>

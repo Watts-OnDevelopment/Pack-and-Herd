@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import Firebase
 
-class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate {
+class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     //MARK: Properties
     private let cellIDs : [String : CGFloat] = ["infoCell" : 55, "petCell" : 100]
     private var cellHeights : [IndexPath : CGFloat] = [:]
@@ -19,6 +19,8 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     private var petList : [PetCell] = []
     private var petSpecies : [String] = []
     private let petDetailsPlaceholder = "Pet details."
+    private var petImageSelectedLast : UIImageView?
+    private var dataFields : [AnyHashable : Any] = [:]
     
     private struct InfoCell {
         var icon : UIImage?
@@ -26,7 +28,7 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
         var title : String?
     }
     
-    private struct PetCell {
+    public struct PetCell {
         var picture : UIImage?
         var name : String?
         var species : Int?
@@ -37,11 +39,14 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveProfilePage))
+        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+        
+        // Call methods
         setupCellInfo()
         setupPetInfo()
+        setupInitialData()
     }
-    
-    //MARK: Outlets
     
     //MARK: Actions
     @objc func addPetAction(){
@@ -61,6 +66,26 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
         tableView.endUpdates()
     }
     
+    @objc func petImageSelect(sender : UIGestureRecognizer){
+        petImageSelectedLast = sender.view as? UIImageView
+        let imageSelector = UIImagePickerController()
+        imageSelector.delegate = self
+        imageSelector.sourceType = .photoLibrary
+        
+        present(imageSelector, animated: true, completion: {() in
+            print("Image selected")
+        })
+    }
+    
+    @objc func saveProfilePage(){
+        print("Save profile page!")
+        
+        // Set data field pet list to local petlist
+        dataFields["pets"] = petList
+        
+        UserData.UpdateServerProfileData(profileData: dataFields, petsData: petList)
+    }
+    
     //MARK: Methods
     private func setupCellInfo(){
         cellInfo[0] = InfoCell(icon: #imageLiteral(resourceName: "nameIcon"), text: UserData.userData["name"] as? String, title: "Full Name")
@@ -70,8 +95,35 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
         // Pet Species
         petSpecies = ["Dog", "Cat", "Snake", "Horse"]
     }
+    private func setupInitialData(){
+        for (dataK, dataV) in UserData.userData {
+            if(dataK == "name" || dataK == "phone" || dataK == "email" || dataK == "address"){
+                dataFields[dataK] = dataV
+            }
+        }
+        
+        // Set pet list to the online pet list
+        if let pList = UserData.userData{
+            petList = pList
+        }
+    }
     
     //MARK: UITableViewController Methods
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        // Row Actions for cells
+        let petDeleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: {(rowAction, indexPath) in
+            self.petList.remove(at: indexPath.row)
+            tableView.beginUpdates()
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            tableView.endUpdates()
+        })
+        
+        if(indexPath.section == 1){
+            return [petDeleteAction]
+        }
+        return nil
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -138,9 +190,14 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
             petSpeciesPicker.delegate = self
             petSpeciesPicker.dataSource = self
             
-            // Cuustomize Text View
+            // Customize Text View
             petDetailTextField.delegate = self
             petDetailTextField.textColor = UIColor.lightGray
+            
+            // Customize Image View
+            let imageViewSelectGesture = UITapGestureRecognizer(target: self, action: #selector(petImageSelect(sender:)))
+            imageViewSelectGesture.numberOfTapsRequired = 1
+            petImage.addGestureRecognizer(imageViewSelectGesture)
             
             let petInfo = petList[indexPath.item]
             /*cellTextField.placeholder = info?.title
@@ -164,10 +221,16 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
                 break
             case "Full Name"?:
                 // Name
+                if let name = dataFields["name"] as? String {
+                    cellTextField.text = name
+                }
                 cellTextField.textContentType = UITextContentType.name
                 break
             case "Location"?:
                 // Location
+                if let name = dataFields["address"] as? String {
+                    cellTextField.text = name
+                }
                 cellTextField.textContentType = UITextContentType.location
                 break
             default:
@@ -258,7 +321,6 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     
     //MARK: UITextView Delegate
     func textViewDidBeginEditing(_ textView: UITextView) {
-        print("CHECKKK? \(textView.textColor) \(UIColor.lightGray)")
         if (textView.textColor == UIColor.lightGray){
             // If the text is light gray, remove the text
             textView.text = nil
@@ -280,6 +342,21 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
             return false
         }
         return true
+    }
+    
+    //MARK: UIImagePickerViewController Methods
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        guard let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else {
+            fatalError("ERROR: Image selected can't be found.")
+        }
+        if let imageView =  petImageSelectedLast {
+            imageView.image = pickedImage
+            picker.dismiss(animated: true, completion: {() in })
+            return
+        }
+        
+        fatalError("ERROR: Last image view is nil!")
+        
     }
     
 }
