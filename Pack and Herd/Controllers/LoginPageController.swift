@@ -180,7 +180,6 @@ class LoginPageController : UIViewController, UITextFieldDelegate{
     
     
     public func FinishLogin(){
-        UserData.UpdateLocalUserdata()
         performSegue(withIdentifier: "segueHome", sender: self)
         
     }

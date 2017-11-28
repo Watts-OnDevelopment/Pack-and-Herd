@@ -529,10 +529,10 @@
                                 </constraints>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="locationCollectionCell" id="lC7-mX-559" userLabel="locationCollectionCell" customClass="LocationCollectionViewCell" customModule="Pack_and_Herd" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="135" width="414" height="350"/>
+                                <rect key="frame" x="0.0" y="135" width="414" height="125"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="125"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daS-DW-ea6">
@@ -544,18 +544,12 @@
                                             <color key="textColor" red="1" green="0.51751338329999996" blue="0.0063155989120000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <pickerView tag="1000" contentMode="scaleToFill" restorationIdentifier="location" translatesAutoresizingMaskIntoConstraints="NO" id="3Mx-9H-mib">
-                                            <rect key="frame" x="0.0" y="38" width="414" height="87"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" secondItem="3Mx-9H-mib" secondAttribute="height" multiplier="69:17" constant="60.882352941176464" id="BgR-Tu-UgM"/>
-                                            </constraints>
-                                        </pickerView>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="3 Oxford Court Manorville NY" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g76-fG-eGY" customClass="DefaultTextField" customModule="Pack_and_Herd" customModuleProvider="target">
-                                            <rect key="frame" x="40" y="131" width="331" height="44.666666666666657"/>
+                                            <rect key="frame" x="40" y="58" width="331" height="44.666666666666657"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="g76-fG-eGY" secondAttribute="height" multiplier="37:5" id="LqX-mm-Fc0"/>
                                             </constraints>
-                                            <color key="textColor" red="1" green="0.51751338329999996" blue="0.0063155989120000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                             <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                             <userDefinedRuntimeAttributes>
@@ -563,44 +557,29 @@
                                                     <real key="value" value="2"/>
                                                 </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                    <color key="value" red="1" green="0.51751338329999996" blue="0.0063155989120000002" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="value" white="0.33333333329999998" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                                    <color key="value" red="1" green="0.51751338329999996" blue="0.0063155989120000002" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="value" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </textField>
-                                        <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="TsA-K0-Cec">
-                                            <rect key="frame" x="29" y="183.66666666666663" width="356" height="151.33333333333337"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" secondItem="TsA-K0-Cec" secondAttribute="height" multiplier="374:159" id="HEZ-8E-1bt"/>
-                                            </constraints>
-                                        </mapView>
                                     </subviews>
                                 </view>
                                 <constraints>
-                                    <constraint firstItem="TsA-K0-Cec" firstAttribute="top" secondItem="g76-fG-eGY" secondAttribute="bottom" constant="8" id="6VL-ec-nYo"/>
-                                    <constraint firstItem="TsA-K0-Cec" firstAttribute="centerX" secondItem="3Mx-9H-mib" secondAttribute="centerX" id="8cA-2u-yvq"/>
                                     <constraint firstItem="g76-fG-eGY" firstAttribute="leading" secondItem="lC7-mX-559" secondAttribute="leadingMargin" constant="32" id="8n6-lU-dZh"/>
                                     <constraint firstItem="daS-DW-ea6" firstAttribute="top" secondItem="lC7-mX-559" secondAttribute="topMargin" constant="12" id="OxB-Ga-M52"/>
-                                    <constraint firstAttribute="bottomMargin" secondItem="TsA-K0-Cec" secondAttribute="bottom" constant="7" id="TrW-uD-lWD"/>
                                     <constraint firstItem="g76-fG-eGY" firstAttribute="width" secondItem="lC7-mX-559" secondAttribute="width" multiplier="0.8" id="VT7-SH-Noa"/>
-                                    <constraint firstItem="3Mx-9H-mib" firstAttribute="leading" secondItem="lC7-mX-559" secondAttribute="leading" id="Xiz-wr-Ob6"/>
                                     <constraint firstItem="daS-DW-ea6" firstAttribute="width" secondItem="lC7-mX-559" secondAttribute="width" multiplier="0.2" id="Y41-JK-3vF"/>
-                                    <constraint firstItem="3Mx-9H-mib" firstAttribute="width" secondItem="lC7-mX-559" secondAttribute="width" id="atw-ar-fqo"/>
-                                    <constraint firstItem="g76-fG-eGY" firstAttribute="top" secondItem="3Mx-9H-mib" secondAttribute="bottom" constant="6" id="hYx-VL-il5"/>
-                                    <constraint firstItem="3Mx-9H-mib" firstAttribute="top" secondItem="lC7-mX-559" secondAttribute="top" constant="38" id="v9f-3g-U2c"/>
+                                    <constraint firstItem="g76-fG-eGY" firstAttribute="top" secondItem="lC7-mX-559" secondAttribute="topMargin" constant="50" id="fa2-ln-Ewv"/>
                                     <constraint firstItem="daS-DW-ea6" firstAttribute="leading" secondItem="lC7-mX-559" secondAttribute="leadingMargin" constant="32" id="x5N-xv-rqp"/>
                                 </constraints>
-                                <size key="customSize" width="414" height="350"/>
                                 <connections>
                                     <outlet property="locationField" destination="g76-fG-eGY" id="m0u-Of-Ubd"/>
-                                    <outlet property="locationMap" destination="TsA-K0-Cec" id="MKC-G8-7Bl"/>
-                                    <outlet property="locationPicker" destination="3Mx-9H-mib" id="zg6-n1-eWe"/>
                                 </connections>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="dateCollectionCell" id="Jif-gK-3ip" userLabel="dateCollectionCell" customClass="CreateDatePicker" customModule="Pack_and_Herd" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="495" width="414" height="125"/>
+                                <rect key="frame" x="0.0" y="270" width="414" height="125"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="125"/>
@@ -638,7 +617,7 @@
                                 </constraints>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="timeCollectionCell" id="kcr-pb-P9z" customClass="CreateDatePicker" customModule="Pack_and_Herd" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="630" width="414" height="125"/>
+                                <rect key="frame" x="0.0" y="405" width="414" height="125"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="125"/>
@@ -690,7 +669,7 @@
                                 </constraints>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="confirmCollectionCell" id="bNc-TR-Agg">
-                                <rect key="frame" x="0.0" y="765" width="414" height="125"/>
+                                <rect key="frame" x="0.0" y="540" width="414" height="125"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="125"/>
@@ -720,6 +699,247 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EQD-F0-mxK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2072" y="1573"/>
+        </scene>
+        <!--Create Event-->
+        <scene sceneID="GA0-Ro-dvP">
+            <objects>
+                <viewController title="Create Event" id="dU5-QK-3Qv" customClass="CreateEventPageController" customModule="Pack_and_Herd" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="NaW-L4-doJ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="8rd-Jb-ThP">
+                            <size key="itemSize" width="414" height="125"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="eventsCollectionCell" id="40Z-i3-eVI" customClass="PickerEventCell" customModule="Pack_and_Herd" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="125"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="125"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vll-bB-h7e">
+                                            <rect key="frame" x="40.000000000000007" y="20.000000000000004" width="82.666666666666686" height="33.333333333333343"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="vll-bB-h7e" secondAttribute="height" multiplier="101:41" id="O7m-QJ-LCD"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                            <color key="textColor" red="1" green="0.50196078430000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vbn-zX-RzS">
+                                            <rect key="frame" x="0.0" y="38" width="414" height="87"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="Vbn-zX-RzS" secondAttribute="height" multiplier="69:17" constant="60.882352941176464" id="5u8-PL-kF6"/>
+                                            </constraints>
+                                        </pickerView>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="vll-bB-h7e" firstAttribute="top" secondItem="40Z-i3-eVI" secondAttribute="topMargin" constant="12" id="2Ch-CS-gQK"/>
+                                    <constraint firstItem="Vbn-zX-RzS" firstAttribute="width" secondItem="40Z-i3-eVI" secondAttribute="width" id="L95-KN-xT0"/>
+                                    <constraint firstItem="Vbn-zX-RzS" firstAttribute="top" secondItem="40Z-i3-eVI" secondAttribute="top" constant="38" id="SSu-I4-gCy"/>
+                                    <constraint firstItem="vll-bB-h7e" firstAttribute="leading" secondItem="40Z-i3-eVI" secondAttribute="leadingMargin" constant="32" id="Tug-lB-qrV"/>
+                                    <constraint firstItem="Vbn-zX-RzS" firstAttribute="leading" secondItem="40Z-i3-eVI" secondAttribute="leading" id="VUV-Ue-qz7"/>
+                                    <constraint firstItem="vll-bB-h7e" firstAttribute="width" secondItem="40Z-i3-eVI" secondAttribute="width" multiplier="0.2" id="aIu-iX-Oqg"/>
+                                </constraints>
+                            </collectionViewCell>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="locationCollectionCell" id="QqX-Cy-Lim" userLabel="locationCollectionCell" customClass="LocationCollectionViewCell" customModule="Pack_and_Herd" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="135" width="414" height="350"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7LB-Mj-fG9">
+                                            <rect key="frame" x="40" y="20" width="83" height="34"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="7LB-Mj-fG9" secondAttribute="height" multiplier="101:41" id="SuC-y1-iQ2"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                            <color key="textColor" red="1" green="0.51751338329999996" blue="0.0063155989120000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <pickerView tag="1000" contentMode="scaleToFill" restorationIdentifier="location" translatesAutoresizingMaskIntoConstraints="NO" id="lRL-gp-3ET">
+                                            <rect key="frame" x="0.0" y="38" width="414" height="87"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="lRL-gp-3ET" secondAttribute="height" multiplier="69:17" constant="60.882352941176464" id="z1Y-Dj-ZFd"/>
+                                            </constraints>
+                                        </pickerView>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="3 Oxford Court Manorville NY" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CVS-5S-hgB" customClass="DefaultTextField" customModule="Pack_and_Herd" customModuleProvider="target">
+                                            <rect key="frame" x="40" y="131" width="331" height="44.666666666666657"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="CVS-5S-hgB" secondAttribute="height" multiplier="37:5" id="aVj-FQ-pFT"/>
+                                            </constraints>
+                                            <color key="textColor" red="1" green="0.51751338329999996" blue="0.0063155989120000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                            <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="2"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                    <color key="value" red="1" green="0.51751338329999996" blue="0.0063155989120000002" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                    <color key="value" red="1" green="0.51751338329999996" blue="0.0063155989120000002" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </textField>
+                                        <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="uyc-3P-erH">
+                                            <rect key="frame" x="29" y="183.66666666666663" width="356" height="151.33333333333337"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="uyc-3P-erH" secondAttribute="height" multiplier="374:159" id="TtV-xQ-O1I"/>
+                                            </constraints>
+                                        </mapView>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="7LB-Mj-fG9" firstAttribute="width" secondItem="QqX-Cy-Lim" secondAttribute="width" multiplier="0.2" id="21w-Gg-GzL"/>
+                                    <constraint firstItem="lRL-gp-3ET" firstAttribute="top" secondItem="QqX-Cy-Lim" secondAttribute="top" constant="38" id="3na-Ml-c7H"/>
+                                    <constraint firstItem="lRL-gp-3ET" firstAttribute="leading" secondItem="QqX-Cy-Lim" secondAttribute="leading" id="3nr-j6-R7O"/>
+                                    <constraint firstItem="7LB-Mj-fG9" firstAttribute="top" secondItem="QqX-Cy-Lim" secondAttribute="topMargin" constant="12" id="4gx-cx-E0H"/>
+                                    <constraint firstItem="CVS-5S-hgB" firstAttribute="width" secondItem="QqX-Cy-Lim" secondAttribute="width" multiplier="0.8" id="Dqb-Us-kbx"/>
+                                    <constraint firstItem="CVS-5S-hgB" firstAttribute="top" secondItem="lRL-gp-3ET" secondAttribute="bottom" constant="6" id="Ivl-wQ-QmT"/>
+                                    <constraint firstItem="CVS-5S-hgB" firstAttribute="leading" secondItem="QqX-Cy-Lim" secondAttribute="leadingMargin" constant="32" id="LDK-IJ-wHj"/>
+                                    <constraint firstItem="uyc-3P-erH" firstAttribute="top" secondItem="CVS-5S-hgB" secondAttribute="bottom" constant="8" id="bgK-Uj-9sQ"/>
+                                    <constraint firstItem="7LB-Mj-fG9" firstAttribute="leading" secondItem="QqX-Cy-Lim" secondAttribute="leadingMargin" constant="32" id="mLB-KU-H0o"/>
+                                    <constraint firstItem="lRL-gp-3ET" firstAttribute="width" secondItem="QqX-Cy-Lim" secondAttribute="width" id="o87-Q1-IR6"/>
+                                    <constraint firstItem="uyc-3P-erH" firstAttribute="centerX" secondItem="lRL-gp-3ET" secondAttribute="centerX" id="xSq-xb-REQ"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="uyc-3P-erH" secondAttribute="bottom" constant="7" id="yTr-um-RDi"/>
+                                </constraints>
+                                <size key="customSize" width="414" height="350"/>
+                                <connections>
+                                    <outlet property="locationField" destination="CVS-5S-hgB" id="Fjn-2w-YX7"/>
+                                    <outlet property="locationMap" destination="uyc-3P-erH" id="aHd-0N-1v3"/>
+                                    <outlet property="locationPicker" destination="lRL-gp-3ET" id="LG3-sn-ySG"/>
+                                </connections>
+                            </collectionViewCell>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="dateCollectionCell" id="Qkb-Fu-Qaf" userLabel="dateCollectionCell" customClass="CreateDatePicker" customModule="Pack_and_Herd" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="495" width="414" height="125"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="125"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uwg-Pp-68q">
+                                            <rect key="frame" x="40" y="20" width="129" height="33"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="Uwg-Pp-68q" secondAttribute="height" multiplier="101:41" constant="47.707317073170728" id="cQF-r7-Sdb"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                            <color key="textColor" red="1" green="0.51751338329999996" blue="0.0063155989120000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="WcF-Z3-XJo" customClass="DatePickerView" customModule="Pack_and_Herd" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="43" width="414" height="82"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                            <color key="tintColor" red="1" green="0.51751338329999996" blue="0.0063155989120000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <date key="date" timeIntervalSinceReferenceDate="531596550.673841">
+                                                <!--2017-11-05 17:42:30 +0000-->
+                                            </date>
+                                            <date key="minimumDate" timeIntervalSinceReferenceDate="504961200">
+                                                <!--2017-01-01 11:00:00 +0000-->
+                                            </date>
+                                            <date key="maximumDate" timeIntervalSinceReferenceDate="567946800">
+                                                <!--2018-12-31 11:00:00 +0000-->
+                                            </date>
+                                        </datePicker>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="Uwg-Pp-68q" firstAttribute="top" secondItem="Qkb-Fu-Qaf" secondAttribute="topMargin" constant="12" id="O6L-y5-HXr"/>
+                                    <constraint firstItem="Uwg-Pp-68q" firstAttribute="leading" secondItem="Qkb-Fu-Qaf" secondAttribute="leadingMargin" constant="32" id="Oyh-fY-g4M"/>
+                                    <constraint firstItem="Uwg-Pp-68q" firstAttribute="width" secondItem="Qkb-Fu-Qaf" secondAttribute="width" multiplier="0.2" constant="46.199999999999989" id="mwY-Y7-h8E"/>
+                                </constraints>
+                            </collectionViewCell>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="timeCollectionCell" id="m9V-Kh-cNF" customClass="CreateDatePicker" customModule="Pack_and_Herd" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="630" width="414" height="125"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="125"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mjG-6Z-dmh">
+                                            <rect key="frame" x="40" y="20" width="129" height="33"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="mjG-6Z-dmh" secondAttribute="height" multiplier="101:41" constant="47.707317073170728" id="sMx-pH-ojH"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                            <color key="textColor" red="1" green="0.51751338329999996" blue="0.0063155989120000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="nht-w3-yhz" customClass="DatePickerView" customModule="Pack_and_Herd" customModuleProvider="target">
+                                            <rect key="frame" x="40" y="47" width="168" height="78"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                            <color key="tintColor" red="1" green="0.51751338329999996" blue="0.0063155989120000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <date key="date" timeIntervalSinceReferenceDate="531596550.673841">
+                                                <!--2017-11-05 17:42:30 +0000-->
+                                            </date>
+                                            <date key="minimumDate" timeIntervalSinceReferenceDate="504961200">
+                                                <!--2017-01-01 11:00:00 +0000-->
+                                            </date>
+                                            <date key="maximumDate" timeIntervalSinceReferenceDate="567946800">
+                                                <!--2018-12-31 11:00:00 +0000-->
+                                            </date>
+                                        </datePicker>
+                                        <datePicker userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="xhN-Sy-4fD" customClass="DatePickerView" customModule="Pack_and_Herd" customModuleProvider="target">
+                                            <rect key="frame" x="207" y="47" width="168" height="78"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                            <color key="tintColor" red="1" green="0.51751338329999996" blue="0.0063155989120000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <date key="date" timeIntervalSinceReferenceDate="531596550.673841">
+                                                <!--2017-11-05 17:42:30 +0000-->
+                                            </date>
+                                            <date key="minimumDate" timeIntervalSinceReferenceDate="504961200">
+                                                <!--2017-01-01 11:00:00 +0000-->
+                                            </date>
+                                            <date key="maximumDate" timeIntervalSinceReferenceDate="567946800">
+                                                <!--2018-12-31 11:00:00 +0000-->
+                                            </date>
+                                        </datePicker>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="mjG-6Z-dmh" firstAttribute="top" secondItem="m9V-Kh-cNF" secondAttribute="topMargin" constant="12" id="BDU-Ix-pVb"/>
+                                    <constraint firstItem="mjG-6Z-dmh" firstAttribute="leading" secondItem="m9V-Kh-cNF" secondAttribute="leadingMargin" constant="32" id="SYc-vR-CzP"/>
+                                    <constraint firstItem="mjG-6Z-dmh" firstAttribute="width" secondItem="m9V-Kh-cNF" secondAttribute="width" multiplier="0.2" constant="46.199999999999989" id="Yxw-Hf-6HM"/>
+                                </constraints>
+                            </collectionViewCell>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="confirmCollectionCell" id="m2i-s6-Eud">
+                                <rect key="frame" x="0.0" y="765" width="414" height="125"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="125"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n3g-vJ-hB1" customClass="DefaultButtonView" customModule="Pack_and_Herd" customModuleProvider="target">
+                                            <rect key="frame" x="113" y="20" width="189" height="57"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" red="1" green="0.51865214110000002" blue="0.0001007135943" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <accessibility key="accessibilityConfiguration">
+                                                <accessibilityTraits key="traits" button="YES" playsSound="YES"/>
+                                            </accessibility>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                            <state key="normal" title="Confirm">
+                                                <color key="titleColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="confirmButtonAction:" destination="dU5-QK-3Qv" eventType="touchUpInside" id="fKQ-Hm-n25"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </view>
+                            </collectionViewCell>
+                        </cells>
+                    </collectionView>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nNM-jU-qWv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3133" y="1573"/>
         </scene>
     </scenes>
     <resources>

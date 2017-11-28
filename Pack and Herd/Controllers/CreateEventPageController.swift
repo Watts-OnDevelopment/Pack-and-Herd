@@ -99,9 +99,7 @@ import UIKit
         let defaultCellSize = CGSize(width: 414, height: 125)
 
         print("Collection Cell ID: \(indexPath.section)")
-        if (indexPath.section == 1){
-            return CGSize(width: defaultCellSize.width, height: 350)
-        }else if (indexPath.section == 4){
+        if (indexPath.section == 4){
             return CGSize(width: defaultCellSize.width, height: 150)
         }
         

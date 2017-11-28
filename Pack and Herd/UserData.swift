@@ -16,29 +16,54 @@ class UserData {
     //MARK: Private Static Methods
     private static func InitalUserdata(_ userUID : String){
         print("Inital User Data!")
-        let userDataTable : [String : Any] = {
-            var data : [String : Any] = [:]
-            let user = Auth.auth().currentUser
-            
-            data["admin"] = false
-            data["email"] = user?.email
-            data["phone"] = user?.phoneNumber
-            data["name"] = user?.displayName ?? ""
-            data["pets"] = [] as [SettingsViewController.PetCell]
-            data["address"] = ""
-            
-            return data
-        }()
-        let fireStore = Firestore.firestore()
-        fireStore.collection("users").document(userUID).setData(userDataTable, completion:{(error) in
-                if let error = error {
-                    print("FIRESTORE ERROR: \(error.localizedDescription)")
-                }
-                UpdateLocalUserdata()
+        
+         // Check if the initial user data is already set
+        CheckUserdata(completionHandler: {(exists) in
+            if exists {
+                RetrieveUserData(completion: {(userData) in
+                    if userData.count < 4 {
+                        // Userdata is incomplete
+                        let userDataTable : [String : Any] = {
+                            var data : [String : Any] = [:]
+                            let user = Auth.auth().currentUser
+                            
+                            data["admin"] = false
+                            data["email"] = user?.email
+                            data["phone"] = user?.phoneNumber
+                            data["name"] = user?.displayName ?? ""
+                            data["pets"] = [] as [SettingsViewController.PetCell]
+                            data["address"] = ""
+                            
+                            return data
+                        }()
+                        SetUserData(userData: userDataTable)
+                    }else{
+                        print("Data already created!")
+                    }
+                })
+            }else{
+                let userDataTable : [String : Any] = {
+                    var data : [String : Any] = [:]
+                    let user = Auth.auth().currentUser
+                    
+                    data["admin"] = false
+                    data["email"] = user?.email
+                    data["phone"] = user?.phoneNumber
+                    data["name"] = user?.displayName ?? ""
+                    data["pets"] = [] as [SettingsViewController.PetCell]
+                    data["address"] = ""
+                    
+                    return data
+                }()
+                SetUserData(userData: userDataTable)
+            }
         })
+        
+        // Set initial pets
+        
     }
     
-    //MARK: Static Methods
+    //MARK: Checker Methods
     public static func CheckUserdata(completionHandler: @escaping (Bool) -> Void){
         if let userUID = Auth.auth().currentUser?.uid {
             Firestore.firestore().collection("users").document(userUID).getDocument(completion: {(document, error) in
@@ -48,11 +73,8 @@ class UserData {
                 }
                 
                 if let docExists = document?.exists {
-                    if docExists {
-                        userDocumentRef = document
-                    }
-                    
                     completionHandler(docExists)
+                    
                     return
                 }
                 
@@ -63,9 +85,45 @@ class UserData {
     }
     
     //MARK: Setter Methods
-    public static func SetUserData(userData : [String:Any], completion : @escaping () -> Void) {
+    public static func SetUserData(userData : [String:Any]) {
         if let userUID = Auth.auth().currentUser?.uid {
-            Firestore.firestore().collection("users").document(userUID).setData(userData)
+            print("Set User Data: \(userData)")
+            Firestore.firestore().collection("users").document(userUID).setData(userData, options: SetOptions.merge(), completion: {(error) in
+                if let error = error {
+                    print("<ERR> |\(self)| : \(error)")
+                }
+            })
+        }else{
+            fatalError("ERROR: Account update called before user was signed in!")
+        }
+    }
+    
+    public static func SetPetsData(petsData : [SettingsViewController.PetCell]){
+        if let userUID = Auth.auth().currentUser?.uid {
+            for pet in petsData {
+                print("ADD ONLINE PET: \(pet)")
+                let petInfo : [String : Any] = ["name" : pet.name, "info" : pet.info, "species" : pet.species]
+                Firestore.firestore().collection("users").document(userUID).collection("pets").document(pet.name!).setData(petInfo, completion: {(error) in
+                    if let error = error {
+                        print("<ERR> |\(self)| : \(error)")
+                    }
+                })
+            }
+        }else{
+            fatalError("ERROR: Account update called before user was signed in!")
+        }
+    }
+    
+    public static func SetPetImage(petName : String, petImage : UIImage){
+        if let userUID = Auth.auth().currentUser?.uid {
+            guard let petImageData = UIImagePNGRepresentation(petImage) else {
+                fatalError("<ERR> : Unable to convert image to data.")
+            }
+            let petNSName = NSString(string: petName)
+            petNSName.replacingOccurrences(of: " ", with: "")
+            
+            let petImageFile = Storage.storage().reference().child("images.\(String.init(petNSName)).png")
+            petImageFile.putData(petImageData)
             
         }else{
             fatalError("ERROR: Account update called before user was signed in!")
@@ -77,7 +135,10 @@ class UserData {
         if let userUID = Auth.auth().currentUser?.uid {
             Firestore.firestore().collection("users").document(userUID).getDocument(completion: {(document, error) in
                 if let error = error {
-                    print("ERROR: |\(self)| \(error.localizedDescription)")
+                    if(error.localizedDescription == "Missing or insufficient permissions."){
+                        self.InitalUserdata(userUID)
+                    }
+                    print("ERROR: |\(self)| 2 \(error.localizedDescription)")
                     return
                 }
                 
@@ -85,12 +146,73 @@ class UserData {
                     fatalError("<ERR> : Document not valid.")
                 }
                 
-                guard let documentData = document.data() as? [String : Any] else{
-                    fatalError("<ERR> : Document data not valid.")
+                if document.exists {
+                    let documentData = document.data()
+                    
+                    if let isAdmin = documentData["admin"] as? Bool {
+                        self.f_admin = isAdmin
+                    }
+                    
+                    completion(documentData)
+                }else {
+                    self.InitalUserdata(userUID)
+                }
+            })
+        }else{
+            fatalError("ERROR: Account update called before user was signed in!")
+        }
+    }
+    
+    public static func RetrievePetsData(completion : @escaping ([[String : Any]]?) -> Void){
+        if let userUID = Auth.auth().currentUser?.uid {
+            // Cam so you have to make the parameter for the competion an array of the String : Any Dictionary, then you want to loop throiugh each document and add it to the table.
+            Firestore.firestore().collection("users").document(userUID).collection("pets").getDocuments(completion: {(querySnapshot, error) in
+                var petsList : [[String : Any]] = []
+                
+                if let error = error  {
+                    if(error.localizedDescription == "Missing or insufficient permissions."){
+                        self.InitalUserdata(userUID)
+                    }
+                    print("<ERR> |\(self)| : \(error.localizedDescription)")
+                    return
                 }
                 
-                completion(documentData)
+                guard let queryDocuments = querySnapshot?.documents else {
+                    fatalError("<ERR> : Documents section not found!")
+                }
                 
+                for docSnap in queryDocuments {
+                    petsList.append(docSnap.data())
+                }
+                
+                completion(petsList)
+            })
+        }else{
+            fatalError("ERROR: Account update called before user was signed in!")
+        }
+    }
+    
+    public static func RetrievePetImage(petName : String, completion : @escaping (UIImage) -> Void){
+        if let userUID = Auth.auth().currentUser?.uid {
+            let petNSName = NSString(string: petName)
+            petNSName.replacingOccurrences(of: " ", with: "")
+            
+            Storage.storage().reference().child("images.\(String.init(petNSName)).png").getData(maxSize: 20000000, completion: {(data, error) in
+                if let error = error {
+                    print("<ERR> : \(error)")
+                }
+                
+                guard let petData = data else {
+                    print("<ERR> : Data found was corrupt!")
+                    return
+                }
+                
+                guard let petImage = UIImage(data: petData) else{
+                    print("<ERR> : UIImage could not be generated from given data!")
+                    return
+                }
+                
+                completion(petImage)
                 
             })
         }else{
@@ -98,7 +220,27 @@ class UserData {
         }
     }
     
+    //MARK: Delete Methods
+    public static func ClearPetsData(completion: @escaping () -> Void){
+        if let userUID = Auth.auth().currentUser?.uid {
+            Firestore.firestore().collection("users").document(userUID).collection("pets").getDocuments(completion: {(query, error) in
+                if let error = error {
+                    print("<ERR> : \(error)")
+                }
+                
+                for document in query!.documents {
+                    document.reference.delete()
+                }
+                
+                completion()
+            })
+        }else{
+            fatalError("ERROR: Account update called before user was signed in!")
+        }
+    }
+    
     //MARK: Save Methods
+    /*
     public static func UpdateServerProfileData(profileData : [AnyHashable : Any], petsData : [SettingsViewController.PetCell]){
         // Save profile data
         if let userUID = Auth.auth().currentUser?.uid {
@@ -123,18 +265,5 @@ class UserData {
             fatalError("<ERR> : Account update called before user was signed in!")
         }
     }
-    
-    private static func isAdmin() -> Bool{
-        print("isAdmin is being run!")
-        print(UserData.userData)
-        if let adminData = UserData.userData["admin"] {
-            if let f_admin = adminData as? Bool{
-                return f_admin
-            }else {
-                fatalError("ERROR: |\(self)| admin field is not a boolean!")
-            }
-        }else {
-            fatalError("ERROR: |\(self)| admin field in User Data not found!")
-        }
-    }
+ */
 }

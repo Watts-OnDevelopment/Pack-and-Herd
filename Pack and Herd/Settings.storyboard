@@ -84,7 +84,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="54.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Full Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oRQ-pf-X9F" customClass="DefaultTextField" customModule="Pack_and_Herd" customModuleProvider="target">
+                                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="infoCell" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Full Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oRQ-pf-X9F" customClass="DefaultTextField" customModule="Pack_and_Herd" customModuleProvider="target">
                                             <rect key="frame" x="68" y="0.0" width="307" height="55"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -106,20 +106,20 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="petCell" rowHeight="100" id="uz3-am-KJL" userLabel="petCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="petCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="petCell" rowHeight="100" id="uz3-am-KJL" userLabel="petCell">
                                 <rect key="frame" x="0.0" y="297" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uz3-am-KJL" id="HZn-Bd-Xs3">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="courtney" translatesAutoresizingMaskIntoConstraints="NO" id="cND-E6-OUC" userLabel="petImage">
+                                        <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="petImage" image="courtney" translatesAutoresizingMaskIntoConstraints="NO" id="cND-E6-OUC" userLabel="petImage">
                                             <rect key="frame" x="16" y="9" width="75" height="75"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="cND-E6-OUC" secondAttribute="height" multiplier="1:1" id="l0Z-Ea-la4"/>
                                             </constraints>
                                         </imageView>
-                                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Pet Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wS4-Xn-hZy" userLabel="petName">
+                                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="petName" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Pet Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wS4-Xn-hZy" userLabel="petName">
                                             <rect key="frame" x="99" y="9" width="115" height="38"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -133,7 +133,7 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Pet details..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="GeH-dN-hU9" userLabel="petDetails">
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="petDetails" text="Pet details..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="GeH-dN-hU9" userLabel="petDetails">
                                             <rect key="frame" x="222" y="3" width="153" height="95"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -146,7 +146,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wyj-y3-RoK" userLabel="speciesPicker">
+                                        <pickerView contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="petSpecies" translatesAutoresizingMaskIntoConstraints="NO" id="wyj-y3-RoK" userLabel="speciesPicker">
                                             <rect key="frame" x="102" y="31" width="109" height="53"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         </pickerView>

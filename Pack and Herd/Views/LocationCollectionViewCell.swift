@@ -11,9 +11,7 @@ import MapKit
 
 class LocationCollectionViewCell: UICollectionViewCell, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     //MARK: Outlets
-    @IBOutlet weak var locationMap: MKMapView!
     @IBOutlet weak var locationField: DefaultTextField!
-    @IBOutlet weak var locationPicker: UIPickerView!
     
     //MARK: Properties
     
@@ -30,11 +28,6 @@ class LocationCollectionViewCell: UICollectionViewCell, UITextFieldDelegate, UIP
         // Customization
         
         locationField.delegate = self
-        locationField.alpha = 0
-        
-        locationPicker.delegate = self
-        locationPicker.alpha = 0.5
-        //locationPicker.dataSource = self
     }
     
     //MARK: Methods
@@ -45,30 +38,30 @@ class LocationCollectionViewCell: UICollectionViewCell, UITextFieldDelegate, UIP
             return
         }
         
-        let addressGeocoder = CLGeocoder()
-        addressGeocoder.geocodeAddressString(address, completionHandler: {(placeMark, error) in
-            if let error = error {
-                print("ERROR: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let firstPlacemark = placeMark?.first  else {
-                print("ERROR: First placemark not found!")
-                return
-            }
-            
-
-            let locationMark = MKPlacemark(placemark: firstPlacemark)
-            
-            var region : MKCoordinateRegion = self.locationMap.region
-            region.center = locationMark.coordinate
-            region.span.latitudeDelta /= 120
-            region.span.longitudeDelta /= 120
-                
-            self.locationMap.setRegion(region, animated: true)
-            self.locationMap.addAnnotation(locationMark)
-            
-        })
+//        let addressGeocoder = CLGeocoder()
+//        addressGeocoder.geocodeAddressString(address, completionHandler: {(placeMark, error) in
+//            if let error = error {
+//                print("ERROR: \(error.localizedDescription)")
+//                return
+//            }
+//
+//            guard let firstPlacemark = placeMark?.first  else {
+//                print("ERROR: First placemark not found!")
+//                return
+//            }
+//
+//
+//            let locationMark = MKPlacemark(placemark: firstPlacemark)
+//
+//            var region : MKCoordinateRegion = self.locationMap.region
+//            region.center = locationMark.coordinate
+//            region.span.latitudeDelta /= 120
+//            region.span.longitudeDelta /= 120
+//
+//            self.locationMap.setRegion(region, animated: true)
+//            self.locationMap.addAnnotation(locationMark)
+//
+//        })
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -78,23 +71,7 @@ class LocationCollectionViewCell: UICollectionViewCell, UITextFieldDelegate, UIP
     
     //MARK: Picker View Delegate
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if(row == pickerView.numberOfRows(inComponent: 0) - 1){
-            print("CREATE OWN ADDRESS")
-            
-            if(locationField.alpha == 1){
-                return
-            }
-            UIView.animate(withDuration: 0.5, animations: {() in
-                self.locationField.alpha = 1
-            })
-        }else{
-            if(locationField.alpha == 0){
-                return
-            }
-            UIView.animate(withDuration: 0.5, animations: {() in
-                self.locationField.alpha = 0
-            })
-        }
+        
     }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {

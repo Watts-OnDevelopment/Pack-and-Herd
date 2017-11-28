@@ -11,21 +11,31 @@ import Foundation
 import Firebase
 
 class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    //MARK: Inits
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        // Call methods
+        setupPetInfo()
+        setupInitialData()
+    }
+    
     //MARK: Properties
     private let cellIDs : [String : CGFloat] = ["infoCell" : 55, "petCell" : 100]
     private var cellHeights : [IndexPath : CGFloat] = [:]
-    private var cellInfo : [Int : InfoCell] = [:]
-    private var accountList : [Int : InfoCell] = [:]
-    private var petList : [PetCell] = []
     private var petSpecies : [String] = []
     private let petDetailsPlaceholder = "Pet details."
     private var petImageSelectedLast : UIImageView?
-    private var dataFields : [AnyHashable : Any] = [:]
+    private var petList : [PetCell] = []
+    private var profileList : [InfoCell] = []
+    private var accountList : [InfoCell] = []
     
     private struct InfoCell {
         var icon : UIImage?
         var text : String?
         var title : String?
+        var index : String?
     }
     
     public struct PetCell {
@@ -41,11 +51,6 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
         // Do any additional setup after loading the view.
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveProfilePage))
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
-        
-        // Call methods
-        setupCellInfo()
-        setupPetInfo()
-        setupInitialData()
     }
     
     //MARK: Actions
@@ -53,7 +58,7 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
         print("Add pet!")
         
         // Create default pet
-        petList.append(PetCell(picture: #imageLiteral(resourceName: "joey"), name: "Max", species: 0, info: "Pet details..."))
+        petList.append(PetCell(picture: #imageLiteral(resourceName: "joey"), name: "", species: 0, info: "Pet details..."))
         
         // Create index path for new pet
         let indexPath = IndexPath.init(row: petList.count - 1, section: 1)
@@ -62,7 +67,7 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
         cellHeights[indexPath] = cellIDs["petCell"]
         
         tableView.beginUpdates()
-        tableView.insertRows(at: [IndexPath.init(row: petList.count - 1, section: 1)], with: .automatic)
+        tableView.insertRows(at: [indexPath], with: .automatic)
         tableView.endUpdates()
     }
     
@@ -81,31 +86,95 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
         print("Save profile page!")
         
         // Set data field pet list to local petlist
-        dataFields["pets"] = petList
+        //dataFields["pets"] = petList
         
-        UserData.UpdateServerProfileData(profileData: dataFields, petsData: petList)
+        UserData.ClearPetsData() {
+            print("Pets Data Cleared!")
+            UserData.SetPetsData(petsData: self.petList)
+        }
+        
+        for pet in petList {
+            UserData.SetPetImage(petName: pet.name ?? "ERROR", petImage: pet.picture ?? UIImage())
+        }
+        
+        var profileInfo : [String : Any] = [:]
+        for info in profileList {
+            print("Info Cell: \(info)")
+            if let infoText = info.text {
+                profileInfo[info.index!] = infoText
+            }else{
+                profileInfo[info.index!] = ""
+            }
+        }
+        
+        for accountInfo in accountList {
+            if let infoText = accountInfo.text {
+                profileInfo[accountInfo.index!] = infoText
+            }else{
+                profileInfo[accountInfo.index!] = ""
+            }
+        }
+        
+        UserData.SetUserData(userData: profileInfo)
     }
     
     //MARK: Methods
-    private func setupCellInfo(){
-        cellInfo[0] = InfoCell(icon: #imageLiteral(resourceName: "nameIcon"), text: UserData.userData["name"] as? String, title: "Full Name")
-        cellInfo[1] = InfoCell(icon: #imageLiteral(resourceName: "locationIcon"), text: UserData.userData["location"] as? String, title: "Location")
-    }
     private func setupPetInfo(){
         // Pet Species
         petSpecies = ["Dog", "Cat", "Snake", "Horse"]
     }
+    
     private func setupInitialData(){
-        for (dataK, dataV) in UserData.userData {
-            if(dataK == "name" || dataK == "phone" || dataK == "email" || dataK == "address"){
-                dataFields[dataK] = dataV
+        UserData.RetrieveUserData(completion: {(data) in
+            // Setup User Data
+            self.profileList.append(InfoCell(icon: #imageLiteral(resourceName: "nameIcon"), text: data["name"] as? String, title: "Full Name", index: "name"))
+            self.profileList.append(InfoCell(icon: #imageLiteral(resourceName: "locationIcon"), text: data["location"] as? String, title: "Location", index: "location"))
+            
+            var cellIndexes : [IndexPath] = []
+            
+            for i in 0..<self.profileList.count {
+                cellIndexes.append(IndexPath(row: i, section: 0))
             }
-        }
+            
+            self.tableView.beginUpdates()
+            self.tableView.insertRows(at: cellIndexes, with: .automatic)
+            self.tableView.endUpdates()
+            
+            // Setup Accounts Data
+            /*self.accountList.append(InfoCell(icon: #imageLiteral(resourceName: "nameIcon"), text: data["email"] as? String, title: "Email", index: "email"))
+            //self.accountList.append(InfoCell(icon: #imageLiteral(resourceName: "nameIcon"), text: data["password"] as? String, title: "Password", index: "password"))
+            self.accountList.append(InfoCell(icon: #imageLiteral(resourceName: "nameIcon"), text: data["phone"] as? String, title: "Phone Number", index: "phone"))
+            
+            var accountIndexPaths : [IndexPath] = []
+            
+            for i in 0..<self.accountList.count {
+                accountIndexPaths.append(IndexPath(row: i, section: 2))
+            }
+            
+            self.tableView.beginUpdates()
+            self.tableView.insertRows(at: accountIndexPaths, with: .automatic)
+            self.tableView.endUpdates()*/
+        })
         
-        // Set pet list to the online pet list
-        if let pList = UserData.userData{
-            petList = pList
-        }
+        UserData.RetrievePetsData(completion: {(data) in
+            // Setup Pet Data
+            for pet in data! {
+                UserData.RetrievePetImage(petName: pet["name"] as! String, completion: {(petImage) in
+                    print("Get Pet: \(pet["name"]!)")
+                    let petData = PetCell(picture: petImage, name: pet["name"]! as? String, species: pet["species"]! as? Int, info: pet["info"]! as? String)
+                    self.petList.append(petData)
+                    
+                    print("PET DATA: \(petData.name)")
+                    
+                    let cellIndexPath = IndexPath(row: self.petList.count - 1, section: 1)
+                    
+                    self.tableView.beginUpdates()
+                    self.tableView.insertRows(at: [cellIndexPath], with: .automatic)
+                    self.tableView.endUpdates()
+                    
+                })
+            }
+        })
     }
     
     //MARK: UITableViewController Methods
@@ -131,16 +200,17 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0: // Profile
-            return cellInfo.count
+            return profileList.count
         case 1: // Pets
             return petList.count
-        case 2: // Acconts
+        case 2: // Accounts
             return accountList.count
         default:
             return 0
         }
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("GET CELL!")
         var cellID = ""
         switch(indexPath.section){
         case 0: // Profile
@@ -158,11 +228,7 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
         
         switch(cellID){
         case "petCell": // PET CELL
-            var cellSubIndex = 0
-            /*for cell in cell.contentView.subviews {
-                print("\(cellSubIndex) : \(cell)")
-                cellSubIndex += 1
-            } */
+            print("Animal cell!")
             
             // Allow selection of cell
             cell.selectionStyle = .default
@@ -181,30 +247,30 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
                 fatalError("ERROR: Pet image view not found")
             }
             
+            let petInfo = petList[indexPath.row]
+            
             // Customize Text Field
             petNameTextField.autocorrectionType = .yes
             petNameTextField.textContentType = UITextContentType.name
             petNameTextField.delegate = self
+            petNameTextField.text = petInfo.name
             
             // Customize Picker View
             petSpeciesPicker.delegate = self
             petSpeciesPicker.dataSource = self
+            petSpeciesPicker.selectRow(petInfo.species!, inComponent: 0, animated: true)
             
             // Customize Text View
             petDetailTextField.delegate = self
             petDetailTextField.textColor = UIColor.lightGray
+            petDetailTextField.text = petInfo.info
             
             // Customize Image View
             let imageViewSelectGesture = UITapGestureRecognizer(target: self, action: #selector(petImageSelect(sender:)))
             imageViewSelectGesture.numberOfTapsRequired = 1
             petImage.addGestureRecognizer(imageViewSelectGesture)
+            petImage.image = petInfo.picture
             
-            let petInfo = petList[indexPath.item]
-            /*cellTextField.placeholder = info?.title
-            if info?.text != "" {
-                cellTextField.text = info?.text
-            }
-            cellImage.image = info?.icon*/
             break
         default: // INFO CELL
             guard let cellTextField = cell.contentView.subviews[0] as? UITextField else {
@@ -216,34 +282,55 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
             
             // Customize Text Field
             cellTextField.autocorrectionType = .yes
-            switch(cellInfo[indexPath.item]?.title){
-            case nil:
-                break
-            case "Full Name"?:
-                // Name
-                if let name = dataFields["name"] as? String {
-                    cellTextField.text = name
+            cellTextField.enablesReturnKeyAutomatically = true
+            
+            var cellInfo : InfoCell
+            switch(indexPath.section){
+            case 2:
+                cellInfo = accountList[indexPath.item]
+                
+                // Account Indexes
+                switch(accountList[indexPath.item].index!){
+                case "email":
+                    cellTextField.textContentType = UITextContentType.emailAddress
+                    cellTextField.restorationIdentifier = "emailText"
+                    break
+                case "password":
+                    cellTextField.textContentType = UITextContentType.password
+                    break
+                case "phone":
+                    cellTextField.textContentType = UITextContentType.telephoneNumber
+                    cellTextField.keyboardType = .numbersAndPunctuation
+                    cellTextField.restorationIdentifier = "phoneText"
+                    break
+                default:
+                    break
                 }
-                cellTextField.textContentType = UITextContentType.name
-                break
-            case "Location"?:
-                // Location
-                if let name = dataFields["address"] as? String {
-                    cellTextField.text = name
-                }
-                cellTextField.textContentType = UITextContentType.location
+                
                 break
             default:
+                cellInfo = profileList[indexPath.item]
+                
+                // Profile Titles
+                switch(profileList[indexPath.item].title!){
+                case nil:
+                    break
+                case "Full Name":
+                    cellTextField.textContentType = UITextContentType.name
+                    break
+                case "Location":
+                    cellTextField.textContentType = UITextContentType.fullStreetAddress
+                    break
+                default:
+                    break
+                }
+                
                 break
             }
+            cellTextField.text = cellInfo.text
+            cellTextField.placeholder = cellInfo.title
+            cellImage.image = cellInfo.icon
             cellTextField.delegate = self
-            
-            let info = cellInfo[indexPath.item]
-            cellTextField.placeholder = info?.title
-            if info?.text != "" {
-                cellTextField.text = info?.text
-            }
-            cellImage.image = info?.icon
             break
         }
         
@@ -257,6 +344,8 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerCell = tableView.dequeueReusableCell(withIdentifier: "headerCell")
+        
+        
         guard let title = headerCell?.subviews.first?.subviews.first as? UILabel else {
             fatalError("ERROR: Title not found as first element!")
         }
@@ -283,19 +372,111 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
             break;
         }
         
+        let headerView = UIView()
+        headerView.addSubview(headerCell!)
         
-        
-        return headerCell
+        return headerView
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return cellHeights[indexPath]!
+        if let height = cellHeights[indexPath] {
+            return height
+        }else{
+            return cellIDs["infoCell"]!
+        }
     }
     
     //MARK: UITextField Delegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let text = textField.text else{
+            return
+        }
+        
+        if(textField.restorationIdentifier == "petName"){
+            if let parentCell = textField.superview?.superview as? UITableViewCell {
+                print("ADD PET NAME!")
+                let parentCellIndex = tableView.indexPath(for: parentCell)
+                petList[parentCellIndex!.row].name = textField.text
+            }
+        }else if(textField.restorationIdentifier == "infoCell"){
+            if let parentCell = textField.superview?.superview as? UITableViewCell {
+                let parentCellIndex = tableView.indexPath(for: parentCell)
+                if(parentCellIndex?.section == 0){
+                    profileList[parentCellIndex!.row].text = textField.text
+                }
+            }
+        }else if(textField.restorationIdentifier == "phoneText"){
+            // Phone Number
+            
+            if let parentCell = textField.superview?.superview as? UITableViewCell {
+                let parentCellIndex = tableView.indexPath(for: parentCell)
+                if(accountList[parentCellIndex!.row].text != nil){
+                    return
+                }
+                
+                var phoneNumber = text
+                if (text.count == 10){
+                    phoneNumber = "+1\(text)"
+                }
+                
+                UserLogin.VerifyPhone(phoneNumber: phoneNumber, completion: {(id, code, error) in
+                    if let error = error {
+                        let phoneErrorAlert = UIAlertController(title: "Phone Verification Error", message: "", preferredStyle: .alert)
+                        
+                        switch(error){
+                        case AuthErrorCode.invalidPhoneNumber.rawValue:
+                            phoneErrorAlert.message = "Invalid phone number was entered! The correct format for phone numbers include area code such as: (555)632-4567"
+                            break
+                        case AuthErrorCode.missingPhoneNumber.rawValue:
+                            phoneErrorAlert.message = "Phone number was never given! The correct format for phone numbers include area code such as: (555)632-4567"
+                            break
+                        case AuthErrorCode.captchaCheckFailed.rawValue:
+                            phoneErrorAlert.message = "ReCaptcha verification has failed! Please try again."
+                            break
+                        case AuthErrorCode.quotaExceeded.rawValue:
+                            phoneErrorAlert.message = "Internal failure occured, please contact support with given key: <K01> "
+                            break
+                        default:
+                            break
+                        }
+                        
+                        phoneErrorAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: {(alert) in
+                            
+                        }))
+                        
+                        self.present(phoneErrorAlert, animated: true, completion: {() in })
+                        return
+                    }
+                    
+                    // NO ERRORS
+                    UserLogin.LoginPhone(verificationID: id!, verificationCode: code!){(exists) in
+                        print("Do you exists? \(exists)")
+                    }
+                    
+                    
+                })
+                accountList[parentCellIndex!.row].text = phoneNumber
+            }
+        }else if(textField.restorationIdentifier == "emailText"){
+            // Email
+            
+            if let parentCell = textField.superview?.superview as? UITableViewCell {
+                let parentCellIndex = tableView.indexPath(for: parentCell)
+                
+                if(accountList[parentCellIndex!.row].text != nil){
+                    return
+                }
+                
+                // TO DO: Add Email Verification and Login here! This is where the pop up will show for creating a password as well.
+                
+                accountList[parentCellIndex!.row].text = text
+            }
+        }
     }
     
     //MARK: UIPickerView Delegate
@@ -311,6 +492,16 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
         return speciesLabel
     }
     
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if(pickerView.restorationIdentifier == "petSpecies"){
+            if let parentCell = pickerView.superview?.superview as? UITableViewCell {
+                print("ADD PET SPECIES!")
+                let parentCellIndex = tableView.indexPath(for: parentCell)
+                petList[parentCellIndex!.row].species = row
+            }
+        }
+    }
+    
     //MARK: UIPickerView Data Source
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -321,7 +512,7 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     
     //MARK: UITextView Delegate
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if (textView.textColor == UIColor.lightGray){
+        if (textView.textColor == UIColor.lightGray && textView.text == "Pet details..."){
             // If the text is light gray, remove the text
             textView.text = nil
             textView.textColor = UIColor.darkGray
@@ -329,10 +520,18 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if (textView.text.isEmpty){
-            // If the text is light gray, remove the text
-            textView.text = "Pet details..."
-            textView.textColor = UIColor.lightGray
+        if(textView.restorationIdentifier == "petDetails"){
+            if (textView.text.isEmpty){
+                // If the text is light gray, remove the text
+                textView.text = "Pet details..."
+                textView.textColor = UIColor.lightGray
+            }
+            
+            if let parentCell = textView.superview?.superview as? UITableViewCell {
+                print("ADD PET DETAILS!")
+                let parentCellIndex = tableView.indexPath(for: parentCell)
+                petList[parentCellIndex!.row].info = textView.text
+            }
         }
     }
     
@@ -349,9 +548,21 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
         guard let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else {
             fatalError("ERROR: Image selected can't be found.")
         }
-        if let imageView =  petImageSelectedLast {
+        if let imageView = petImageSelectedLast {
             imageView.image = pickedImage
             picker.dismiss(animated: true, completion: {() in })
+            
+            if(imageView.restorationIdentifier == "petImage"){
+                if let parentCell = imageView.superview?.superview as? UITableViewCell {
+                    print("Res ID: \(imageView.restorationIdentifier!)")
+                    let parentCellIndex = tableView.indexPath(for: parentCell)
+                    petList[parentCellIndex!.row].picture = pickedImage
+                    print("PETTTT: \(petList[parentCellIndex!.row])")
+                }else{
+                    fatalError("SHIHVOISDANFOAHSDOF \(imageView.superview)")
+                }
+            }
+            
             return
         }
         
