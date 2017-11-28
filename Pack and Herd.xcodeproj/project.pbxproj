@@ -26,6 +26,7 @@
 		709D5C471FB8D443002FF258 /* ConfirmCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709D5C461FB8D443002FF258 /* ConfirmCellView.swift */; };
 		709F71C41FAFA26E00EE7208 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709F71C31FAFA26E00EE7208 /* DatePickerView.swift */; };
 		709F71C61FB4A36800EE7208 /* LocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709F71C51FB4A36700EE7208 /* LocationCollectionViewCell.swift */; };
+		70A28F9E1FCDF294009F6698 /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A28F9D1FCDF294009F6698 /* EventHandler.swift */; };
 		70AF3F6B1FA830F4003B1398 /* PhoneVerificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70AF3F6A1FA830F4003B1398 /* PhoneVerificationController.swift */; };
 		70C5EF741FB9E9F1007CB27E /* DefaultButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C5EF731FB9E9F1007CB27E /* DefaultButtonView.swift */; };
 		70C5EF761FB9F1C6007CB27E /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70C5EF751FB9F1C6007CB27E /* Settings.storyboard */; };
@@ -58,6 +59,7 @@
 		709D5C461FB8D443002FF258 /* ConfirmCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmCellView.swift; sourceTree = "<group>"; };
 		709F71C31FAFA26E00EE7208 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		709F71C51FB4A36700EE7208 /* LocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCollectionViewCell.swift; sourceTree = "<group>"; };
+		70A28F9D1FCDF294009F6698 /* EventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandler.swift; sourceTree = "<group>"; };
 		70AF3F6A1FA830F4003B1398 /* PhoneVerificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerificationController.swift; sourceTree = "<group>"; };
 		70C5EF731FB9E9F1007CB27E /* DefaultButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultButtonView.swift; sourceTree = "<group>"; };
 		70C5EF751FB9F1C6007CB27E /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				7074C97E1FA221E900FF8010 /* AppDelegate.swift */,
 				709864871FBA626400E95DE5 /* UserData.swift */,
 				33F8CADD1FCC53A20076CFB6 /* UserLogin.swift */,
+				70A28F9D1FCDF294009F6698 /* EventHandler.swift */,
 				7074C9851FA221E900FF8010 /* Assets.xcassets */,
 				705A8EC51FA2F16C004AF4CD /* Main.storyboard */,
 				70C5EF751FB9F1C6007CB27E /* Settings.storyboard */,
@@ -346,6 +349,7 @@
 				70C5EF741FB9E9F1007CB27E /* DefaultButtonView.swift in Sources */,
 				33F8CADE1FCC53A20076CFB6 /* UserLogin.swift in Sources */,
 				70C5EF781FB9F30F007CB27E /* SettingsViewController.swift in Sources */,
+				70A28F9E1FCDF294009F6698 /* EventHandler.swift in Sources */,
 				70E125641FA8B5D2000513F1 /* EmailVerificationController.swift in Sources */,
 				709F71C41FAFA26E00EE7208 /* DatePickerView.swift in Sources */,
 				709F71C61FB4A36800EE7208 /* LocationCollectionViewCell.swift in Sources */,
