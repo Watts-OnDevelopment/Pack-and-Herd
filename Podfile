@@ -10,6 +10,8 @@ target 'Pack and Herd' do
   pod ‘Firebase/Auth’
   pod ‘Firebase/Firestore’
   pod ‘Firebase/Storage’
+  pod 'Stripe'
+  pod 'GoogleSignIn'
   pod ‘Firebase/Messaging’
 
 end

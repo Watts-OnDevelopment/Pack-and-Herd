@@ -59,6 +59,37 @@ class UserLogin {
         }
     }
     
+    public static func LoginGoogle(idToken : String, accessToken : String, completion : @escaping (Bool) -> Void){
+        let googleCredential : AuthCredential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
+        Auth.auth().signIn(with: googleCredential, completion: {(user, error) in
+            if let error = error {
+                print("<ERR>: Failed login to Google! \(error)")
+                completion(false)
+            }
+            
+            completion(true)
+        })
+    }
+    
+    public static func Logout(sender : UIViewController) -> Bool{
+        if Auth.auth().currentUser != nil {
+            do{
+                try Auth.auth().signOut()
+            }catch AuthErrorCode.keychainError {
+                print("<THW> : User logout threw keychain error")
+                return false
+            }catch{
+                print("<THW> : User logout threw error that wasn't properly caught!")
+                return false
+            }
+            
+        }else{
+            print("<ERR> : User attempted to logout without being logged in!")
+            return false
+        }
+        return true
+    }
+    
     //MARK: Verification Methods
     public static func VerifyEmail(email : String, password : String, completion: @escaping (String?, String?, Int?) -> Void){
         Auth.auth().fetchProviders(forEmail: email, completion: {(ids, error) in

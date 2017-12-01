@@ -9,17 +9,9 @@
 import UIKit
 import Foundation
 import Firebase
+import GoogleSignIn
 
 class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    //MARK: Inits
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
-        // Call methods
-        setupPetInfo()
-        setupInitialData()
-    }
     
     //MARK: Properties
     private let cellIDs : [String : CGFloat] = ["infoCell" : 55, "petCell" : 100]
@@ -30,6 +22,8 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     private var petList : [PetCell] = []
     private var profileList : [InfoCell] = []
     private var accountList : [InfoCell] = []
+    private var profileImage : UIImage? = nil
+    private var profileImageChange = false
     
     private struct InfoCell {
         var icon : UIImage?
@@ -45,20 +39,79 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
         var info : String?
     }
     
+    //MARK: Outlets
+    @IBOutlet weak var profileImageButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveProfilePage))
-        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+        
+        // Create bar item buttons
+        let saveNavButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveProfilePage))
+        var navigationButtons : [UIBarButtonItem] = [saveNavButton]
+        
+        print("ADMIN?? \(UserData.f_admin)")
+        
+        if UserData.f_admin {
+            print("HEY ADMIN!!")
+            let adminNavButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(EditAdminSettings))
+            navigationButtons.append(adminNavButton)
+        }
+        
+        navigationItem.setRightBarButtonItems(navigationButtons, animated: true)
+        
+        for navigationButton in self.navigationItem.rightBarButtonItems!{
+            navigationButton.tintColor = .white
+        }
+        
+        
+        // Set default profile picture to storyboard default
+        if profileImage == nil {
+            profileImage = profileImageButton.image(for: .normal)!
+        }
+        profileImageButton.imageView?.contentMode = .scaleAspectFit
+        
+    }
+    
+    //MARK: Inits
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        // Call methods
+        setupPetInfo()
+        setupInitialData()
     }
     
     //MARK: Actions
+    
+    @IBAction func ProfileImageSet(_ sender: UIButton) {
+        let imageSelector = UIImagePickerController()
+        imageSelector.delegate = self
+        imageSelector.sourceType = .photoLibrary
+        present(imageSelector, animated: true, completion: {() in
+            self.profileImageChange = true
+        })
+    }
+    
+    
+    @IBAction func LogoutButtonAction(_ sender: Any) {
+        // Logout of account
+        if UserLogin.Logout(sender: self) {
+            GIDSignIn.sharedInstance().signOut()
+            performSegue(withIdentifier: "toLogin", sender: self)
+        }
+    }
+    
+    @objc func EditAdminSettings(){
+        performSegue(withIdentifier: "toAdminSettings", sender: self)
+    }
+    
     @objc func addPetAction(){
         print("Add pet!")
         
         // Create default pet
-        petList.append(PetCell(picture: #imageLiteral(resourceName: "joey"), name: "", species: 0, info: "Pet details..."))
+        petList.append(PetCell(picture: #imageLiteral(resourceName: "petIcon"), name: "", species: 0, info: "Pet details..."))
         
         // Create index path for new pet
         let indexPath = IndexPath.init(row: petList.count - 1, section: 1)
@@ -85,18 +138,6 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
     @objc func saveProfilePage(){
         print("Save profile page!")
         
-        // Set data field pet list to local petlist
-        //dataFields["pets"] = petList
-        
-        UserData.ClearPetsData() {
-            print("Pets Data Cleared!")
-            UserData.SetPetsData(petsData: self.petList)
-        }
-        
-        for pet in petList {
-            UserData.SetPetImage(petName: pet.name ?? "ERROR", petImage: pet.picture ?? UIImage())
-        }
-        
         var profileInfo : [String : Any] = [:]
         for info in profileList {
             print("Info Cell: \(info)")
@@ -115,12 +156,37 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
             }
         }
         
+        guard profileInfo["name"] != nil && profileInfo["name"] as? String != "" else{
+            print("<ERR> : There is no name given!")
+            
+            // Create alert to state issues
+            let saveCheckAlert = UIAlertController(title: "Profile Save Error", message: "Your profile is unable to be saved because you did not provide a name!", preferredStyle: .alert)
+            saveCheckAlert.addAction(UIAlertAction(title: "Close", style: .cancel, handler: {(alert) in }))
+            present(saveCheckAlert, animated: true, completion: {() in })
+            
+            return
+        }
+        
         UserData.SetUserData(userData: profileInfo)
+        
+        if let profilePic = profileImage {
+            UserData.SetUserImage(userName: profileInfo["name"]! as! String, userImage: profilePic)
+        }
+        
+        UserData.ClearPetsData() {
+            print("Pets Data Cleared!")
+            UserData.SetPetsData(petsData: self.petList)
+        }
+        
+        for pet in petList {
+            UserData.SetPetImage(petName: pet.name ?? "ERROR", petImage: pet.picture ?? UIImage())
+        }
     }
     
     //MARK: Methods
     private func setupPetInfo(){
         // Pet Species
+        // REPLACE WITH ONLINE DATABASE VERSION!!
         petSpecies = ["Dog", "Cat", "Snake", "Horse"]
     }
     
@@ -139,6 +205,11 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
             self.tableView.beginUpdates()
             self.tableView.insertRows(at: cellIndexes, with: .automatic)
             self.tableView.endUpdates()
+            
+            UserData.RetrieveUserImage(userName: data["name"] as! String, completion: {(userImage) in
+                self.profileImage = userImage
+                self.profileImageButton.setImage(userImage, for: .normal)
+            })
             
             // Setup Accounts Data
             /*self.accountList.append(InfoCell(icon: #imageLiteral(resourceName: "nameIcon"), text: data["email"] as? String, title: "Email", index: "email"))
@@ -543,11 +614,27 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
         return true
     }
     
+    //MARK: Segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toLogin" {
+            navigationController?.popViewController(animated: false)
+        }
+    }
+    
     //MARK: UIImagePickerViewController Methods
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         guard let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else {
             fatalError("ERROR: Image selected can't be found.")
         }
+        
+        if profileImageChange {
+            profileImageChange = false
+            profileImageButton.setImage(pickedImage, for: .normal)
+            profileImage = pickedImage
+            picker.dismiss(animated: true, completion: {() in })
+            return
+        }
+        
         if let imageView = petImageSelectedLast {
             imageView.image = pickedImage
             picker.dismiss(animated: true, completion: {() in })
@@ -559,15 +646,17 @@ class SettingsViewController: UITableViewController, UITextFieldDelegate, UIPick
                     petList[parentCellIndex!.row].picture = pickedImage
                     print("PETTTT: \(petList[parentCellIndex!.row])")
                 }else{
-                    fatalError("SHIHVOISDANFOAHSDOF \(imageView.superview)")
+                    fatalError("<ERR> : \(imageView.superview)")
                 }
+            }else{
+                print("JFGO;LISKADF;LJKASDHLKJF;ANSD \(imageView.restorationIdentifier)")
             }
             
             return
+        }else{
+            print("<ERR> : Last image view is nil!")
+            return
         }
-        
-        fatalError("ERROR: Last image view is nil!")
-        
     }
     
 }

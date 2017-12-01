@@ -31,7 +31,6 @@ class UserData {
                             data["email"] = user?.email
                             data["phone"] = user?.phoneNumber
                             data["name"] = user?.displayName ?? ""
-                            data["pets"] = [] as [SettingsViewController.PetCell]
                             data["address"] = ""
                             
                             return data
@@ -50,7 +49,6 @@ class UserData {
                     data["email"] = user?.email
                     data["phone"] = user?.phoneNumber
                     data["name"] = user?.displayName ?? ""
-                    data["pets"] = [] as [SettingsViewController.PetCell]
                     data["address"] = ""
                     
                     return data
@@ -88,11 +86,39 @@ class UserData {
     public static func SetUserData(userData : [String:Any]) {
         if let userUID = Auth.auth().currentUser?.uid {
             print("Set User Data: \(userData)")
+            
+            let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+            changeRequest?.displayName = userData["name"] as? String
+            changeRequest?.commitChanges(completion: {(error) in
+                if let error = error {
+                    print("<ERR> : \(error)")
+                    return
+                }
+            })
+            
+            
             Firestore.firestore().collection("users").document(userUID).setData(userData, options: SetOptions.merge(), completion: {(error) in
                 if let error = error {
                     print("<ERR> |\(self)| : \(error)")
                 }
             })
+        }else{
+            fatalError("ERROR: Account update called before user was signed in!")
+        }
+    }
+    
+    public static func SetUserImage(userName : String, userImage : UIImage){
+        if let userUID = Auth.auth().currentUser?.uid {
+            print(userImage)
+            guard let userImageData = UIImageJPEGRepresentation(userImage, 0.5) else {
+                fatalError("<ERR> : Unable to convert image to data.")
+            }
+            let userNSName = NSString(string: userName)
+            userNSName.replacingOccurrences(of: " ", with: "")
+            
+            let userImageFile = Storage.storage().reference().child("images.\(userUID)/\(String.init(userNSName)).jpg")
+            userImageFile.putData(userImageData)
+            
         }else{
             fatalError("ERROR: Account update called before user was signed in!")
         }
@@ -116,13 +142,13 @@ class UserData {
     
     public static func SetPetImage(petName : String, petImage : UIImage){
         if let userUID = Auth.auth().currentUser?.uid {
-            guard let petImageData = UIImagePNGRepresentation(petImage) else {
+            guard let petImageData = UIImageJPEGRepresentation(petImage, 0.5) else {
                 fatalError("<ERR> : Unable to convert image to data.")
             }
             let petNSName = NSString(string: petName)
             petNSName.replacingOccurrences(of: " ", with: "")
             
-            let petImageFile = Storage.storage().reference().child("images.\(String.init(petNSName)).png")
+            let petImageFile = Storage.storage().reference().child("images.\(userUID)/\(String.init(petNSName)).jpg")
             petImageFile.putData(petImageData)
             
         }else{
@@ -149,14 +175,45 @@ class UserData {
                 if document.exists {
                     let documentData = document.data()
                     
+                    print("IS HE ADMIN??")
+                    
                     if let isAdmin = documentData["admin"] as? Bool {
                         self.f_admin = isAdmin
+                        print(self.f_admin)
                     }
                     
                     completion(documentData)
                 }else {
                     self.InitalUserdata(userUID)
                 }
+            })
+        }else{
+            fatalError("ERROR: Account update called before user was signed in!")
+        }
+    }
+    
+    public static func RetrieveUserImage(userName : String, completion : @escaping (UIImage) -> Void){
+        if let userUID = Auth.auth().currentUser?.uid {
+            let userNSName = NSString(string: userName)
+            userNSName.replacingOccurrences(of: " ", with: "")
+            
+            Storage.storage().reference().child("images.\(userUID)/\(String.init(userNSName)).jpg").getData(maxSize: 20000000, completion: {(data, error) in
+                if let error = error {
+                    print("<ERR> : \(error)")
+                }
+                
+                guard let userData = data else {
+                    print("<ERR> : Data found was corrupt!")
+                    return
+                }
+                
+                guard let userImage = UIImage(data: userData) else{
+                    print("<ERR> : UIImage could not be generated from given data!")
+                    return
+                }
+                
+                completion(userImage)
+                
             })
         }else{
             fatalError("ERROR: Account update called before user was signed in!")
@@ -197,7 +254,7 @@ class UserData {
             let petNSName = NSString(string: petName)
             petNSName.replacingOccurrences(of: " ", with: "")
             
-            Storage.storage().reference().child("images.\(String.init(petNSName)).png").getData(maxSize: 20000000, completion: {(data, error) in
+            Storage.storage().reference().child("images.\(userUID)/\(String.init(petNSName)).jpg").getData(maxSize: 20000000, completion: {(data, error) in
                 if let error = error {
                     print("<ERR> : \(error)")
                 }

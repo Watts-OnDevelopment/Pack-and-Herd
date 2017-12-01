@@ -13,6 +13,26 @@ class EventsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        CheckForName(completion: {(f_hasName : Bool) in
+            if !f_hasName {
+                self.performSegue(withIdentifier: "toSettings", sender: self)
+            }else{
+                return
+            }
+        })
+    }
+    
+    //MARK: Methods
+    private func CheckForName(completion : @escaping (Bool) -> Void){
+        UserData.RetrieveUserData(completion: {(userData) in
+            if userData["name"] != nil {
+                completion(true)
+                return
+            }else{
+                completion(false)
+                return
+            }
+        })
     }
     
     //MARK: UITableViewController Methods

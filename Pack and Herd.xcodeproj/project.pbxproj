@@ -10,6 +10,7 @@
 		30DFD5EE0E45F8C6E7B76054 /* Pods_Pack_and_Herd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBFAD3D2A6A9A0D276237958 /* Pods_Pack_and_Herd.framework */; };
 		33BCAD3C1FAD38F200662169 /* CalendarDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33BCAD3B1FAD38F200662169 /* CalendarDateCell.swift */; };
 		33F8CADE1FCC53A20076CFB6 /* UserLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F8CADD1FCC53A20076CFB6 /* UserLogin.swift */; };
+		701858531FD1032500C57668 /* ServerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701858521FD1032500C57668 /* ServerData.swift */; };
 		7048BF051FA7A96100ED2055 /* ViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7048BF041FA7A96100ED2055 /* ViewControllerExtension.swift */; };
 		705A8EC61FA2F16C004AF4CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 705A8EC51FA2F16C004AF4CD /* Main.storyboard */; };
 		705A8ECB1FA39986004AF4CD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 705A8ECA1FA39986004AF4CD /* GoogleService-Info.plist */; };
@@ -18,7 +19,6 @@
 		7074C9891FA221E900FF8010 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7074C9871FA221E900FF8010 /* LaunchScreen.storyboard */; };
 		7074C9941FA2236E00FF8010 /* LogsPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7074C9931FA2236E00FF8010 /* LogsPageController.swift */; };
 		7074C9961FA235AD00FF8010 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7074C9951FA235AD00FF8010 /* MainTabController.swift */; };
-		7074C9981FA247E200FF8010 /* DataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7074C9971FA247E200FF8010 /* DataStorage.swift */; };
 		707A06441FA8F863000B5557 /* TextFieldValidations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707A06431FA8F863000B5557 /* TextFieldValidations.swift */; };
 		708921BE1FA275B300DFC4F1 /* LoginPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708921BD1FA275B300DFC4F1 /* LoginPageController.swift */; };
 		708921C41FA2DE3800DFC4F1 /* DefaultTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708921C31FA2DE3800DFC4F1 /* DefaultTextField.swift */; };
@@ -27,7 +27,6 @@
 		709F71C41FAFA26E00EE7208 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709F71C31FAFA26E00EE7208 /* DatePickerView.swift */; };
 		709F71C61FB4A36800EE7208 /* LocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709F71C51FB4A36700EE7208 /* LocationCollectionViewCell.swift */; };
 		70A28F9E1FCDF294009F6698 /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A28F9D1FCDF294009F6698 /* EventHandler.swift */; };
-		70AF3F6B1FA830F4003B1398 /* PhoneVerificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70AF3F6A1FA830F4003B1398 /* PhoneVerificationController.swift */; };
 		70C5EF741FB9E9F1007CB27E /* DefaultButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C5EF731FB9E9F1007CB27E /* DefaultButtonView.swift */; };
 		70C5EF761FB9F1C6007CB27E /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70C5EF751FB9F1C6007CB27E /* Settings.storyboard */; };
 		70C5EF781FB9F30F007CB27E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C5EF771FB9F30F007CB27E /* SettingsViewController.swift */; };
@@ -35,11 +34,13 @@
 		70E215841FAA2DBD00A509F6 /* EventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E215831FAA2DBD00A509F6 /* EventsTableViewController.swift */; };
 		70E2158D1FAB912600A509F6 /* CreateEventPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E2158C1FAB912600A509F6 /* CreateEventPageController.swift */; };
 		70F943AB1FAF96C400E901A1 /* CreatePageCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F943AA1FAF96C400E901A1 /* CreatePageCells.swift */; };
+		70FF95431FCFD1D40048B45A /* AdminSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FF95421FCFD1D40048B45A /* AdminSettingsController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		33BCAD3B1FAD38F200662169 /* CalendarDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDateCell.swift; sourceTree = "<group>"; };
 		33F8CADD1FCC53A20076CFB6 /* UserLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLogin.swift; sourceTree = "<group>"; };
+		701858521FD1032500C57668 /* ServerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerData.swift; sourceTree = "<group>"; };
 		7048BF041FA7A96100ED2055 /* ViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerExtension.swift; sourceTree = "<group>"; };
 		705A8EC51FA2F16C004AF4CD /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		705A8EC71FA398D2004AF4CD /* Pack and Herd.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Pack and Herd.entitlements"; sourceTree = "<group>"; };
@@ -51,7 +52,6 @@
 		7074C98A1FA221E900FF8010 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7074C9931FA2236E00FF8010 /* LogsPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsPageController.swift; sourceTree = "<group>"; };
 		7074C9951FA235AD00FF8010 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
-		7074C9971FA247E200FF8010 /* DataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStorage.swift; sourceTree = "<group>"; };
 		707A06431FA8F863000B5557 /* TextFieldValidations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldValidations.swift; sourceTree = "<group>"; };
 		708921BD1FA275B300DFC4F1 /* LoginPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageController.swift; sourceTree = "<group>"; };
 		708921C31FA2DE3800DFC4F1 /* DefaultTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTextField.swift; sourceTree = "<group>"; };
@@ -60,7 +60,6 @@
 		709F71C31FAFA26E00EE7208 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		709F71C51FB4A36700EE7208 /* LocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCollectionViewCell.swift; sourceTree = "<group>"; };
 		70A28F9D1FCDF294009F6698 /* EventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandler.swift; sourceTree = "<group>"; };
-		70AF3F6A1FA830F4003B1398 /* PhoneVerificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerificationController.swift; sourceTree = "<group>"; };
 		70C5EF731FB9E9F1007CB27E /* DefaultButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultButtonView.swift; sourceTree = "<group>"; };
 		70C5EF751FB9F1C6007CB27E /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		70C5EF771FB9F30F007CB27E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -68,6 +67,7 @@
 		70E215831FAA2DBD00A509F6 /* EventsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsTableViewController.swift; sourceTree = "<group>"; };
 		70E2158C1FAB912600A509F6 /* CreateEventPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventPageController.swift; sourceTree = "<group>"; };
 		70F943AA1FAF96C400E901A1 /* CreatePageCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePageCells.swift; sourceTree = "<group>"; };
+		70FF95421FCFD1D40048B45A /* AdminSettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminSettingsController.swift; sourceTree = "<group>"; };
 		9E8D7F14D049F63007C7BAE3 /* Pods-Pack and Herd.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pack and Herd.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pack and Herd/Pods-Pack and Herd.debug.xcconfig"; sourceTree = "<group>"; };
 		CBFAD3D2A6A9A0D276237958 /* Pods_Pack_and_Herd.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pack_and_Herd.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA334D39C90324B638D0A53D /* Pods-Pack and Herd.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pack and Herd.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pack and Herd/Pods-Pack and Herd.release.xcconfig"; sourceTree = "<group>"; };
@@ -121,6 +121,7 @@
 				7074C9901FA2232900FF8010 /* Controllers */,
 				7074C97E1FA221E900FF8010 /* AppDelegate.swift */,
 				709864871FBA626400E95DE5 /* UserData.swift */,
+				701858521FD1032500C57668 /* ServerData.swift */,
 				33F8CADD1FCC53A20076CFB6 /* UserLogin.swift */,
 				70A28F9D1FCDF294009F6698 /* EventHandler.swift */,
 				7074C9851FA221E900FF8010 /* Assets.xcassets */,
@@ -138,12 +139,12 @@
 			children = (
 				7074C9931FA2236E00FF8010 /* LogsPageController.swift */,
 				7074C9951FA235AD00FF8010 /* MainTabController.swift */,
-				70AF3F6A1FA830F4003B1398 /* PhoneVerificationController.swift */,
 				70E125631FA8B5D2000513F1 /* EmailVerificationController.swift */,
 				708921BD1FA275B300DFC4F1 /* LoginPageController.swift */,
 				70E215831FAA2DBD00A509F6 /* EventsTableViewController.swift */,
 				70E2158C1FAB912600A509F6 /* CreateEventPageController.swift */,
 				70C5EF771FB9F30F007CB27E /* SettingsViewController.swift */,
+				70FF95421FCFD1D40048B45A /* AdminSettingsController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -165,7 +166,6 @@
 		7074C9921FA2233200FF8010 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				7074C9971FA247E200FF8010 /* DataStorage.swift */,
 				707A06431FA8F863000B5557 /* TextFieldValidations.swift */,
 			);
 			path = Models;
@@ -272,9 +272,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Pack and Herd/Pods-Pack and Herd-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -307,9 +310,11 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Pack and Herd/Pods-Pack and Herd-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
@@ -320,9 +325,11 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
@@ -345,20 +352,20 @@
 				70E2158D1FAB912600A509F6 /* CreateEventPageController.swift in Sources */,
 				708921BE1FA275B300DFC4F1 /* LoginPageController.swift in Sources */,
 				70F943AB1FAF96C400E901A1 /* CreatePageCells.swift in Sources */,
-				70AF3F6B1FA830F4003B1398 /* PhoneVerificationController.swift in Sources */,
 				70C5EF741FB9E9F1007CB27E /* DefaultButtonView.swift in Sources */,
 				33F8CADE1FCC53A20076CFB6 /* UserLogin.swift in Sources */,
 				70C5EF781FB9F30F007CB27E /* SettingsViewController.swift in Sources */,
 				70A28F9E1FCDF294009F6698 /* EventHandler.swift in Sources */,
 				70E125641FA8B5D2000513F1 /* EmailVerificationController.swift in Sources */,
+				701858531FD1032500C57668 /* ServerData.swift in Sources */,
 				709F71C41FAFA26E00EE7208 /* DatePickerView.swift in Sources */,
 				709F71C61FB4A36800EE7208 /* LocationCollectionViewCell.swift in Sources */,
 				708921C41FA2DE3800DFC4F1 /* DefaultTextField.swift in Sources */,
 				7048BF051FA7A96100ED2055 /* ViewControllerExtension.swift in Sources */,
 				7074C97F1FA221E900FF8010 /* AppDelegate.swift in Sources */,
-				7074C9981FA247E200FF8010 /* DataStorage.swift in Sources */,
 				7074C9961FA235AD00FF8010 /* MainTabController.swift in Sources */,
 				709D5C471FB8D443002FF258 /* ConfirmCellView.swift in Sources */,
+				70FF95431FCFD1D40048B45A /* AdminSettingsController.swift in Sources */,
 				70E215841FAA2DBD00A509F6 /* EventsTableViewController.swift in Sources */,
 				707A06441FA8F863000B5557 /* TextFieldValidations.swift in Sources */,
 				33BCAD3C1FAD38F200662169 /* CalendarDateCell.swift in Sources */,

@@ -9,9 +9,10 @@
 import UIKit
 import Firebase
 import UserNotifications
+import GoogleSignIn
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUserNotificationCenterDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUserNotificationCenterDelegate, GIDSignInDelegate  {
     var window: UIWindow?
     public static var developer : Bool = false
     
@@ -20,16 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
         // Instantiate Firebase
         FirebaseApp.configure()
         
-        // Firestore Test
-        /*let defaultFireStore = Firestore.firestore()
-        defaultFireStore.collection("test").addDocument(data: [
-            "first" : "Noremac",
-            "last" : "Fielstein"
-            ],completion: {(error) in
-                if let error = error {
-                    print("ERROR: 1 \(error.localizedDescription)")
-                }
-        }) */
+        // Setup Google Signin
+        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+        GIDSignIn.sharedInstance().delegate = self
         
         // Setup Notifications
         if #available(iOS 10.0, *){
@@ -46,6 +40,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
         Messaging.messaging().delegate = self
         
         return true
+    }
+    
+    @available(iOS 9.0, *)
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String, annotation: [:])
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -73,6 +72,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
     //MARK: Messaging Delegate Methods
      func messaging(_ messaging: Messaging, didRefreshRegistrationToken fcmToken: String) {
         print("Firebase Registration Token: "+fcmToken)
+    }
+    
+    //MARK: Google Signin Methods
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if let error = error {
+            print("<ERR>: \(error)")
+            return
+        }
+        
+        if let auth = user.authentication {
+            UserLogin.LoginGoogle(idToken: auth.idToken, accessToken: auth.accessToken, completion: {(success) in
+                print("Success: \(success)")
+            })
+        }else{
+            print("<ERR>: Failed to find authentication!")
+            return
+        }
+        
+    }
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        if let error = error {
+            print("<ERR>: \(error)")
+            return
+        }
     }
 
 }

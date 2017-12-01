@@ -8,16 +8,18 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
 
-class LoginPageController : UIViewController, UITextFieldDelegate{
+class LoginPageController : UIViewController, UITextFieldDelegate, GIDSignInUIDelegate{
    
     //MARK: Properties
     public static let dataKey : String = "authVerificationID"
     @IBInspectable private let developer : Bool = false
+    private var selectedTextField : UITextField?
     
     //MARK: Outlets
     @IBOutlet weak var phoneConButton: UIButton!
-    @IBOutlet weak var googleConButton: UIButton!
+    @IBOutlet weak var googleConButton: GIDSignInButton!
     @IBOutlet weak var phoneCodeSendButton: UIButton!
     @IBOutlet weak var phoneNumberField: DefaultTextField!
     @IBOutlet weak var emailConnectButton: UIButton!
@@ -48,6 +50,7 @@ class LoginPageController : UIViewController, UITextFieldDelegate{
         // Add observers
         NotificationCenter.default.addObserver(self, selector: #selector(KeyboardDidShow), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(KeyboardDidHide) , name: NSNotification.Name.UIKeyboardDidHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(KeyboardWillShow) , name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
         // Enable closing of keyboard when touched away
         self.HideKeyboardOnTouchAway()
@@ -55,48 +58,68 @@ class LoginPageController : UIViewController, UITextFieldDelegate{
         // Set autoshrink
         emailConnectButton.titleLabel?.adjustsFontSizeToFitWidth = true
         
+        // Customize Google Signin Delegate
+         GIDSignIn.sharedInstance().uiDelegate = self
+        
     }
     
     //MARK: Oberserver Methods
+    @objc private func KeyboardWillShow(notification : NSNotification){
+    
+    }
     @objc private func KeyboardDidShow(notification : NSNotification){
+        guard let scrollView = view as? UIScrollView else{
+            fatalError("<FAT>: View can not be converted to a scrollview!")
+        }
         guard let userInfo = notification.userInfo else{
             fatalError("ERROR: Can't retreive information from the user device!")
         }
-        guard let keyboardRect : CGRect = userInfo["UIKeyboardFrameBeginUserInfoKey"] as? CGRect else {
+        guard let keyboardRect : CGRect = userInfo["UIKeyboardFrameEndUserInfoKey"] as? CGRect else {
             fatalError("ERROR: Frame begin user info is not found!")
         }
-        print(keyboardRect.height)
         
-        let maskedArea : CGRect = {
-            let areaY : CGFloat = view.bounds.height - keyboardRect.height
-            let areaSize : CGRect = view.bounds
-            let area = CGRect(x: 0.0, y: areaY, width: areaSize.maxX, height: areaSize.maxY)
-            
-            return area
-        }()
-        
-        if !maskedArea.contains(phoneNumberField.frame.origin){
-            guard let scrollView : UIScrollView = view as? UIScrollView else{
-                fatalError("ERROR: Main view is not a scroll view!")
-            }
-            scrollView.scrollRectToVisible(phoneNumberField.bounds, animated: true)
-            
-            print("The point is hidden!")
-        }else{
-            print("The point is shown!")
+        guard let selectedField = selectedTextField else{
+            print("<ERR>: No text field is selected!")
+            return
         }
         
-        /*for info in userInfo {
-            if let val = info.value as? CGRect , let key = info.key as? String {
-                print(key)
-                print(val)
-            }
-        }*/
+        if scrollView.contentInset.top != 0 {
+            return
+        }
         
-        print("Keyboard shown!")
+        let maskedRegion = CGRect(x: 0, y: (view.frame.height - keyboardRect.height), width: view.frame.width, height: keyboardRect.height)
+        
+        print("Keyboard Rect: \(maskedRegion)")
+        print("View Rect: \(view.frame)")
+        print("Phone Field Origin: \(selectedField.frame.origin)")
+        
+        if (maskedRegion.contains(selectedField.frame.origin)){
+            let bottomInset : CGFloat = {
+                var inset : CGFloat = 0
+                inset = keyboardRect.maxY - selectedField.frame.minY
+                inset += 250
+                return inset
+            }()
+            AnimateScrollView(topInset: bottomInset)
+        }
+
     }
     @objc private func KeyboardDidHide(notification : NSNotification){
-        print("Keyboard hidden!")
+        AnimateScrollView(topInset: 0)
+    }
+    
+    //MARK: Animation Methods
+    private func AnimateScrollView(topInset : CGFloat){
+        guard let scrollView = view as? UIScrollView else{
+            fatalError("<FAT>: View can not be converted to a scrollview!")
+        }
+        
+        print("Animate it!! \(topInset)")
+        scrollView.contentInset.top = -topInset
+        
+        //UIView.animate(withDuration: 0, animations: {()
+        //    scrollView.contentInset.top = -topInset
+        //})
     }
     
     //MARK: Methods
@@ -212,8 +235,20 @@ class LoginPageController : UIViewController, UITextFieldDelegate{
                 if (id == "password"){
                     // Account exists!
                     completion(true, email, pass)
+                }else if(id == "google.com"){
+                    GIDSignIn.sharedInstance().signIn()
+                    /*let googleErrorAlertController = UIAlertController(title: "Email Login Error", message: "Your email is locked into your google account, please connect through google instead.", preferredStyle: .alert)
+                    let googleErrorAlertCloseButton = UIAlertAction(title: "Close", style: .cancel, handler: {(alertAction) in })
+                    googleErrorAlertController.addAction(googleErrorAlertCloseButton)
+                    let googleErrorAlertLoginButton = UIAlertAction(title: "Connect", style: .default, handler: {(alertAction) in
+                        GIDSignIn.sharedInstance().signIn()
+                    })
+                    googleErrorAlertController.addAction(googleErrorAlertCloseButton)
+                    googleErrorAlertController.addAction(googleErrorAlertLoginButton)
+                    self.present(googleErrorAlertController, animated: true, completion: {() in }) */
                 }else{
-                    fatalError("ERROR: Password not found in account!")
+                    print("<ERR>: Password not found in account!")
+                    return
                 }
             }
             
@@ -289,17 +324,53 @@ class LoginPageController : UIViewController, UITextFieldDelegate{
     
     @IBAction func GoogleConnectButton(_ sender: UIButton) {
         print("Connect with Google.")
+        GIDSignIn.sharedInstance().signIn()
     }
     
     @IBAction func PhoneSendCodeButton(_ sender: UIButton) {
         guard let phoneNumber = phoneNumberField.text else{
             fatalError("ERROR: Unable to get text for phone number!")
         }
-        if phoneNumber.characters.count < 13 {
-            print("Invalid phone number!")
-        }else{
-            PresentSMSAlert()
-        }
+        
+        // Verify phone number
+        UserLogin.VerifyPhone(phoneNumber: phoneNumber, completion: {(id, code, error) in
+            if let error = error {
+                let phoneErrorAlert = UIAlertController(title: "Phone Verification Error", message: "", preferredStyle: .alert)
+                
+                switch(error){
+                case AuthErrorCode.invalidPhoneNumber.rawValue:
+                    phoneErrorAlert.message = "Invalid phone number was entered! The correct format for phone numbers include area code such as: (555)632-4567"
+                    break
+                case AuthErrorCode.missingPhoneNumber.rawValue:
+                    phoneErrorAlert.message = "Phone number was never given! The correct format for phone numbers include area code such as: (555)632-4567"
+                    break
+                case AuthErrorCode.captchaCheckFailed.rawValue:
+                    phoneErrorAlert.message = "ReCaptcha verification has failed! Please try again."
+                    break
+                case AuthErrorCode.quotaExceeded.rawValue:
+                    phoneErrorAlert.message = "Internal failure occured, please contact support with given key: <K01> "
+                    break
+                default:
+                    break
+                }
+                
+                phoneErrorAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: {(alert) in
+                    
+                }))
+                
+                self.present(phoneErrorAlert, animated: true, completion: {() in })
+                return
+            }
+            
+            // NO ERRORS
+            UserLogin.LoginPhone(verificationID: id!, verificationCode: code!){(exists) in
+                print("Do you exists? \(exists)")
+                
+                self.FinishLogin()
+            }
+        })
+        
+        
     }
     @IBAction func EmailConnectButton(_ sender: UIButton) {
         guard let emailText = emaIlField.text, let passwordText = passwordTextField.text else{
@@ -363,7 +434,14 @@ class LoginPageController : UIViewController, UITextFieldDelegate{
         print(emailValidatedText)
     }
     
+    //MARK: Google Signin Delegates
+    
+    
     //MARK: TextField Delegates
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        selectedTextField = textField
+        return true
+    }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // Switch to determine which textfield is being changed
         switch(textField.tag){
