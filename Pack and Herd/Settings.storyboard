@@ -405,8 +405,68 @@
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="textCell" rowHeight="55" id="KMc-Ie-Rlt" userLabel="textCell">
+                                <rect key="frame" x="0.0" y="287" width="375" height="55"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KMc-Ie-Rlt" id="Zrn-UD-ext">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="54.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zSJ-4L-2oq" userLabel="textField" customClass="DefaultTextField" customModule="Pack_and_Herd" customModuleProvider="target">
+                                            <rect key="frame" x="60" y="0.0" width="315" height="55"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="zSJ-4L-2oq" secondAttribute="height" multiplier="315:55" id="4jO-Lv-qJF"/>
+                                            </constraints>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="0.0"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </textField>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nameIcon" translatesAutoresizingMaskIntoConstraints="NO" id="zNK-SA-GoA" userLabel="icon">
+                                            <rect key="frame" x="10" y="7" width="40" height="40"/>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="zSJ-4L-2oq" firstAttribute="leading" secondItem="zNK-SA-GoA" secondAttribute="trailing" constant="10" id="4VK-sw-M4n"/>
+                                        <constraint firstItem="zSJ-4L-2oq" firstAttribute="top" secondItem="Zrn-UD-ext" secondAttribute="top" id="F31-HO-H5v"/>
+                                        <constraint firstAttribute="trailing" secondItem="zSJ-4L-2oq" secondAttribute="trailing" id="OeR-Lr-YaJ"/>
+                                        <constraint firstItem="zSJ-4L-2oq" firstAttribute="centerY" secondItem="Zrn-UD-ext" secondAttribute="centerY" id="Pl0-3B-Soc"/>
+                                        <constraint firstAttribute="bottom" secondItem="zSJ-4L-2oq" secondAttribute="bottom" id="k3M-ZA-6VK"/>
+                                        <constraint firstItem="zNK-SA-GoA" firstAttribute="width" secondItem="zNK-SA-GoA" secondAttribute="height" multiplier="1:1" id="qvg-l4-GN8"/>
+                                        <constraint firstAttribute="bottom" secondItem="zNK-SA-GoA" secondAttribute="bottom" constant="7" id="sBA-vR-ulV"/>
+                                        <constraint firstItem="zNK-SA-GoA" firstAttribute="top" secondItem="Zrn-UD-ext" secondAttribute="top" constant="7" id="wKn-cv-CmP"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="stepperCell" rowHeight="55" id="sX9-Xu-Efv" userLabel="stepperCell">
+                                <rect key="frame" x="0.0" y="342" width="375" height="55"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sX9-Xu-Efv" id="Rco-CZ-V5Y">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="54.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="nameIcon" translatesAutoresizingMaskIntoConstraints="NO" id="ALM-b6-Z2t" userLabel="icon">
+                                            <rect key="frame" x="10" y="7" width="40" height="40"/>
+                                        </imageView>
+                                        <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="365" translatesAutoresizingMaskIntoConstraints="NO" id="kzh-AJ-jaT">
+                                            <rect key="frame" x="58" y="13" width="94" height="29"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="tintColor" red="1" green="0.50196078430000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </stepper>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="ALM-b6-Z2t" secondAttribute="bottom" constant="7" id="3XC-Dv-b1L"/>
+                                        <constraint firstItem="ALM-b6-Z2t" firstAttribute="top" secondItem="Rco-CZ-V5Y" secondAttribute="top" constant="7" id="S23-NY-Abh"/>
+                                        <constraint firstItem="ALM-b6-Z2t" firstAttribute="width" secondItem="ALM-b6-Z2t" secondAttribute="height" multiplier="1:1" id="bcA-0u-67i"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="150" id="qqk-sM-8o4" userLabel="discountCell">
-                                <rect key="frame" x="0.0" y="287" width="375" height="150"/>
+                                <rect key="frame" x="0.0" y="397" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qqk-sM-8o4" id="xSj-9O-w7e">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="149.5"/>

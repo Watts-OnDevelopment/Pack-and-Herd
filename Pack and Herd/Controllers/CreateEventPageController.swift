@@ -12,17 +12,40 @@ import UIKit
     
     //MARK: Properties
     let cellIDs : [String] = ["eventsCollectionCell", "locationCollectionCell", "dateCollectionCell", "timeCollectionCell", "confirmCollectionCell"]
-    
-    //MARK: Methods
-    public func pageCheck(){
-        
-    }
+    var eventTypes : [Event] = []
     
     //MARK: UIViewController Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        initialSetup()
+    }
+    
+     //MARK: Methods
+    private func initialSetup(){
+        ServerData.GetEventTypes(completion: {(events) in
+            for event in events {
+                if let event = event.value as? [String : Any] {
+                    if let event = event.toEvent(){
+                        self.eventTypes.append(event)
+                    }
+                }
+            }
+            let eventsCell = self.collectionView?.cellForItem(at: IndexPath(row: 0, section: 0))
+            if let eventsPicker = eventsCell?.contentView.subviews.last as? UIPickerView {
+                eventsPicker.reloadAllComponents()
+                print("RELOAD IT ALL!")
+            }
+        })
         
+        UserData.RetrieveUserData(completion: {(data) in
+            if let location = data["location"] as? String {
+                let locationCell = self.collectionView?.cellForItem(at: IndexPath(row: 0, section: 1))
+                if let locationField = locationCell?.contentView.subviews.last as? UITextField {
+                    locationField.text = location
+                }
+            }
+        })
     }
     
     //MARK: UICollectionViewController Methods
@@ -46,12 +69,16 @@ import UIKit
                 }else{
                     print("NOIOOOOO")
                 }
-            }else if let subview = subview as? UIDatePicker {
-                let subviews = subview.subviews
-                for subv in subviews {
-                    subv.subviews[1].alpha = 0
-                    subv.subviews[2].alpha = 0
+            }else if let datePicker = subview as? UIDatePicker {
+                if cellID == "dateCollectionCell"{
+                    datePicker.minimumDate = Date(timeIntervalSinceNow: 86400)
+                    let year : TimeInterval = 60*60*24*365
+                    datePicker.maximumDate = Date(timeInterval: year, since: datePicker.minimumDate!)
+                }else{
+                    
                 }
+            }else if let subview = subview as? UITextField {
+                subview.textColor = UIColor.gray
             }
         }
         
@@ -67,18 +94,19 @@ import UIKit
     }
 
     //MARK: UIPickerView Delegate
-//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        let eventTitle : String = "Test row \(row) for component \(component)"
-//
-//        return eventTitle
-//    }
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return 30
     }
     
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        let text = "Test row \(row) for component \(component)"
+        var text = ""
+        if eventTypes.count <= row {
+            text = "Event"
+        }else{
+            text = eventTypes[row].name
+        }
+        
         let attributedText = NSAttributedString(string: text, attributes: [NSAttributedStringKey.foregroundColor:UIColor.darkGray])
         
         return attributedText
@@ -86,11 +114,19 @@ import UIKit
     
     //MARK: UIPickerView Data Source
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 5
+        return eventTypes.count
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        guard eventTypes.count > row else{
+            return "Event"
+        }
+        
+        return eventTypes[row].name
     }
     
     //MARK: UICollectionViewDelegateFlowLayout
