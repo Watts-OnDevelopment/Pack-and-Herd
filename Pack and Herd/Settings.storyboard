@@ -442,31 +442,72 @@
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="stepperCell" rowHeight="55" id="sX9-Xu-Efv" userLabel="stepperCell">
-                                <rect key="frame" x="0.0" y="342" width="375" height="55"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="stepperCell" rowHeight="165" id="sX9-Xu-Efv" userLabel="dateCell">
+                                <rect key="frame" x="0.0" y="342" width="375" height="165"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sX9-Xu-Efv" id="Rco-CZ-V5Y">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="54.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="164.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="nameIcon" translatesAutoresizingMaskIntoConstraints="NO" id="ALM-b6-Z2t" userLabel="icon">
-                                            <rect key="frame" x="10" y="7" width="40" height="40"/>
+                                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="eLG-TL-54Y" userLabel="durationTimer">
+                                            <rect key="frame" x="60" y="0.0" width="315" height="45"/>
+                                            <date key="date" timeIntervalSinceReferenceDate="533749576.762649">
+                                                <!--2017-11-30 15:46:16 +0000-->
+                                            </date>
+                                        </datePicker>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nameIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Eoe-uW-PVk">
+                                            <rect key="frame" x="10" y="2" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="Eoe-uW-PVk" secondAttribute="height" multiplier="1:1" id="gtz-Af-x1T"/>
+                                            </constraints>
                                         </imageView>
-                                        <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="365" translatesAutoresizingMaskIntoConstraints="NO" id="kzh-AJ-jaT">
-                                            <rect key="frame" x="58" y="13" width="94" height="29"/>
+                                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="3XC-3J-tXQ" userLabel="durationTimer">
+                                            <rect key="frame" x="60" y="50" width="315" height="45"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="3XC-3J-tXQ" secondAttribute="height" multiplier="7:1" id="YDz-EO-WJ8"/>
+                                            </constraints>
+                                            <date key="date" timeIntervalSinceReferenceDate="533749576.762649">
+                                                <!--2017-11-30 15:46:16 +0000-->
+                                            </date>
+                                        </datePicker>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nameIcon" translatesAutoresizingMaskIntoConstraints="NO" id="1GP-C7-liT">
+                                            <rect key="frame" x="10" y="52" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="1GP-C7-liT" secondAttribute="height" multiplier="1:1" id="3Fr-Hs-dIj"/>
+                                            </constraints>
+                                        </imageView>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xeb-0C-acN">
+                                            <rect key="frame" x="126" y="93" width="49" height="31"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="tintColor" red="1" green="0.50196078430000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        </stepper>
+                                        </switch>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6uz-Tz-hQV">
+                                            <rect key="frame" x="60" y="100" width="48" height="45"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="ALM-b6-Z2t" secondAttribute="bottom" constant="7" id="3XC-Dv-b1L"/>
-                                        <constraint firstItem="ALM-b6-Z2t" firstAttribute="top" secondItem="Rco-CZ-V5Y" secondAttribute="top" constant="7" id="S23-NY-Abh"/>
-                                        <constraint firstItem="ALM-b6-Z2t" firstAttribute="width" secondItem="ALM-b6-Z2t" secondAttribute="height" multiplier="1:1" id="bcA-0u-67i"/>
+                                        <constraint firstItem="eLG-TL-54Y" firstAttribute="width" secondItem="Rco-CZ-V5Y" secondAttribute="width" multiplier="0.84" id="1Og-ff-9nU"/>
+                                        <constraint firstAttribute="trailing" secondItem="eLG-TL-54Y" secondAttribute="trailing" id="2ER-eh-pQD"/>
+                                        <constraint firstItem="Eoe-uW-PVk" firstAttribute="leading" secondItem="Rco-CZ-V5Y" secondAttribute="leading" constant="10" id="2Nf-50-IKs"/>
+                                        <constraint firstItem="1GP-C7-liT" firstAttribute="width" secondItem="Eoe-uW-PVk" secondAttribute="width" id="45s-A7-WDV"/>
+                                        <constraint firstItem="Eoe-uW-PVk" firstAttribute="centerY" secondItem="eLG-TL-54Y" secondAttribute="centerY" id="5Wh-fn-Lct"/>
+                                        <constraint firstItem="3XC-3J-tXQ" firstAttribute="width" secondItem="eLG-TL-54Y" secondAttribute="width" id="INP-A6-b0G"/>
+                                        <constraint firstItem="1GP-C7-liT" firstAttribute="centerY" secondItem="3XC-3J-tXQ" secondAttribute="centerY" id="RGR-5p-QxZ"/>
+                                        <constraint firstItem="3XC-3J-tXQ" firstAttribute="top" secondItem="eLG-TL-54Y" secondAttribute="bottom" constant="5" id="VmF-TO-sA1"/>
+                                        <constraint firstItem="eLG-TL-54Y" firstAttribute="leading" secondItem="Eoe-uW-PVk" secondAttribute="trailing" constant="10" id="aaW-rV-14f"/>
+                                        <constraint firstItem="3XC-3J-tXQ" firstAttribute="width" secondItem="3XC-3J-tXQ" secondAttribute="height" multiplier="7:1" id="b23-Du-UTn"/>
+                                        <constraint firstItem="3XC-3J-tXQ" firstAttribute="leading" secondItem="1GP-C7-liT" secondAttribute="trailing" constant="10" id="leO-ls-0Dd"/>
+                                        <constraint firstItem="eLG-TL-54Y" firstAttribute="width" secondItem="eLG-TL-54Y" secondAttribute="height" multiplier="7:1" id="mOo-v9-lku"/>
+                                        <constraint firstItem="eLG-TL-54Y" firstAttribute="top" secondItem="Rco-CZ-V5Y" secondAttribute="top" id="maf-bk-tST"/>
+                                        <constraint firstAttribute="trailing" secondItem="3XC-3J-tXQ" secondAttribute="trailing" id="ymT-cG-edh"/>
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="150" id="qqk-sM-8o4" userLabel="discountCell">
-                                <rect key="frame" x="0.0" y="397" width="375" height="150"/>
+                                <rect key="frame" x="0.0" y="507" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qqk-sM-8o4" id="xSj-9O-w7e">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="149.5"/>
