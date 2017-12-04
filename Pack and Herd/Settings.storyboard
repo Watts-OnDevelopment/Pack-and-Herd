@@ -442,48 +442,66 @@
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="stepperCell" rowHeight="165" id="sX9-Xu-Efv" userLabel="dateCell">
-                                <rect key="frame" x="0.0" y="342" width="375" height="165"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="unavailabilityCell" rowHeight="200" id="sX9-Xu-Efv" userLabel="unavailabilityCell">
+                                <rect key="frame" x="0.0" y="342" width="375" height="200"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sX9-Xu-Efv" id="Rco-CZ-V5Y">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="164.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="eLG-TL-54Y" userLabel="durationTimer">
-                                            <rect key="frame" x="60" y="0.0" width="315" height="45"/>
+                                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="eLG-TL-54Y" userLabel="datePicker1">
+                                            <rect key="frame" x="60" y="10" width="315" height="45"/>
                                             <date key="date" timeIntervalSinceReferenceDate="533749576.762649">
                                                 <!--2017-11-30 15:46:16 +0000-->
                                             </date>
                                         </datePicker>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nameIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Eoe-uW-PVk">
-                                            <rect key="frame" x="10" y="2" width="40" height="40"/>
+                                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="4yj-tO-GVU" userLabel="datePicker2">
+                                            <rect key="frame" x="60" y="60" width="315" height="45"/>
+                                            <date key="date" timeIntervalSinceReferenceDate="533749576.762649">
+                                                <!--2017-11-30 15:46:16 +0000-->
+                                            </date>
+                                        </datePicker>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nameIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Eoe-uW-PVk" userLabel="dateIcon">
+                                            <rect key="frame" x="10" y="12.5" width="40" height="39.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="Eoe-uW-PVk" secondAttribute="height" multiplier="1:1" id="gtz-Af-x1T"/>
                                             </constraints>
                                         </imageView>
-                                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="3XC-3J-tXQ" userLabel="durationTimer">
-                                            <rect key="frame" x="60" y="50" width="315" height="45"/>
+                                        <datePicker userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="3XC-3J-tXQ" userLabel="timePicker1">
+                                            <rect key="frame" x="60" y="110" width="150" height="45"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" secondItem="3XC-3J-tXQ" secondAttribute="height" multiplier="7:1" id="YDz-EO-WJ8"/>
+                                                <constraint firstAttribute="width" secondItem="3XC-3J-tXQ" secondAttribute="height" multiplier="150:45" id="YDz-EO-WJ8"/>
                                             </constraints>
                                             <date key="date" timeIntervalSinceReferenceDate="533749576.762649">
                                                 <!--2017-11-30 15:46:16 +0000-->
                                             </date>
                                         </datePicker>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nameIcon" translatesAutoresizingMaskIntoConstraints="NO" id="1GP-C7-liT">
-                                            <rect key="frame" x="10" y="52" width="40" height="40"/>
+                                        <datePicker userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="nLU-mo-JIv" userLabel="timePicker2">
+                                            <rect key="frame" x="220" y="110" width="150" height="45"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="nLU-mo-JIv" secondAttribute="height" multiplier="150:45" id="6Yw-WN-bX6"/>
+                                            </constraints>
+                                            <date key="date" timeIntervalSinceReferenceDate="533749576.762649">
+                                                <!--2017-11-30 15:46:16 +0000-->
+                                            </date>
+                                        </datePicker>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nameIcon" translatesAutoresizingMaskIntoConstraints="NO" id="1GP-C7-liT" userLabel="timeIcon">
+                                            <rect key="frame" x="10" y="112.5" width="40" height="39.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="1GP-C7-liT" secondAttribute="height" multiplier="1:1" id="3Fr-Hs-dIj"/>
                                             </constraints>
                                         </imageView>
-                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xeb-0C-acN">
-                                            <rect key="frame" x="126" y="93" width="49" height="31"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Xeb-0C-acN" userLabel="allDaySwitch">
+                                            <rect key="frame" x="140" y="158.5" width="51" height="31"/>
+                                            <color key="tintColor" red="1" green="0.50196078430000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="onTintColor" red="1" green="0.50196078430000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </switch>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6uz-Tz-hQV">
-                                            <rect key="frame" x="60" y="100" width="48" height="45"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All day?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6uz-Tz-hQV">
+                                            <rect key="frame" x="60" y="160" width="75" height="28"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="6uz-Tz-hQV" secondAttribute="height" multiplier="8:3" id="bqB-3H-9Ro"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -494,20 +512,30 @@
                                         <constraint firstItem="Eoe-uW-PVk" firstAttribute="leading" secondItem="Rco-CZ-V5Y" secondAttribute="leading" constant="10" id="2Nf-50-IKs"/>
                                         <constraint firstItem="1GP-C7-liT" firstAttribute="width" secondItem="Eoe-uW-PVk" secondAttribute="width" id="45s-A7-WDV"/>
                                         <constraint firstItem="Eoe-uW-PVk" firstAttribute="centerY" secondItem="eLG-TL-54Y" secondAttribute="centerY" id="5Wh-fn-Lct"/>
-                                        <constraint firstItem="3XC-3J-tXQ" firstAttribute="width" secondItem="eLG-TL-54Y" secondAttribute="width" id="INP-A6-b0G"/>
+                                        <constraint firstItem="6uz-Tz-hQV" firstAttribute="top" secondItem="3XC-3J-tXQ" secondAttribute="bottom" constant="5" id="5gZ-63-gdH"/>
+                                        <constraint firstItem="3XC-3J-tXQ" firstAttribute="width" secondItem="nLU-mo-JIv" secondAttribute="width" id="INP-A6-b0G"/>
+                                        <constraint firstItem="nLU-mo-JIv" firstAttribute="width" secondItem="eLG-TL-54Y" secondAttribute="width" multiplier="0.4762" id="LUh-IM-Fi0"/>
                                         <constraint firstItem="1GP-C7-liT" firstAttribute="centerY" secondItem="3XC-3J-tXQ" secondAttribute="centerY" id="RGR-5p-QxZ"/>
-                                        <constraint firstItem="3XC-3J-tXQ" firstAttribute="top" secondItem="eLG-TL-54Y" secondAttribute="bottom" constant="5" id="VmF-TO-sA1"/>
+                                        <constraint firstItem="Xeb-0C-acN" firstAttribute="leading" secondItem="6uz-Tz-hQV" secondAttribute="trailing" constant="5" id="SJS-XD-4Hv"/>
+                                        <constraint firstItem="3XC-3J-tXQ" firstAttribute="centerY" secondItem="nLU-mo-JIv" secondAttribute="centerY" id="UZr-D5-owK"/>
                                         <constraint firstItem="eLG-TL-54Y" firstAttribute="leading" secondItem="Eoe-uW-PVk" secondAttribute="trailing" constant="10" id="aaW-rV-14f"/>
-                                        <constraint firstItem="3XC-3J-tXQ" firstAttribute="width" secondItem="3XC-3J-tXQ" secondAttribute="height" multiplier="7:1" id="b23-Du-UTn"/>
-                                        <constraint firstItem="3XC-3J-tXQ" firstAttribute="leading" secondItem="1GP-C7-liT" secondAttribute="trailing" constant="10" id="leO-ls-0Dd"/>
+                                        <constraint firstItem="nLU-mo-JIv" firstAttribute="top" secondItem="eLG-TL-54Y" secondAttribute="bottom" constant="55" id="bja-WJ-VAO"/>
+                                        <constraint firstItem="4yj-tO-GVU" firstAttribute="centerX" secondItem="eLG-TL-54Y" secondAttribute="centerX" id="bpu-6l-ihI"/>
+                                        <constraint firstItem="4yj-tO-GVU" firstAttribute="width" secondItem="4yj-tO-GVU" secondAttribute="height" multiplier="7:1" id="esg-6W-Tpp"/>
+                                        <constraint firstItem="Xeb-0C-acN" firstAttribute="centerY" secondItem="6uz-Tz-hQV" secondAttribute="centerY" id="euG-xe-uIk"/>
+                                        <constraint firstItem="4yj-tO-GVU" firstAttribute="top" secondItem="eLG-TL-54Y" secondAttribute="bottom" constant="5" id="f0I-Em-47n"/>
+                                        <constraint firstAttribute="trailing" secondItem="nLU-mo-JIv" secondAttribute="trailing" constant="5" id="gRZ-ea-1xZ"/>
+                                        <constraint firstItem="6uz-Tz-hQV" firstAttribute="leading" secondItem="eLG-TL-54Y" secondAttribute="leading" id="hRP-qc-L54"/>
                                         <constraint firstItem="eLG-TL-54Y" firstAttribute="width" secondItem="eLG-TL-54Y" secondAttribute="height" multiplier="7:1" id="mOo-v9-lku"/>
-                                        <constraint firstItem="eLG-TL-54Y" firstAttribute="top" secondItem="Rco-CZ-V5Y" secondAttribute="top" id="maf-bk-tST"/>
-                                        <constraint firstAttribute="trailing" secondItem="3XC-3J-tXQ" secondAttribute="trailing" id="ymT-cG-edh"/>
+                                        <constraint firstItem="eLG-TL-54Y" firstAttribute="top" secondItem="Rco-CZ-V5Y" secondAttribute="top" constant="10" id="maf-bk-tST"/>
+                                        <constraint firstItem="4yj-tO-GVU" firstAttribute="width" secondItem="eLG-TL-54Y" secondAttribute="width" id="oap-eZ-pml"/>
+                                        <constraint firstItem="3XC-3J-tXQ" firstAttribute="leading" secondItem="eLG-TL-54Y" secondAttribute="leading" id="ufs-jQ-ikx"/>
+                                        <constraint firstItem="1GP-C7-liT" firstAttribute="centerX" secondItem="Eoe-uW-PVk" secondAttribute="centerX" id="y6j-js-cpi"/>
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="150" id="qqk-sM-8o4" userLabel="discountCell">
-                                <rect key="frame" x="0.0" y="507" width="375" height="150"/>
+                                <rect key="frame" x="0.0" y="542" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qqk-sM-8o4" id="xSj-9O-w7e">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="149.5"/>
@@ -546,6 +574,9 @@
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="secondSectionHeight">
                             <real key="value" value="160"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="thirdSectionHeight">
+                            <real key="value" value="200"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </tableViewController>

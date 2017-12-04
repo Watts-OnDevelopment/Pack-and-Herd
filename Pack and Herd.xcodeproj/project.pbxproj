@@ -30,6 +30,8 @@
 		70C5EF741FB9E9F1007CB27E /* DefaultButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C5EF731FB9E9F1007CB27E /* DefaultButtonView.swift */; };
 		70C5EF761FB9F1C6007CB27E /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70C5EF751FB9F1C6007CB27E /* Settings.storyboard */; };
 		70C5EF781FB9F30F007CB27E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C5EF771FB9F30F007CB27E /* SettingsViewController.swift */; };
+		70CFB3CA1FD44A72002D6AE4 /* FoundationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CFB3C91FD44A72002D6AE4 /* FoundationExtension.swift */; };
+		70CFB3CC1FD47587002D6AE4 /* DatePickerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CFB3CB1FD47587002D6AE4 /* DatePickerExtension.swift */; };
 		70E125641FA8B5D2000513F1 /* EmailVerificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E125631FA8B5D2000513F1 /* EmailVerificationController.swift */; };
 		70E215841FAA2DBD00A509F6 /* EventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E215831FAA2DBD00A509F6 /* EventsTableViewController.swift */; };
 		70E2158D1FAB912600A509F6 /* CreateEventPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70E2158C1FAB912600A509F6 /* CreateEventPageController.swift */; };
@@ -62,6 +64,8 @@
 		70C5EF731FB9E9F1007CB27E /* DefaultButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultButtonView.swift; sourceTree = "<group>"; };
 		70C5EF751FB9F1C6007CB27E /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		70C5EF771FB9F30F007CB27E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		70CFB3C91FD44A72002D6AE4 /* FoundationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationExtension.swift; sourceTree = "<group>"; };
+		70CFB3CB1FD47587002D6AE4 /* DatePickerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerExtension.swift; sourceTree = "<group>"; };
 		70E125631FA8B5D2000513F1 /* EmailVerificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationController.swift; sourceTree = "<group>"; };
 		70E215831FAA2DBD00A509F6 /* EventsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsTableViewController.swift; sourceTree = "<group>"; };
 		70E2158C1FAB912600A509F6 /* CreateEventPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventPageController.swift; sourceTree = "<group>"; };
@@ -86,7 +90,9 @@
 		7048BF031FA7A94C00ED2055 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				70CFB3C91FD44A72002D6AE4 /* FoundationExtension.swift */,
 				7048BF041FA7A96100ED2055 /* ViewControllerExtension.swift */,
+				70CFB3CB1FD47587002D6AE4 /* DatePickerExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -352,6 +358,7 @@
 				70C5EF741FB9E9F1007CB27E /* DefaultButtonView.swift in Sources */,
 				33F8CADE1FCC53A20076CFB6 /* UserLogin.swift in Sources */,
 				70C5EF781FB9F30F007CB27E /* SettingsViewController.swift in Sources */,
+				70CFB3CA1FD44A72002D6AE4 /* FoundationExtension.swift in Sources */,
 				70A28F9E1FCDF294009F6698 /* EventHandler.swift in Sources */,
 				70E125641FA8B5D2000513F1 /* EmailVerificationController.swift in Sources */,
 				701858531FD1032500C57668 /* ServerData.swift in Sources */,
@@ -367,6 +374,7 @@
 				707A06441FA8F863000B5557 /* TextFieldValidations.swift in Sources */,
 				709864881FBA626400E95DE5 /* UserData.swift in Sources */,
 				7074C9941FA2236E00FF8010 /* LogsPageController.swift in Sources */,
+				70CFB3CC1FD47587002D6AE4 /* DatePickerExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

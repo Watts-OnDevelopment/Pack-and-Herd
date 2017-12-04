@@ -29,6 +29,7 @@ class ServerData {
                 let eventID : String = eventDictionary["name"] as! String
                 eventsDictionary[eventID] = eventDictionary
             }
+            
             Firestore.firestore().collection("server-settings").document("eventTypes").setData(eventsDictionary)
         }else{
             fatalError("<ERR> : User is not signed in!")
@@ -45,6 +46,28 @@ class ServerData {
                 return dictionary
             }()
             Firestore.firestore().collection("server-settings").document("species").setData(speciesDictionary)
+        }else{
+            fatalError("<ERR> : User is not signed in!")
+        }
+    }
+    
+    static func SetUnavailableTimes(unavailableTimes : [DateInterval], completion : @escaping (Error) -> Void){
+        if(Auth.auth().currentUser != nil){
+            let unavailableArray : [[String:Any]] = {
+                var unavailableList : [[String:Any]] = []
+                for unavailableItem in unavailableTimes {
+                    let unavailableDictionary : [String:Any] = unavailableItem.toDictionary()
+                    unavailableList.append(unavailableDictionary)
+                }
+                return unavailableList
+            }()
+            
+            var timesDictionary : [String : [String:Any]] = [:]
+            for timeDictionary in unavailableArray {
+                let timeID : String = String.randomString(length: 10)
+                timesDictionary[timeID] = timeDictionary
+            }
+            Firestore.firestore().collection("server-settings").document("unavailableTimes").setData(timesDictionary)
         }else{
             fatalError("<ERR> : User is not signed in!")
         }
@@ -85,6 +108,30 @@ class ServerData {
     static func GetSpecies(completion : @escaping ([String:Any]) -> Void){
         if(Auth.auth().currentUser != nil){
             Firestore.firestore().collection("server-settings").document("species").getDocument(completion: {(document, error) in
+                if let error = error{
+                    print("<ERR> : \(error)")
+                    return
+                }
+                
+                guard let document = document else{
+                    print("<ERR> : Document not found.")
+                    return
+                }
+                
+                if document.exists {
+                    completion(document.data())
+                }else{
+                    print("Document not existant!")
+                }
+            })
+        }else{
+            fatalError("<ERR> : User is not signed in!")
+        }
+    }
+    
+    static func GetUnavailableTimes(completion : @escaping ([String:Any]) -> Void){
+        if(Auth.auth().currentUser != nil){
+            Firestore.firestore().collection("server-settings").document("unavailableTimes").getDocument(completion: {(document, error) in
                 if let error = error{
                     print("<ERR> : \(error)")
                     return

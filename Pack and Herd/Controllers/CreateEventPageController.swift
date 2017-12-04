@@ -62,20 +62,33 @@ import UIKit
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
         // Set delegates
         for subview in cell.contentView.subviews {
-            if let subview = subview as? UIPickerView {
+            print("Subview: \(subview)")
+            if let availabilityDatePicker = subview as? AvailabilityDatePicker{
+                print(cellID)
+                if cellID == "dateCollectionCell"{
+                    print("Call the damn delegate stiff")
+                    //availabilityDatePicker.dataSource = self
+                    print(availabilityDatePicker.numberOfComponents(in: availabilityDatePicker) )
+                    print(availabilityDatePicker.pickerView(availabilityDatePicker, attributedTitleForRow: 0, forComponent: 0) ?? "NULL")
+                    print(availabilityDatePicker.pickerView(availabilityDatePicker, numberOfRowsInComponent: 0) )
+                    print(availabilityDatePicker.pickerView(availabilityDatePicker, widthForComponent: 0) )
+                    availabilityDatePicker.delegate = availabilityDatePicker
+                    availabilityDatePicker.dataSource = availabilityDatePicker
+                    
+                    let day = Calendar.current.component(.day, from: availabilityDatePicker.minimumDate)
+                    let month = Calendar.current.component(.month, from: availabilityDatePicker.minimumDate) - 1
+                    print("Month: \(month) Day: \(day)")
+                    availabilityDatePicker.selectRow(month, inComponent: 0, animated: true)
+                    availabilityDatePicker.pickerView(availabilityDatePicker, didSelectRow: month, inComponent: 0)
+                    availabilityDatePicker.selectRow(day, inComponent: 1, animated: true)
+                    availabilityDatePicker.pickerView(availabilityDatePicker, didSelectRow: day, inComponent: 1)
+                }
+            }else if let subview = subview as? UIPickerView {
                 print("Set picker view delegate of: \(subview)")
                 if(subview.restorationIdentifier != "location"){
                     subview.delegate = self
                 }else{
                     print("NOIOOOOO")
-                }
-            }else if let datePicker = subview as? UIDatePicker {
-                if cellID == "dateCollectionCell"{
-                    datePicker.minimumDate = Date(timeIntervalSinceNow: 86400)
-                    let year : TimeInterval = 60*60*24*365
-                    datePicker.maximumDate = Date(timeInterval: year, since: datePicker.minimumDate!)
-                }else{
-                    
                 }
             }else if let subview = subview as? UITextField {
                 subview.textColor = UIColor.gray
