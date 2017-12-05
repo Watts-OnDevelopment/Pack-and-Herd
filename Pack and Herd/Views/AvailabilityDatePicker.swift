@@ -40,6 +40,7 @@ class AvailabilityDatePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDa
                 }
                 
                 self.setDisabledRows()
+                self.setMinimumDate()
                 print("Current year disabled rows \(self.currentYearDisabledRows)")
                 print("Next year disabled rows \(self.nextYearDisabledRows)")
                 print("Recall components! \(self.unavailableTimes)")
@@ -48,10 +49,38 @@ class AvailabilityDatePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDa
         })
     }
     
+    private func setMinimumDate(){
+        var minDateComponents : DateComponents = Calendar.current.dateComponents([.month, .year, .minute, .hour, .day, .timeZone, .calendar], from: Date(timeIntervalSinceNow: 1.fromDays()))
+        var day = minDateComponents.day!
+        let month = minDateComponents.month!
+        var indexPath = IndexPath(item: day, section: month)
+        
+        if currentYearDisabledRows[indexPath] != nil{
+            repeat{
+                indexPath.row += 1
+            }while(currentYearDisabledRows[indexPath] != nil)
+            
+            day = indexPath.row
+        }
+        
+        minDateComponents.day = day
+        
+        guard let minDate = minDateComponents.date else{
+            fatalError("<FAT>: Unable to generate date from components!")
+        }
+        
+        print("Minimum date: \(minDate)")
+        
+        minimumDate = minDate
+    }
+    
     private func setDisabledRows(){
         var dateComponents : DateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: Date(timeIntervalSinceNow: 0))
         dateComponents.calendar = Calendar.current
         dateComponents.timeZone = Calendar.current.timeZone
+        
+        currentYearDisabledRows.removeAll()
+        nextYearDisabledRows.removeAll()
         
         let currentYear = dateComponents.year!
         
@@ -217,21 +246,22 @@ class AvailabilityDatePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDa
             if year == 0 {
                 if let disabledRow = currentYearDisabledRows[IndexPath(row: row+1, section: month)]{
                     if disabledRow {
-                        let dateComponents = Calendar.current.dateComponents([.month, .day], from: minimumDate)
+                        let dateComponents = Calendar.current.dateComponents([.month, .day, .year], from: minimumDate)
+                        print("Minimum : \(dateComponents.month!) \(dateComponents.day!) \(dateComponents.year!)")
                         pickerView.selectRow(dateComponents.month!, inComponent: 0, animated: true)
-                        self.pickerView(pickerView, didSelectRow: dateComponents.month!, inComponent: 0)
                         pickerView.selectRow(dateComponents.day!, inComponent: 1, animated: true)
-                        self.pickerView(pickerView, didSelectRow: dateComponents.day!, inComponent: 0)
+                        self.pickerView(pickerView, didSelectRow: dateComponents.day!, inComponent: 1)
+                        pickerView.selectRow(dateComponents.year!, inComponent: 2, animated: true)
                     }
                 }
             }else{
                 if let disabledRow = nextYearDisabledRows[IndexPath(row: row+1, section: month)]{
                     if disabledRow {
-                        let dateComponents = Calendar.current.dateComponents([.month, .day], from: minimumDate)
+                        let dateComponents = Calendar.current.dateComponents([.month, .day, .year], from: minimumDate)
                         pickerView.selectRow(dateComponents.month!, inComponent: 0, animated: true)
-                        self.pickerView(pickerView, didSelectRow: dateComponents.month!, inComponent: 0)
                         pickerView.selectRow(dateComponents.day!, inComponent: 1, animated: true)
-                        self.pickerView(pickerView, didSelectRow: dateComponents.day!, inComponent: 0)
+                        self.pickerView(pickerView, didSelectRow: dateComponents.day!, inComponent: 1)
+                        pickerView.selectRow(dateComponents.year!, inComponent: 2, animated: true)
                     }
                 }
             }
@@ -252,16 +282,15 @@ class AvailabilityDatePicker: UIPickerView, UIPickerViewDelegate, UIPickerViewDa
             return
         }
         
-        self.minimumDate = Date(timeIntervalSinceNow: 2.fromDays())
         //print("Dates: min \(minimumDate) current \(selectedDate)")
         //print("Comparison: \(selectedDate.compare(minimumDate) == .orderedAscending)")
         if selectedDate.compare(minimumDate) == .orderedAscending {
             pickerView.selectRow(0, inComponent: 2, animated: true)
-            self.pickerView(pickerView, didSelectRow: 0, inComponent: 0)
+            //self.pickerView(pickerView, didSelectRow: 0, inComponent: 0)
             pickerView.selectRow(Calendar.current.component(.month, from: minimumDate) - 1, inComponent: 0, animated: true)
-            self.pickerView(pickerView, didSelectRow: Calendar.current.component(.month, from: minimumDate) - 1, inComponent: 0)
-            pickerView.selectRow(Calendar.current.component(.day, from: minimumDate) - 1, inComponent: 1, animated: true)
-            self.pickerView(pickerView, didSelectRow: Calendar.current.component(.day, from: minimumDate) - 1, inComponent: 0)
+            //self.pickerView(pickerView, didSelectRow: Calendar.current.component(.month, from: minimumDate) - 1, inComponent: 0)
+            pickerView.selectRow(Calendar.current.component(.day, from: minimumDate), inComponent: 1, animated: true)
+            //self.pickerView(pickerView, didSelectRow: Calendar.current.component(.day, from: minimumDate) - 1, inComponent: 0)
             
         }
         
